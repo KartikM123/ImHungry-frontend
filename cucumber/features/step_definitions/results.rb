@@ -16,7 +16,14 @@ Then(/^I should see the Restaurant and Recipe titles$/) do
 end
 
 Then(/^I should see a blank dropdown as default$/) do
-  expect(find('select#resdrop').value =='')
+
+  expect(page.find_by_id('resdrop').value =='')
+
+end
+
+When(/^I click on the dropdown$/) do
+  find_by_id('resdrop').click()
+
 end
 
 Then(/^I should see the different lists$/) do
@@ -84,11 +91,8 @@ Then(/^I should see the Result Page for the recipe "([^"]*)" result$/) do |arg2|
 end
 
 When(/^the dropdown is blank$/) do
-  visit 'localhost:3000/Search'
-  fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 5
-  find('#pik').click
- page.select '', from: "resdrop"
+ select('', from: 'resdrop')
+
 end
 
 When(/^I select the Manage List button$/) do
@@ -100,11 +104,7 @@ Then(/^I remain on the Results Page$/) do
 end
 
 When(/^I select "([^"]*)" in the dropdown$/) do |arg1|
-  visit 'localhost:3000/Search'
-  fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 5
-  find('#pik').click
-  page.select arg1, from: "resdrop"
+  select(arg1, from: 'resdrop')
 end
 
 Then(/^I should be on the Manage List Page for "([^"]*)"$/) do |arg1|

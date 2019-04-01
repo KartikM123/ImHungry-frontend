@@ -19,16 +19,20 @@ if (link_value == 1){
 class Restaurant extends Component {
     constructor(props) {
         super(props);
+
         let id = localStorage.getItem("id");
         const link1 = official_link+"restaurant/" + localStorage.getItem('resid');
             console.log(id);
+
         let json1 = JSON.parse(this.loadData(link1));
 
         const dest1 = json1.address;
         const dest2 = dest1.replace(" ", "+");
         const link2 = "https://www.google.com/maps/dir/?api=1&origin=Tommy+Trojan&destination=" + dest2 + "&travelmode=car";
 
+
         const link3 = official_link + "list/";             //  listname/restaurant
+
 
 
         this.state = {

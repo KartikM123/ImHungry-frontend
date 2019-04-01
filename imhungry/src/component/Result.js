@@ -29,10 +29,12 @@ class Result extends Component {
         //CHANGE THIS LET TO CONNECT TO ENDPOINTS
         let test = false;
 
+
         const link1 = official_link + "recipe?name=burger&amount=5&radius=10000";   
         console.log(link1);
         const link2 = official_link + "restaurant?name=burger&amount=5&radius=10000";
         const link3 = official_link + "collage?searchTerm=burgers";
+
         console.log(link1);
         console.log(link2);
         //TEST MODE

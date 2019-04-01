@@ -2,10 +2,9 @@ Feature:
 	View recipe details page
 	
 Background:
-	Given I am on the Recipe Page of the I'm Hungry website
 	
-Scenario: General page design
-	Then I should see a white smoke background
+Scenario Outline: General page design
+	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
 	And I should see the Printable Version button
 	And I should see the Back to Results button
 	And I should see the Add to List button
@@ -14,31 +13,38 @@ Scenario: General page design
 	And I should see the ingredients title
 	And I should see the instructions title
 	
-Scenario: Dropdown default
+	Examples:
+	| food | count | id | page | 
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" | Recipe |
+	
+Scenario Outline: Dropdown default
+	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
 	Then I should see a blank dropdown as default
+	
+	Examples:
+	| food | count | id | 
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" |
 
-Scenario: Dropdown options
+Scenario Outline: Dropdown options
+	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
 	When I click on the dropdown
 	Then I should see the different lists
 	
+	Examples:
+	| food | count | id | 
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" |
+	
 Scenario Outline: Page info for specific recipe
 	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
-	Then I should see recipe title <dish>
-	And I should see image <imgSrc>
-	And I should see prep <prep> and cook <cook> times
+	Then I should see recipe title <id>
+	And I should see the prep time
+	And I should see the cook time
 	
 	Examples:
-	| food | count | id | dish | prep | cook | imgSrc |
-	| "pizza" | "5" | "1071372" | "Breakfast Pizza" | "10 minutes" | "15 minutes" | "https://spoonacular.com/recipeImages/1071372-312x231.jpg" |
+	| food | count | id | 
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" |
 	
-Scenario Outline: check ingredients and instructions
-	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
-	Then I should see ingredients <i1> and <i2> and <i3>
-	Then I should see instructions <I1> and <I2>
-	
-	Examples:
-	| food | count | id | i1 | i2 | i3 | I1 | I2 | 
-	| "bagel" | "2" | "273654" | "1 bagel" | "1/2 cup banana" | "1/2 cup cottage cheese" | "Spread bagel halves with cottage cheese." | "Sprinkle with cinnamon sugar; top with bananas." |
+
 
 Scenario Outline: Selecting Back to Results
 	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
@@ -48,16 +54,8 @@ Scenario Outline: Selecting Back to Results
 	
 	Examples:
 	| food | count | id | 
-	| "pizza" | "2" | "1071372" |
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" |
 	
-Scenario Outline: Selecting Printable Version
-	Given I am on the Recipe page for recipe <id> from search <food> with count <count>
-	And I select the Printable Version button
-	Then the page should be a printable version
-	
-	Examples:
-	| food | count | id | 
-	| "pizza" | "2" | "1071372" |
 
 Scenario Outline: Adding a recipe to a list 
 	Given I am on the Recipe page for recipe <id> from search <food> with count <count> 
@@ -66,9 +64,10 @@ Scenario Outline: Adding a recipe to a list
 	Then I should see item <name> in list <list>
 	
 	Examples:
-	| food | count | id | name | list |
-	| "pizza" | "5" | "1071372" | "Breakfast Pizza" | "Favorites" |
-	| "bagel" | "2" | "273654" | "Morning Bagel" | "Do Not Show" |
-	| "tacos" | "2" | "1078156" | "Breakfast Tacos" | "To Explore" |
+	| food | count | id | name | list |listPage |
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" | "Halloumi aubergine burgers with harissa relish" | "Favorites" | "Favorites" |
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" | "Halloumi aubergine burgers with harissa relish" | "Do Not Show" |"DoNotShow" |
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" | "Halloumi aubergine burgers with harissa relish" | "To Explore" | "ToExplore" |
+	
 
 	

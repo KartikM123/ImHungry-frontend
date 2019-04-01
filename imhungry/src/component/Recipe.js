@@ -21,6 +21,7 @@ if (link_value == 1){
 class Recipe extends Component {
     constructor(props) {
         super(props);
+
         const link1 = official_link + "recipe/" + localStorage.getItem('recid');
         let json1 = JSON.parse(this.loadData(link1));
 

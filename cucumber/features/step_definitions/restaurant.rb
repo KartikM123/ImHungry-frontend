@@ -7,7 +7,7 @@ Then(/^I should see the Printable Version button$/) do
 end
       
 Then(/^I should see the Back to Results button$/) do
-	expect(page.has_button?('Return to Search'))
+	expect(page.has_button?('Return to Results Page'))
 end
 
 Then(/^I should see the Add to List button$/) do
@@ -28,10 +28,10 @@ end
 
 Given(/^I am on the Restaurant page for restaurant "([^"]*)" from search "([^"]*)" with count "([^"]*)"$/) do |arg1, arg2, arg3|
   visit 'localhost:3000/Search'
-  fill_in 'query', :with => arg1
-  fill_in 'amount', :with => arg2
+  fill_in 'query', :with => arg2
+  fill_in 'amount', :with => arg3
   find('#pik').click
-  find(arg3).click
+  find('div.recrow1', :text => arg1).click
 end
 
 Then(/^I should see name "([^"]*)"$/) do |arg1|
@@ -63,7 +63,7 @@ When(/^I select the Add to List button$/) do
 end
 
 Then(/^I select the Back to Results button$/) do
-	click_on('Back to Results')
+	click_on('Return to Results Page')
 end
 
 Then(/^I should see the Results Page for "([^"]*)"$/) do |arg1|
@@ -72,6 +72,8 @@ end
 
 Then(/^I should see item "([^"]*)" in list "([^']*)"$/) do |arg1, arg2|
 	#expect correct list page
+	visit 'localhost:3000/' + arg2
+
 	page.should have_content(arg2)
 	page.should have_content(arg1)
 end

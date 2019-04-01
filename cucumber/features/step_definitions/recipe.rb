@@ -3,37 +3,42 @@ Given(/^I am on the Recipe Page of the I'm Hungry website$/) do
 end
 
 Then(/^I should see the prep time$/) do
-	assert_text('Prep time')
+	assert_text('Prep Time:')
 end
 
 Then(/^I should see the cook time$/) do
-	assert_text('Cook time')
+	assert_text('Cook Time:')
 end
 
 Then(/^I should see the dish image$/) do
-	page.should have_css('img')
+	page.should have_css('#rcpimg')
 end
 
 Then(/^I should see the ingredients title$/) do
-	assert_text('Ingredients')
+	assert_text('Ingredients:')
 end
 
 Then(/^I should see the instructions title$/) do
-	assert_text('Instructions')
+	assert_text('Instructions:')
+end
+
+Then(/^I should see a white smoke background for the "([^"]*)" page$/) do |arg1|
+ color = find('.'+arg1).native.css_value('background-color')
+ expect(color).to eq('rgba(245, 245, 245, 1)')
 end
 
 Given(/^I am on the Recipe page for recipe "([^"]*)" from search "([^"]*)" with count "([^"]*)"$/) do |arg1, arg2, arg3|
-	visit 'localhost:8080/Search?q='+arg2+'&num='+arg3
-	visit 'localhost:8080/RecipeInfo?id='+arg1 
+  visit 'localhost:3000/Search'
+  fill_in 'query', :with => arg2
+  fill_in 'amount', :with => arg3
+  find('#pik').click
+  find('div.recrow1', :text => arg1).click
 end
 
 Then(/^I should see recipe title "([^"]*)"$/) do |arg1|
 	assert_text(arg1)
 end
 
-Then(/^I should see image "([^"]*)"$/) do |arg1|
-	expect(page).to have_css("img[src*='"+arg1+"']")
-end
 
 Then(/^I should see prep "([^"]*)" and cook "([^"]*)" times$/) do |arg1, arg2|
 	assert_text(arg1)
