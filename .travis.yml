@@ -1,0 +1,32 @@
+language: ruby
+
+services:
+ - xvfb
+
+cache: npm
+sudo: required
+
+addons:
+ chrome: stable
+
+before_install:
+ - wget http://chromedriver.storage.googleapis.com/2.46/chromedriver_linux64.zip
+ - unzip chromedriver_linux64.zip
+ - rm chromedriver_linux64.zip
+ - sudo mv -f chromedriver /usr/local/bin/
+ - sudo chmod +x /usr/local/bin/chromedriver
+ - google-chrome-stable --headless --no-sandbox
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+
+install:
+ - cd imhungry && npm install && cd ..
+ - bundle install
+
+
+before_script:
+ - cd imhungry && npm start &
+ - cd ..
+
+script: 
+ - cd cucumber && cucumber
