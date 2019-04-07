@@ -9,9 +9,9 @@ let link_address2 = "https://arcane-woodland-80551.herokuapp.com/";
 let official_link;
 //change the variable below to fit demo or testing
 let link_value = 2;
-if (link_value === 1){
+if (link_value == 1){
    official_link = link_address1;
-} else if (link_value === 2){
+} else if (link_value == 2){
    official_link = link_address2;
 }
 //end block
@@ -51,17 +51,13 @@ class Favorite extends Component {
     }
     cleanTitle(){
         let tempState = localStorage.getItem("liststate");
-        let newTitle;
         if (tempState === ("ToExplore") || tempState === ("Explore") ){
-            newTitle = "To Explore";
+            this.state.title = "To Explore";
         } else if (tempState === ("NoShow")){
-            newTitle = "Do Not Show";
+            this.state.title = "Do Not Show";
         } else{
-            newTitle = "Favorites"
+            this.state.title = "Favorites"
         }
-        this.setState({ 
-            title: newTitle
-        });
     }
     loadDataTest(url){
         var xhr = new XMLHttpRequest();
@@ -81,7 +77,7 @@ class Favorite extends Component {
         Http.open("GET", url, false);
        // Http.responseType = 'json';
         Http.send();
-        if (Http.status === 200) {
+        if (Http.status == 200) {
             //cookie Issues! -- debug later!
 
            // let cookie = Http.getResponseHeader("Cookie");
@@ -93,7 +89,7 @@ class Favorite extends Component {
             console.log("ERROR:", Http.status);
         }
         Http.onload = function() {
-        if (Http.status === 200) {
+        if (Http.status == 200) {
             //cookie Issues! -- debug later!
 
            // let cookie = Http.getResponseHeader("Cookie");
@@ -118,7 +114,7 @@ class Favorite extends Component {
     }
 
     redirectList() {
-        if (this.state.list1drop === 'blank') {
+        if (this.state.list1drop == 'blank') {
             //do nothing
         }
         else {
@@ -132,25 +128,19 @@ class Favorite extends Component {
     }
 
     remanageDropdown(){
-        let opt1Next, opt2Next;
-        if (this.state.list1drop === 'NoShow'){
-            opt1Next="Favorite";
-            opt2Next="ToExplore";
+        if (this.state.list1drop == 'NoShow'){
+            this.state.opt1="Favorite";
+            this.state.opt2="ToExplore";
 
-        } else if (this.state.list1drop === 'ToExplore' || this.state.list1drop === 'Explore'){
-            opt1Next = "Favorite";
-            opt2Next ="NoShow";
-        } else if (this.state.list1drop === 'Favorite'){
-            opt1Next="ToExplore";
-            opt2Next="NoShow";
+        } else if (this.state.list1drop == 'ToExplore' || this.state.list1drop == 'Explore'){
+            this.state.opt1 = "Favorite";
+            this.state.opt2 ="NoShow";
+        } else if (this.state.list1drop == 'Favorite'){
+            this.state.opt1="ToExplore";
+            this.state.opt2="NoShow";
         }
 
-        this.setState({ 
-            opt1: opt1Next,
-            opt2: opt2Next,
-            list1drop: 'blank',
-
-        });
+        this.state.list1drop='blank';
     }
 
     returnSearch() {
@@ -162,10 +152,7 @@ class Favorite extends Component {
     }
 
     render() {
-        if (localStorage.getItem('id') === -1){
-            this.props.history.push('/SignIn');
 
-        }
         let favelist = this.state.data;
         let faverows = [];
 console.log("KEYWORD", this.state.keyword);
@@ -263,11 +250,11 @@ class RestaurantRow extends Component {
     }
     handleDropdown = (e, value) => {
         let newval = "blank";
-        if (value === "Favorite"){
+        if (value == "Favorite"){
                 newval = "FAVORITE";
-            } else if (value === "Explore"){
+            } else if (value == "Explore"){
                 newval = "EXPLORE";
-            } else if (value === "NoShow"){
+            } else if (value == "NoShow"){
                 newval = "BLOCK";
             } 
 
@@ -401,11 +388,11 @@ class RecipeRow extends Component {
     }
     handleDropdown = (e, value) => {
          let newval = "blank";
-        if (value === "Favorite"){
+        if (value == "Favorite"){
                 newval = "FAVORITE";
-            } else if (value === "Explore"){
+            } else if (value == "Explore"){
                 newval = "EXPLORE";
-            } else if (value === "NoShow"){
+            } else if (value == "NoShow"){
                 newval = "BLOCK";
             } 
             this.setState({
