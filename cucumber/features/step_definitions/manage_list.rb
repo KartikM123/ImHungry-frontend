@@ -25,14 +25,14 @@ When(/^I click on the dropdown$/) do
   find('select').click()
 end
 Then(/^I should see different lists, not including current list$/) do
-  assert_text('Do Not Show') and assert_text('To Explore')
+  assert_text('NoShow') and assert_text('ToExplore')
 end
 
 Given(/^I am on a valid signin$/) do
-  # visit 'localhost:3000/Register'
-  # fill_in 'username', :with => "test"
-  # fill_in 'password', :with => "test1"
-  # fill_in 'email', :with => "test@test.com"
+  visit 'localhost:3000/Register'
+  fill_in 'username', :with => "fs"
+  fill_in 'password', :with => "fs1"
+  fill_in 'email', :with => "fs@fs1.edu"
   visit 'localhost:3000/SignIn'
   fill_in 'username', :with => "fs"
   fill_in 'password', :with => "fs1"
@@ -53,16 +53,32 @@ Given(/^Favorites is shown$/) do
   visit 'localhost:3000/Favorite'
   assert_text('Favorites')
 end
-Then(/^I should be able to move <list_item> to Do Not Show$/) do
+
+Then(/^I should be able to remove item from Favorites$/) do
+  visit 'localhost:3000/Favorite'
+  assert_text('Remove')
+end
+
+
+Then(/^I should be able to move item from Favorites to To Explore$/) do
   visit 'localhost:3000/Favorite'
   assert_text('move')
+  select('ToExplore', from: 'list1drop')
+  click_button('Manage List')
+  assert_text('To Explore')
+  select('Favorite', from: 'list1drop')
+  click_button('Manage List')
 end
 
-
-Then(/^I should be able to remove Item from Favorites$/) do
-  assert_text('remove')
+Then(/^I should add to Favorites$/) do
+  find_by_id('resdrop').click()
+  select('Favorite', from: 'resdrop')
+  click_button('Add to List')
 end
-
+Given(/^I remove item$/) do
+  visit 'localhost:3000/Favorite'
+  assert_text('Favorites')
+end
 
 
 

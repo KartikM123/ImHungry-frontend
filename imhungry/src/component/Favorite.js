@@ -135,7 +135,7 @@ class Favorite extends Component {
         } else if (this.state.list1drop == 'ToExplore' || this.state.list1drop == 'Explore'){
             this.state.opt1 = "Favorite";
             this.state.opt2 ="NoShow";
-        } else if (this.state.list1drop == 'Favorite'){
+        } else{
             this.state.opt1="ToExplore";
             this.state.opt2="NoShow";
         }
@@ -189,10 +189,7 @@ console.log("KEYWORD", this.state.keyword);
                     <button id="list1rp" onClick={this.returnRes}>Return to Results Page</button>
                     <br></br>
                     <button id="list1sp" onClick={this.returnSearch}>Return to Search Page</button>
-                    <br></br>
-                    <button id="list1remove"> Remove</button>
-                    <br></br>
-                    <button id="list1move"> Move</button>
+
                 </div>
                
             </div>
