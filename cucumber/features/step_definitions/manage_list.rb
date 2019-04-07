@@ -30,12 +30,13 @@ end
 
 Given(/^I am on a valid signin$/) do
   visit 'localhost:3000/Register'
-  fill_in 'username', :with => "fs"
-  fill_in 'password', :with => "fs1"
-  fill_in 'email', :with => "fs@fs1.edu"
+  fill_in 'username', :with => "fsss"
+  fill_in 'password', :with => "fsss1"
+  fill_in 'email', :with => "fsss@fs1.edu"
+  click_button('Register')
   visit 'localhost:3000/SignIn'
-  fill_in 'username', :with => "fs"
-  fill_in 'password', :with => "fs1"
+  fill_in 'username', :with => "fsss"
+  fill_in 'password', :with => "fsss1"
   click_button("login")
   expect(page).to have_current_path(/Search/)
   visit 'localhost:3000/Favorite'
@@ -57,12 +58,23 @@ end
 Then(/^I should be able to remove item from Favorites$/) do
   visit 'localhost:3000/Favorite'
   assert_text('Remove')
+  click_button('Remove')
 end
-
+Then(/^I should be able to move "([^"]*)" from Favorites to To Explore$/) do |arg1|
+  visit 'localhost:3000/Favorite'
+  select('To Explore', from: 'resdrop')
+  click_button('Move')
+  select('ToExplore', from: 'list1drop')
+  click_button('Manage List')
+  assert_text('To Explore')
+  assert_text(arg1)
+  select('Favorite', from: 'list1drop')
+  click_button('Manage List')
+end
 
 Then(/^I should be able to move item from Favorites to To Explore$/) do
   visit 'localhost:3000/Favorite'
-  assert_text('move')
+  assert_text('Move')
   select('ToExplore', from: 'list1drop')
   click_button('Manage List')
   assert_text('To Explore')
