@@ -12,24 +12,20 @@ Scenario: Dropdown Options
 	Given I am on a valid signin
 	Then I should see different lists, not including current list
 
-Scenario Outline: Add page to list
-  Given I am on a valid signin
+
+Scenario Outline: Move List Item
+	Given I am on a valid signin
 	Given I am on the Restaurant page for restaurant <id> from search <food> with count <numresult>
 	Then I should see name <name>
 	And I should see address 
 	And I should see phone number
 	Then I should add to Favorites
 	Given Favorites is shown
-	Then I should see name <name>
+  Then I should be able to move <name> from Favorites to To Explore
 	
 	Examples:
 	| food | numresult | id | name |
 	| "burger" | "5" | "The Habit Burger Grill" |"The Habit Burger Grill" |
-
-Scenario: Move List Item
-  Given I am on a valid signin
-  Given Favorites is shown
-  Then I should be able to move item from Favorites to To Explore
 
 Scenario Outline: Remove List Item
 	Given I am on a valid signin
@@ -44,3 +40,4 @@ Scenario Outline: Remove List Item
 	Examples:
 	| food | numresult | id | name |
 	| "burger" | "5" | "The Habit Burger Grill" |"The Habit Burger Grill" |
+
