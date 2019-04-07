@@ -114,10 +114,7 @@ class Favorite extends Component {
     }
 
     redirectList() {
-        if (this.state.list1drop == 'blank') {
-            //do nothing
-        }
-        else {
+        if (!(this.state.list1drop == 'blank')) {
             //should just refresh the page
             localStorage.setItem("liststate",this.state.list1drop);
             this.props.history.push('/Favorite');
@@ -128,18 +125,26 @@ class Favorite extends Component {
     }
 
     remanageDropdown(){
+            let o1,o2;
         if (this.state.list1drop == 'NoShow'){
-            this.state.opt1="Favorite";
-            this.state.opt2="ToExplore";
+            o1="Favorite";
+            o2="ToExplore";
 
         } else if (this.state.list1drop == 'ToExplore' || this.state.list1drop == 'Explore'){
-            this.state.opt1 = "Favorite";
-            this.state.opt2 ="NoShow";
+            o1="Favorite";
+            o2 ="NoShow";
         } else{
-            this.state.opt1="ToExplore";
-            this.state.opt2="NoShow";
+            o1="ToExplore";
+            o2="NoShow";
         }
 
+        // this.setState({
+        //     opt1:o1,
+        //     opt2:o2,
+        //     list1drop:'blank'
+        // });
+        this.state.opt1 = o1;
+        this.state.opt2 = o2;
         this.state.list1drop='blank';
     }
 
@@ -189,7 +194,6 @@ console.log("KEYWORD", this.state.keyword);
                     <button id="list1rp" onClick={this.returnRes}>Return to Results Page</button>
                     <br></br>
                     <button id="list1sp" onClick={this.returnSearch}>Return to Search Page</button>
-
                 </div>
                
             </div>
