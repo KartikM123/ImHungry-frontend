@@ -27,6 +27,7 @@ class Collage2 extends React.Component {
         "https://i.ndtvimg.com/i/2016-06/chinese-625_625x350_81466064119.jpg",
         "https://www.thespruceeats.com/thmb/zBfh_6241VAvAqBKKuc88lB62Wc=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/chinese-take-out-472927590-57d31fff3df78c5833464e7b.jpg",
         "https://cdn.vox-cdn.com/thumbor/CR0eSmaffYN9WHMkR5skvNKjQhQ=/0x0:2000x1333/1200x900/filters:focal(840x506:1160x826)/cdn.vox-cdn.com/uploads/chorus_image/image/60367635/Chengdu_Taste_-_Mung_Bean_Jelly_Noodles_with_Chili_Sauce.0.0.0.0.jpg"];
+        
         const childElements = images.map(function(element){
            return (
                     <img src={element} className="grid-item" style={{height: heights[Math.floor(Math.random()*(2+1))],width: Math.floor(Math.random() * (30 - 20 + 1) ) + 20+"%"}}/>

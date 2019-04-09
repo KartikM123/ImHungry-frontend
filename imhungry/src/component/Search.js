@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 import './CSS/Search.css';
 import {MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -19,6 +21,7 @@ class Search extends Component {
                this.state = {
                    query: '',
                    amount: '5',
+                   radius: '', 
                    open:true
                 };
         //setting global parameters
@@ -45,6 +48,8 @@ class Search extends Component {
         //when adding to database, we will want to cache THIS INFO
         localStorage.setItem('query', this.state.query);
         localStorage.setItem('amount', this.state.amount);
+        localStorage.setItem('radius', this.state.radius);
+
 
         //res
         localStorage.setItem("Favoritea", []);
@@ -78,11 +83,12 @@ class Search extends Component {
         }
         return (
             <MuiThemeProvider theme={theme}>
-
+            
             <div className="Search">
 
                     <div id="form">
                     <h1 id="title">I'm Hungry</h1>
+                    <form onSubmit={this.handleSubmit}>
 
                     <TextField
                         required
@@ -98,7 +104,7 @@ class Search extends Component {
 
                     <TextField
                         required
-                        min='1'
+                        InputProps={{ inputProps: { min: 1, max: 1000 } }}
                         type="number"
                         id="amount"
                         label="Number of Results"
@@ -109,15 +115,30 @@ class Search extends Component {
 
                         margin="normal"
                         />
+
+                    {/* <TextField
+                        required
+                        InputProps={{ inputProps: { min: 1, max: 1000 } }}
+                        type="number"
+                        id="radius"
+                        label="Search Radius"
+                        name="radius"
+                        onChange={this.handleChange}
+                        value={this.state.radius}
+                        variant="outlined"
+
+                        margin="normal"
+                        />   */}
                        
                             <br></br>
-                            <input type="button" alt="pikachu" id="pik" onClick={this.toggleImage}
-                                 value="Submit"/>
-                    
+                            {/* <input type="submit" alt="pikachu" id="pik" onClick={this.toggleImage}
+                                 value="Submit"/> */}
+                            <Button type="submit" id="feedme" variant="contained" size="large" color="primary">Feed Me!</Button>
+                    </form>
+
                     </div>
-                    <button onClick={this.handleSignout}>
-                        Sign Out
-                    </button>
+                    <Button id="signout" variant="outlined" onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
+
                     
             </div>
             </MuiThemeProvider>

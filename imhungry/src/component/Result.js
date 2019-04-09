@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './CSS/Result.css';
 import ReactPaginate from 'react-paginate';
 import Dropdown from './Dropdown';
-import Collage2 from './Collage2';
-import Collage from './Collage';
+import Collage3 from './Collage3';
+import ResultDrawer from './Drawer';
 
 
 // this block is to help with testing
@@ -27,19 +27,22 @@ class Result extends Component {
         //CHANGE THIS LET TO CONNECT TO ENDPOINTS
         let test = false;
 
-        const link1 = official_link + "recipe?name=burger&amount=5&radius=10000";   
-        console.log(link1);
-        const link2 = official_link + "restaurant?name=burger&amount=5&radius=10000";
-        const link3 = official_link + "collage?searchTerm=burgers";
-        console.log(link1);
-        console.log(link2);
+        const recipeLink = official_link +"/recipe?name="+  localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') ;;   
+        console.log(recipeLink);
+        const restLink = official_link+ "/restaurant?name="+ localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') ;;
+        const collageLink = official_link + "/collage?searchTerm="+localStorage.getItem('query');
+        console.log(recipeLink);
+        console.log(restLink);
+        console.log(collageLink);
         //TEST MODE
         const test1 = './JSON/recip.json';
         const test2 = './JSON/rest.json';
+         
+
         
 
-        let json1;
-        let json2;
+        var json1;
+        var json2;
         //technically the following code can be done in any language
         if (test){
             fetch(test1).then(res => console.log(res));
@@ -56,19 +59,19 @@ class Result extends Component {
              console.log(data);
           });        
         } else {
-            json1 = JSON.parse(this.loadData(link1));
-            json2 = JSON.parse(this.loadData(link2));
+            json1 = JSON.parse(this.loadData(recipeLink));
+            json2 = JSON.parse(this.loadData(restLink));
             
              
             
         }
 
         this.state = {
-            rstdrop: 'blank',
+            dropdownValue: 'blank',
             recdata: json1,
             resdata: json2,
             size: localStorage.getItem('amount'),
-            link4: link3,
+            collageLink: collageLink,
             perPage: 5, //just a default for now
             offset: 0,
             pageCount: Math.ceil(localStorage.getItem('amount')/5),
@@ -91,14 +94,14 @@ class Result extends Component {
         Http.open("GET", url, false);
         Http.send();
         if(Http.status === 200) {
-            console.log(Http.responseText)
+           // console.log(Http.responseText)
             return Http.responseText;
         }
     }
 
     handleDropdown(event, value){
         this.setState({
-            rstdrop: value
+            dropdownValue: value
         });
     }
 
@@ -113,8 +116,6 @@ class Result extends Component {
         var offset = selected;
         var ind1 = offset * this.state.perPage;
         var ind2 = Math.min(ind1+this.state.perPage, this.state.size);
-        console.log(ind1);
-        console.log(ind2);
         this.setState({ 
             offset: offset,
             indOnPage: [ind1, ind2]
@@ -127,7 +128,7 @@ class Result extends Component {
     }
 
     buttonManageList() {
-        var liststate = this.state.rstdrop;
+        var liststate = this.state.dropdownValue;
         if (liststate !== 'blank') {
             localStorage.setItem("liststate", liststate);
             this.props.history.push('/Favorite');
@@ -141,7 +142,9 @@ class Result extends Component {
         }
         let recrows = [];
         let resrows = [];
-        console.log("DATA",this.state.resdata);
+        
+        console.log(JSON.parse(this.loadData(this.state.collageLink)));
+        let images = JSON.parse(this.loadData(this.state.collageLink));
         for (var i = this.state.indOnPage[0]; i < this.state.indOnPage[1]; i++) {
 
             recrows.push(<RecipeRow recdata={this.state.recdata} counter={i} history={this.props.history} />)
@@ -151,18 +154,20 @@ class Result extends Component {
         return (
             <div className="Result">
                 <div id="rstheader">
-                    <img id="collage" src={this.state.link4} alt="collage" />
-
+                    {/* <img id="collage" src={this.state.link4} alt="collage" /> */}
+                    <Collage3 images={images} id="collage" alt="collage"/>
+                    <br/>
+                    <h1 id="rsttitle"> Results for: {localStorage.getItem('query')}</h1>
+                    <ResultDrawer/>
 
                     <div id="rstheader2">
-                        <h1 id="rsttitle"> Results for: {localStorage.getItem('query')}</h1>
 
-                        <div className="rstbuttons">
+                        {/* <div className="rstbuttons">
                             <Dropdown handleDropdown = {this.handleDropdown}/>
                             <button id="list" onClick={this.buttonManageList} > Manage List</button>
                             <br></br>
                             <button id="retsp" onClick={this.returnSearch}>Return to Search Page</button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="col1">
@@ -188,7 +193,7 @@ class Result extends Component {
                     subContainerClassName={'pages pagination'}
                     activeClassName={'active'}
                 />
-             {/* <Collage/> */}
+             
 
             </div>
         );
@@ -224,36 +229,22 @@ class RestaurantRow extends Component {
             price = "";
         }
 
-        if (this.props.counter % 2 === 0) {
-            row = <div className="recrow1" id={array.id} onClick={this.toResPage}>
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-                <font id="star"> {array.rating} </font>
-                <font class="restaurantname">{array.name}</font>
-                <br></br>
-                <small class="distance">Distance: {array.distance}</small>
-                <br></br>
-                <small class="address">Address: {array.address}</small>
-                
-                <small id="price">Price: {price}</small>
+    
+        row = <div className={"row"+this.props.counter%5} id={array.id} onClick={this.toResPage}>
+            <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
+            <font id="star"> {array.rating} </font>
+            <font className="restaurantname">{array.name}</font>
+            <br></br>
+            <small className="distance">Distance: {array.distance}</small>
+            <br></br>
+            <small className="address">Address: {array.address}</small>
+            
+            <small id="price">Price: {price}</small>
 
-            </div>
+        </div>
 
-        }
-        else {
-            row = <div className="recrow2" id={array.id} onClick={this.toResPage} >
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-                <font id="star"> {array.rating} </font>
-                <font class="restaurantname">{array.name}</font>
-                <br></br>
-                <small class="distance">Distance: {array.distance}</small>
-                <br></br>
-                <small class="address">Address: {array.address}</small>
-
-                <small id="price">Price: {price}</small>
-            </div>
-
-
-        }
+    
+        
         return row;
     }
 }
@@ -273,30 +264,18 @@ class RecipeRow extends Component {
         const array = this.props.recdata[this.props.counter];
         let row;
         
-        if (this.props.counter % 2 === 0) {
-            row = <div className="recrow1" id={array.id} onClick={this.toRecPage}>
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt ="str" id="starimg"></img>
-                <font id="star"> {array.id % 5} </font>
-                <font class="recipename">{array.title}</font>
-                <br></br>
-                <small class="preptime">Prep Time: {array.prepTime} min</small>
-                <br></br>
-                <small class="cooktime">Cook Time: {array.cookTime} min</small>
-            </div>
-        }
-        else {
-            row = <div className="recrow2" id={array.id} onClick={this.toRecPage}>
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-                <font id="star"> {array.id % 5} </font>
-                <font class="recipename">{array.title}</font>
-                <br></br>
-                <small class="preptime">Prep Time: {array.prepTime} min</small>
-                <br></br>
-                <small class="cooktime">Cook Time: {array.cookTime} min</small>
-            </div>
-           
+ 
+        row = <div className={"row"+this.props.counter%5}  id={array.id} onClick={this.toRecPage}>
+            <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt ="str" id="starimg"></img>
+            <font id="star"> {array.id % 5} </font>
+            <font className="recipename">{array.title}</font>
+            <br></br>
+            <small className="preptime">Prep Time: {array.prepTime} min</small>
+            <br></br>
+            <small className="cooktime">Cook Time: {array.cookTime} min</small>
+        </div>
 
-        }
+
         return row;
     }
 }

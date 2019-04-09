@@ -16,7 +16,7 @@ h1, h2{
 }
 .active{
     color: white;
-    background-color: lightslategray;
+    background-color: #ACA5BD;
 }
 li {
     color: #444;
@@ -34,7 +34,8 @@ li {
 #collage{
     height:60vh;
     width: 80vw;
-    margin-top:5vh;    
+    margin-top:5vh; 
+    text-align: center;   
 }
 
 #rstheader {
@@ -48,14 +49,8 @@ li {
 }
 
 #rsttitle {
-
-    background-color:lightgray;
-    height:12vh;
-    padding-top:6vh;
-    width:60vw;
-    margin-top:5vh;
-
-    float:left;
+    text-align: center;
+    margin: 0;
 }
 
 .rstbuttons {
@@ -87,41 +82,43 @@ li {
 
 .col1 #reshead {
     text-align: center;
-    background-color: lightgray;
-    width: 35vw;
-    height: 10vh;
-    padding-top:5vh;
 }
 
 .col2{
-   margin-left:10vw;
+   margin-left:1vw;
    margin-bottom:10vh;
    float:left;
 }
 
 .col2 #rechead {
         text-align: center;
-        background-color: lightgray;
-        width: 35vw;
-        height: 10vh;
-        padding-top: 5vh;
 }
 
-.recrow1{
-    background-color:gray;
+.row0,.row1, .row2, .row3, .row4 {
     height:15vh;
+    margin-bottom: 8px;
     max-width: 80vh;
-    padding-left:1vh;
-    padding-top:1vh;
+    padding: 2vh;
+    padding-left: 3vh;
+    color: white;
 }
 
-.recrow2 {
-    background-color: lightgray;
-    height: 15vh;
-    padding-left: 1vh;
-    max-width: 80vh;
+.row0{
+    background-color: #C7847C;
+}
 
-    padding-top: 1vh;
+.row1{
+    background-color:#CC9B97;
+}
+.row2{
+    background-color:#C7A5A9;
+}
+.row3{
+    
+    background-color:#C2A6AD;
+}
+.row4{
+    background-color:#ACA5BD;
 }
 
 #price{

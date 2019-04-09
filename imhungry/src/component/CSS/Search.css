@@ -1,4 +1,7 @@
-
+@import url("https://use.typekit.net/gzr8ttd.css");
+body{
+    font-family: Poppins;
+}
 .Search {
 
     text-align: center;
@@ -14,7 +17,7 @@
     padding-top:10vh;
     position: absolute;
     width: 45vw;
-    height: 60vh;
+    height: 65vh;
     left: 27.5vw;
     top: 10vh;
     background: linear-gradient(180deg, #97A5CC 0%, #C7A6AA 50%, #C68076 100%), #F2F2F2;
@@ -27,8 +30,16 @@
     height:auto;  
 }
 
-#amount, #query {
+#amount, #query, #radius {
     width: 30vw;
-    height: 5vh;
+    height: 3vh;
     color: white;
+}
+
+#feedme{
+    top: 5vh;
+}
+
+#signout{
+    top: 90vh;
 }
