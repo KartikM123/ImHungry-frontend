@@ -25,17 +25,18 @@ When(/^I click on the dropdown$/) do
   find('select').click()
 end
 Then(/^I should see different lists, not including current list$/) do
-  assert_text('Do Not Show') and assert_text('To Explore')
+  assert_text('NoShow') and assert_text('ToExplore')
 end
 
 Given(/^I am on a valid signin$/) do
-  # visit 'localhost:3000/Register'
-  # fill_in 'username', :with => "test"
-  # fill_in 'password', :with => "test1"
-  # fill_in 'email', :with => "test@test.com"
+  visit 'localhost:3000/Register'
+  fill_in 'username', :with => "fsss"
+  fill_in 'password', :with => "fsss1"
+  fill_in 'email', :with => "fsss@fs1.edu"
+  click_button('Register')
   visit 'localhost:3000/SignIn'
-  fill_in 'username', :with => "fs"
-  fill_in 'password', :with => "fs1"
+  fill_in 'username', :with => "fsss"
+  fill_in 'password', :with => "fsss1"
   click_button("login")
   expect(page).to have_current_path(/Search/)
   visit 'localhost:3000/Favorite'
@@ -53,16 +54,43 @@ Given(/^Favorites is shown$/) do
   visit 'localhost:3000/Favorite'
   assert_text('Favorites')
 end
-Then(/^I should be able to move <list_item> to Do Not Show$/) do
+
+Then(/^I should be able to remove item from Favorites$/) do
   visit 'localhost:3000/Favorite'
-  assert_text('move')
+  assert_text('Remove')
+  click_button('Remove')
+end
+Then(/^I should be able to move "([^"]*)" from Favorites to To Explore$/) do |arg1|
+  visit 'localhost:3000/Favorite'
+  select('To Explore', from: 'resdrop')
+  click_button('Move')
+  select('ToExplore', from: 'list1drop')
+  click_button('Manage List')
+  assert_text('To Explore')
+  assert_text(arg1)
+  select('Favorite', from: 'list1drop')
+  click_button('Manage List')
 end
 
-
-Then(/^I should be able to remove Item from Favorites$/) do
-  assert_text('remove')
+Then(/^I should be able to move item from Favorites to To Explore$/) do
+  visit 'localhost:3000/Favorite'
+  assert_text('Move')
+  select('ToExplore', from: 'list1drop')
+  click_button('Manage List')
+  assert_text('To Explore')
+  select('Favorite', from: 'list1drop')
+  click_button('Manage List')
 end
 
+Then(/^I should add to Favorites$/) do
+  find_by_id('resdrop').click()
+  select('Favorite', from: 'resdrop')
+  click_button('Add to List')
+end
+Given(/^I remove item$/) do
+  visit 'localhost:3000/Favorite'
+  assert_text('Favorites')
+end
 
 
 

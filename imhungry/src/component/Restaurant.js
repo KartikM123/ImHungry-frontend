@@ -10,9 +10,9 @@ let link_address2 = "https://arcane-woodland-80551.herokuapp.com/";
 let official_link;
 //change the variable below to fit demo or testing
 let link_value = 2;
-if (link_value === 1){
+if (link_value == 1){
    official_link = link_address1;
-} else if (link_value === 2){
+} else if (link_value == 2){
    official_link = link_address2;
 }
 //end block
@@ -76,30 +76,20 @@ class Restaurant extends Component {
     button2() {
         this.props.history.push('/Result')
     }
-    handleDropdown(event, value){
-        this.setState({
-            rstdrop: value
-        });
-    }
+
     addL() {
 
-        if (this.state.resdrop !== 'blank')
+        if (this.state.resdrop != 'blank')
         {
-            let rstDropNew = this.state.resdrop;  
-            if (this.state.resdrop === "Favorite"){
-                rstDropNew = "FAVORITE";
-            } else if (this.state.resdrop === "Explore"){
-                rstDropNew = "EXPLORE";
-            } else if (this.state.resdrop === "NoShow"){
-                rstDropNew = "BLOCK";
-            }           
-           let destListNew = official_link+"list/" + rstDropNew + "/restaurant?userId="+localStorage.getItem("id");
-            this.setState({
-                resdrop: rstDropNew,
-                destlist: destListNew
-                
-            });
-            this.addtolist(this.state.destlist);
+            if (this.state.resdrop == "Favorite"){
+                this.state.resdrop = "FAVORITE";
+            } else if (this.state.resdrop == "Explore"){
+                this.state.resdrop = "EXPLORE";
+            } else if (this.state.resdrop == "NoShow"){
+                this.state.resdrop = "BLOCK";
+            }
+            this.state.destlist = official_link+"list/" + this.state.resdrop + "/restaurant?userId="+localStorage.getItem("id");
+           this.addtolist(this.state.destlist);
 
         }
 
@@ -113,9 +103,6 @@ class Restaurant extends Component {
 
 
     render() {
-        if (localStorage.getItem('id') === -1){
-            this.props.history.push('/SignIn');
-        }
         return (
             <div className="Restaurant">
                 <h1 id="restitle" >{this.state.data.name}</h1>
@@ -139,7 +126,12 @@ class Restaurant extends Component {
                         <br></br>
                         <button id="resrp" onClick={this.button2}>Return to Results Page</button>
                         <br></br>
-                        <Dropdown handleDropdown = {this.handleDropdown}/>
+                        <select id="resdrop" name="resdrop" onChange={this.handleChange}>
+                            <option value="blank" value></option>
+                            <option value="Favorite">Favorites</option>
+                            <option value="Explore">To Explore</option>
+                            <option value="NoShow">Do Not Show</option>
+                        </select>
                         <br></br>
                         <button id="reslist" onClick={this.addL}>Add to List</button>
                     </div>
