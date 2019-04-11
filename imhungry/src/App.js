@@ -12,6 +12,8 @@ import NoShow from "./component/NoShow";
 import Explore from "./component/Explore";
 import SignIn from "./component/SignIn"
 import Register from "./component/Register"
+import Grocery from "./component/Grocery";
+
 class App extends Component {
 
     render() {
@@ -28,6 +30,7 @@ class App extends Component {
                     <Route path="/Explore" component={Explore} />
                     <Route path="/SignIn" component={SignIn} />
                     <Route path="/Register" component={Register} />
+                    <Route path="/Grocery" component={Grocery} />
                 </Switch>
             </BrowserRouter>
         );
