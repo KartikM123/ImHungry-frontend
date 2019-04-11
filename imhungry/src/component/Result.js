@@ -6,6 +6,7 @@ import Collage3 from './Collage3';
 import ResultDrawer from './Drawer';
 
 
+
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
 let link_address2 = "https://arcane-woodland-80551.herokuapp.com/";
@@ -27,9 +28,9 @@ class Result extends Component {
         //CHANGE THIS LET TO CONNECT TO ENDPOINTS
         let test = false;
 
-        const recipeLink = official_link +"/recipe?name="+  localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') ;;   
+        const recipeLink = official_link +"/recipe?name="+  localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') +"&radius="+localStorage.getItem('radius');   
         console.log(recipeLink);
-        const restLink = official_link+ "/restaurant?name="+ localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') ;;
+        const restLink = official_link+ "/restaurant?name="+ localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') +"&radius="+localStorage.getItem('radius');
         const collageLink = official_link + "/collage?searchTerm="+localStorage.getItem('query');
         console.log(recipeLink);
         console.log(restLink);
@@ -80,10 +81,6 @@ class Result extends Component {
         };
 
         this.handlePageClick = this.handlePageClick.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.returnSearch = this.returnSearch.bind(this);
-        this.buttonManageList = this.buttonManageList.bind(this);
-        this.handleDropdown = this.handleDropdown.bind(this);
 
         
     }
@@ -99,17 +96,7 @@ class Result extends Component {
         }
     }
 
-    handleDropdown(event, value){
-        this.setState({
-            dropdownValue: value
-        });
-    }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
 
     handlePageClick = data => {
         var selected = data.selected;
@@ -122,19 +109,7 @@ class Result extends Component {
         });
       };
 
-    returnSearch() {
-        //history redirects it and is appended to URL (i'm guessing)
-        this.props.history.push('/Search')
-    }
-
-    buttonManageList() {
-        var liststate = this.state.dropdownValue;
-        if (liststate !== 'blank') {
-            localStorage.setItem("liststate", liststate);
-            this.props.history.push('/Favorite');
-        }
-
-    }
+   
 
     render() {
         if (localStorage.getItem('id') === -1){
@@ -154,20 +129,15 @@ class Result extends Component {
         return (
             <div className="Result">
                 <div id="rstheader">
-                    {/* <img id="collage" src={this.state.link4} alt="collage" /> */}
+                    
                     <Collage3 images={images} id="collage" alt="collage"/>
                     <br/>
-                    <h1 id="rsttitle"> Results for: {localStorage.getItem('query')}</h1>
-                    <ResultDrawer/>
-
+                    <div class="drawNtitle">
+                        <ResultDrawer history={this.props.history}/>
+                        <h1 id="rsttitle"> Results for: {localStorage.getItem('query')}</h1>
+                    </div>
                     <div id="rstheader2">
 
-                        {/* <div className="rstbuttons">
-                            <Dropdown handleDropdown = {this.handleDropdown}/>
-                            <button id="list" onClick={this.buttonManageList} > Manage List</button>
-                            <br></br>
-                            <button id="retsp" onClick={this.returnSearch}>Return to Search Page</button>
-                        </div> */}
                     </div>
                 </div>
                 <div className="col1">

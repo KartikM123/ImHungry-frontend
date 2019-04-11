@@ -22,6 +22,10 @@ When(/^I search for "([^"]*)" in the number box$/) do |arg1|
   fill_in 'amount', :with => arg1
 end
 
+When(/^I search for "([^"]*)" in the radius box$/) do |arg1|
+  fill_in 'radius', :with => arg1
+end
+
 When(/^I hover over the number field$/) do
   find('#amount.numFood', :wait, ).hover
 end

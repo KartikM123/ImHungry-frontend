@@ -7,8 +7,8 @@ import List from "@material-ui/core/List";
 import MenuIcon from '@material-ui/icons/Menu';
 import Dropdown from './Dropdown';
 import './CSS/Result.css';
-import { withRouter } from 'react-router-dom';
 import {MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 
 const theme = createMuiTheme({
@@ -27,25 +27,29 @@ const styles = {
   }
 };
 
-class ResultDrawer extends React.Component {
+class RightDrawer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      left: false
+      right: false,
+      resdrop: 'blank',
+      destlist: this.props.destList,
+      official_link:this.props.offLink
+
   
     };
     this.handleChange = this.handleChange.bind(this);
+    this.returnToResult = this.returnToResult.bind(this);
     this.handleDropdown = this.handleDropdown.bind(this);
     this.buttonManageList = this.buttonManageList.bind(this);
-    this.returnSearch = this.returnSearch.bind(this);
     this.handleSignout = this.handleSignout.bind(this);
+    this.addToList = this.addToList.bind(this);
+    this.sendList = this.sendList.bind(this);
+
+
 
   }
   
-  returnSearch() {
-    //history redirects it and is appended to URL (i'm guessing)
-    this.props.history.push('/Search')
-  }
   toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open
@@ -60,6 +64,10 @@ class ResultDrawer extends React.Component {
     }
 
 }
+
+  returnToResult() {
+    this.props.history.push('/Result');
+  }
 
   handleDropdown(event, value){
     this.setState({
@@ -76,15 +84,50 @@ class ResultDrawer extends React.Component {
       });
   }
 
+  addToList() {
+
+    if (this.state.resdrop != 'blank')
+        {
+            if (this.state.resdrop == "Favorite"){
+                this.state.resdrop = "FAVORITE";
+            } else if (this.state.resdrop == "Explore"){
+                this.state.resdrop = "EXPLORE";
+            } else if (this.state.resdrop == "NoShow"){
+                this.state.resdrop = "BLOCK";
+            }
+            this.state.destlist = official_link+"list/" + this.state.resdrop + "/restaurant?userId="+localStorage.getItem("id");
+           this.addtolist(this.state.destlist);
+          }
+  }
+
+  sendList(url) {
+    const Http = new XMLHttpRequest();
+      Http.open("POST", url, false);
+      Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
+      let json_send = JSON.stringify(this.state.data);
+      console.log("sending ", json_send, " to ", url);
+      Http.send(json_send);
+
+
+      if (Http.status === 200) {
+          console.log("sent")
+      }else {
+          console.log("not send because", Http.status);
+      }
+
+  
+  }
+
   render() {
     const { classes } = this.props;
 
     const sideList = (
       <div className={classes.list}>
         {/* <List> */}
+          <Button  id="resprint" onClick={() => window.print()} variant="outlined" size="small" color="secondary" >Printable Version</Button>
+          <Button id="resrp" onClick={this.returnToResult} variant="outlined" size="small" color="secondary">Return to Results</Button>
           <Dropdown handleDropdown = {this.handleDropdown}/>
-          <Button id="list" variant="outlined" size="small" color="primary" onClick={this.buttonManageList}>Manage List</Button>
-          <Button id="retsp" variant="outlined" size="small" color="secondary" onClick={this.returnSearch}>Return to Search</Button>
+          <Button id="reslist" onClick={this.addToList} variant="outlined" size="small" color="primary">Add to List</Button>
           <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
 
         {/* </List> */}
@@ -95,12 +138,12 @@ class ResultDrawer extends React.Component {
 
     return (
       <MuiThemeProvider theme={theme}>
-
         <div>
-          <Button id="drawer" onClick={this.toggleDrawer("left", true)}><MenuIcon /></Button>
+          <Button id="drawer" onClick={this.toggleDrawer("right", true)}><MenuIcon /></Button>
           <Drawer
-            open={this.state.left}
-            onClose={this.toggleDrawer("left", false)}
+            anchor="right"
+            open={this.state.right}
+            onClose={this.toggleDrawer("right", false)}
           >
             
               {sideList}
@@ -112,8 +155,8 @@ class ResultDrawer extends React.Component {
   }
 }
 
-ResultDrawer.propTypes = {
+RightDrawer.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ResultDrawer);
+export default withStyles(styles)(RightDrawer);

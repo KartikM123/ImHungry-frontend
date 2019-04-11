@@ -10,7 +10,19 @@ ul {
     /* border: 3px solid green; */
     /* padding: 10px; */
 }
+#list, #retsp{
+    width: 15vw;
+    padding: 1vw;
+    margin: 1vw;
+    margin-left: 2vw;
+}
 
+#signout{
+    width: 7vw;
+    padding: 1vw;
+    margin: 1vw;
+    margin-left: 2vw;
+}
 h1, h2{
     font-weight: normal;
 }
@@ -27,7 +39,7 @@ li {
 
 }
 .Result {
-    background-color:whitesmoke;
+    background-color:white;
     overflow: auto;
 }
 
@@ -53,10 +65,14 @@ li {
     margin: 0;
 }
 
-.rstbuttons {
-   /* margin-top: 5vh;*/
+.drawNtitle{
+    margin-top: 5vh;
 }
-
+#drawer{
+    float: left;
+    left: 10vw;
+    top: 1vh;
+}
 .rstbuttons #rstdrop {
     width: 12vw;
     height: 5vh;

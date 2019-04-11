@@ -1,6 +1,7 @@
 @import url("https://use.typekit.net/gzr8ttd.css");
 body{
     font-family: Poppins;
+    background-color: white
 }
 .Search {
 
@@ -40,6 +41,6 @@ body{
     top: 5vh;
 }
 
-#signout{
+#signoutSearch{
     top: 90vh;
 }

@@ -1,19 +1,26 @@
 .Restaurant{
-    background-color:whitesmoke;
+    background-color: white;
     margin-top:0;
     padding-top:5vh;
     height: 95vh;
 }
 
+a.web{
+    color: #ACA5BD;
 
+}
+
+a.address{
+    color: #CCA6A7;
+
+}
 #restitle {
-    background-color: lightgray;
+    color: #C7847C;
     width: 75vw;
     height: 10vh;
     padding-top: 5vh;
     margin-top: 0;
     margin-left: 10vw;
-    padding-left: 5vw;
 }
 
 #resbody{

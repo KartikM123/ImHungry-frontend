@@ -116,9 +116,9 @@ class Search extends Component {
                         margin="normal"
                         />
 
-                    {/* <TextField
+                    <TextField
                         required
-                        InputProps={{ inputProps: { min: 1, max: 1000 } }}
+                        InputProps={{ inputProps: { min: 1, max: 10000000 } }}
                         type="number"
                         id="radius"
                         label="Search Radius"
@@ -128,7 +128,7 @@ class Search extends Component {
                         variant="outlined"
 
                         margin="normal"
-                        />   */}
+                        />  
                        
                             <br></br>
                             {/* <input type="submit" alt="pikachu" id="pik" onClick={this.toggleImage}
@@ -137,7 +137,7 @@ class Search extends Component {
                     </form>
 
                     </div>
-                    <Button id="signout" variant="outlined" onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
+                    <Button id="signoutSearch" variant="outlined" onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
 
                     
             </div>
