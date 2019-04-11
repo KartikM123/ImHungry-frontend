@@ -163,6 +163,7 @@ class Favorite extends Component {
 
 
         let favelist = this.state.data.items;
+
         let faverows = [];
         console.log("KEYWORD", this.state.keyword);
         console.log(this.state.data);

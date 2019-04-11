@@ -224,7 +224,9 @@ class Recipe extends Component {
             } else if (this.state.rstdrop == "Explore"){
                 this.state.rstdrop = "EXPLORE";
             } else if (this.state.rstdrop == "NoShow"){
+
                 this.state.resdrop = "BLOCK";
+
             }
             this.state.destlist = official_link+"list/" + this.state.rstdrop + "/recipe?userId="+localStorage.getItem("id");
            this.addtolist(this.state.destlist);
@@ -234,8 +236,10 @@ class Recipe extends Component {
 
 
     render() {
+
         const {classes} = this.props
         if (localStorage.getItem('id') == -1){
+
             this.props.history.push('/SignIn');
         }
         var prepTimeNew = this.state.prepTime;
