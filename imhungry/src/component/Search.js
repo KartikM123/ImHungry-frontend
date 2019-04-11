@@ -73,14 +73,12 @@ class Search extends Component {
 
 
     render() {
-        if (localStorage.getItem('id') === -1){
+        if (localStorage.getItem('id') == -1){
             this.props.history.push('/SignIn')
         }
         //this way the image name dynamically updates
         const imageName = this.getImageName();
-        if (localStorage.getItem('id') === -1){
-            this.props.history.push('/SignIn');
-        }
+        
         return (
             <MuiThemeProvider theme={theme}>
             

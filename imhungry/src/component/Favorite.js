@@ -158,6 +158,11 @@ class Favorite extends Component {
 
     render() {
 
+        if (localStorage.getItem('id') == -1){
+            this.props.history.push('/SignIn');
+        }
+
+
         let favelist = this.state.data;
         let faverows = [];
 console.log("KEYWORD", this.state.keyword);

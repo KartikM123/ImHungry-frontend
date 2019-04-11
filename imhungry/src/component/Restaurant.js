@@ -69,6 +69,10 @@ class Restaurant extends Component {
 
 
     render() {
+
+        if (localStorage.getItem('id') == -1){
+            this.props.history.push('/SignIn');
+        }
         return (
             <div className="Restaurant">
                 <h1 id="restitle" >{this.state.data.name}</h1>
