@@ -33,14 +33,13 @@ class Favorite extends Component {
             console.log(json1);
         this.favelist = json1;
                this.state = {
-                   data: json1.restaurants,
+                   data: json1,
                    list1drop: listWanted,
                    opt1: 'blank',
                    opt2: 'blank',
                    title: keyword,
                    keyword: keyword
                };
-        this.state.data.push.apply(json1.restaurants,json1.recipes)
         console.log(this.state.data);
         this.remanageDropdown();
         this.cleanTitle();
@@ -163,12 +162,13 @@ class Favorite extends Component {
         }
 
 
-        let favelist = this.state.data;
+        let favelist = this.state.data.items;
         let faverows = [];
-console.log("KEYWORD", this.state.keyword);
+        console.log("KEYWORD", this.state.keyword);
+        console.log(this.state.data);
         for (var i = 0; i < favelist.length; i++) {
                 console.log(favelist[i]);
-            if (favelist[i].address == null) {
+            if (favelist[i].type == "recipe") {
 
                 faverows.push(<RecipeRow id={localStorage.getItem("id")} recdata={favelist[i]} currList={this.state.keyword} counter={i} history={this.props.history} />)
             }

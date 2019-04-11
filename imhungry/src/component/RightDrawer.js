@@ -32,7 +32,7 @@ class RightDrawer extends React.Component {
     super(props);
     this.state = {
       right: false,
-      resdrop: 'blank',
+      dropdownValue: 'blank',
       destlist: this.props.destList,
       official_link:this.props.offLink
 
@@ -86,25 +86,29 @@ class RightDrawer extends React.Component {
 
   addToList() {
 
-    if (this.state.resdrop != 'blank')
+    if (this.state.dropdownValue != 'blank')
         {
-            if (this.state.resdrop == "Favorite"){
-                this.state.resdrop = "FAVORITE";
-            } else if (this.state.resdrop == "Explore"){
-                this.state.resdrop = "EXPLORE";
-            } else if (this.state.resdrop == "NoShow"){
-                this.state.resdrop = "BLOCK";
+            if (this.state.dropdownValue == "Favorite"){
+                this.state.dropdownValue = "FAVORITE";
+            } else if (this.state.dropdownValue == "Explore"){
+                this.state.dropdownValue = "EXPLORE";
+            } else if (this.state.dropdownValue == "NoShow"){
+                this.state.dropdownValue = "BLOCK";
             }
-            this.state.destlist = official_link+"list/" + this.state.resdrop + "/restaurant?userId="+localStorage.getItem("id");
-           this.addtolist(this.state.destlist);
+            this.state.destlist = this.state.official_link+"list/" + this.state.dropdownValue + "/restaurant?userId="+localStorage.getItem("id");
+           this.sendList(this.state.destlist);
+           console.log(this.state.destlist);
+          } else{
+            console.log('WHAT');
           }
+
   }
 
   sendList(url) {
     const Http = new XMLHttpRequest();
       Http.open("POST", url, false);
       Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
-      let json_send = JSON.stringify(this.state.data);
+      let json_send = JSON.stringify(this.props.data);
       console.log("sending ", json_send, " to ", url);
       Http.send(json_send);
 

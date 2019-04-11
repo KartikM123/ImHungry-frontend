@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import './CSS/Grocery.css';
 import Dropdown from './Dropdown';
 import PropTypes from 'prop-types';
@@ -36,16 +35,18 @@ if (link_value === 1){
 } else if (link_value === 2){
    official_link = link_address2;
 }
-
+const styles = theme => ({
+  root: {
+    alignItems: 'start',
+  },
+});
 //All the snackbar components will go below
-
 const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
   error: ErrorIcon,
   info: InfoIcon,
 };
-
 const styles1 = theme => ({
   success: {
     backgroundColor: green[600],
@@ -70,13 +71,10 @@ const styles1 = theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-
 });
-
 function MySnackbarContent(props) {
   const { handle, classes, className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
-
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
@@ -96,7 +94,6 @@ function MySnackbarContent(props) {
     />
   );
 }
-
 MySnackbarContent.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -104,10 +101,7 @@ MySnackbarContent.propTypes = {
   onClose: PropTypes.func,
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 };
-
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
-
-
 //end snackbar component 
 //This variable holds all of the toggled restaurant items
 let newChecked = [];
@@ -142,10 +136,10 @@ class Grocery extends Component {
         }
     }
     handleToggle = (index, id) => () => {
+        console.log(id);
         const { checked } = this.state;
         const currentIndex = checked.indexOf(id);
         newChecked = [...checked];
-
         if (currentIndex === -1) {
           newChecked.push(id);
         } else {
@@ -154,7 +148,6 @@ class Grocery extends Component {
         this.setState({
           checked: newChecked,
         });
-
         if (newChecked.length > 0){
             this.setState({
                 open: true,
@@ -167,22 +160,22 @@ class Grocery extends Component {
         }
     };
     handleDelete() {
-        var xhr = new XMLHttpRequest();
-        var url = official_link + 'grocery/deleteItem?userid=' + localStorage.getItem('id');
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
-                this.props.history.push('/Grocery')
+        console.log('REACHED');
+        for (var i in this.state.checked) {
+            var xhr = new XMLHttpRequest();
+            var url = official_link + 'grocery/deleteItem?userid=' + localStorage.getItem('id') + '&ingredientid=' + this.state.data[i].id;
+            console.log(url);
+            xhr.open("DELETE", url, false);
+            xhr.send();
+            if (xhr.status === 200){
+                console.log("YEAHHHH");
             }
-        };
-        var data = JSON.stringify(newChecked);
-        xhr.send(data);
+        }
+        window.location.reload();
     }
     render() {
         const {classes} = this.props
-        if (localStorage.getItem('id') == -1){
+        if (localStorage.getItem('id') === -1){
             this.props.history.push('/SignIn');
         }
         return (
@@ -190,7 +183,7 @@ class Grocery extends Component {
                 <p>Ingredients:</p>
                     <List className={classes.root}>
                     {this.state.ingredients_Id.map((value, index) => (
-                    <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(index, this.state.data[index].id)}>
+                    <ListItem key={this.state.data[index].id} role={undefined} dense button onClick={this.handleToggle(index, this.state.data[index].id)}>
                         <Checkbox
                           checked={this.state.checked.indexOf(this.state.data[index].id) !== -1}
                           tabIndex={-1}
@@ -215,11 +208,10 @@ class Grocery extends Component {
                       />
                     </Snackbar>
             </div>
-
         );
     }
 }
 Grocery.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles1) (Grocery);
+export default withStyles(styles) (Grocery);
