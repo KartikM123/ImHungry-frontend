@@ -1,16 +1,29 @@
-
+@import url("https://use.typekit.net/gzr8ttd.css");
+body{
+    font-family: Poppins;
+    background-color: white
+}
 .Search {
-    background-color:whitesmoke;
+
     text-align: center;
     height:100vh;
 }
 
 #title {
     margin:0;
+    color: white
 }
 
 #form{
     padding-top:10vh;
+    position: absolute;
+    width: 45vw;
+    height: 65vh;
+    left: 27.5vw;
+    top: 10vh;
+    background: linear-gradient(180deg, #97A5CC 0%, #C7A6AA 50%, #C68076 100%), #F2F2F2;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
 }
 
 #pik{
@@ -18,15 +31,16 @@
     height:auto;  
 }
 
-#amount {
-    width: 10vw;
-    height: 5vh;
-    margin-left: 10vw;
-    background-color: lightgray;
+#amount, #query, #radius {
+    width: 30vw;
+    height: 3vh;
+    color: white;
 }
 
-#query {
-    width: 30vw;
-    height: 5vh;
-    background-color: lightgray;
+#feedme{
+    top: 5vh;
+}
+
+#signoutSearch{
+    top: 90vh;
 }

@@ -1,5 +1,6 @@
-#resdrop {
-    margin-top: 5vh;
-    width: 12vw;
-    height: 5vh;
+#listdrop{
+    width: 15vw;
+    margin: 1vw;
+    margin-left: 2vw;
+    font-family: inherit
 }

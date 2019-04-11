@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import RightDrawer from './RightDrawer';
 import './CSS/Restaurant.css';
 import Dropdown from './Dropdown';
 
@@ -40,8 +40,6 @@ class Restaurant extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.button2 = this.button2.bind(this);
-        this.addL = this.addL.bind(this);
 
     }
 
@@ -55,45 +53,14 @@ class Restaurant extends Component {
         }
     }
 
-    addtolist(url) {
-       const Http = new XMLHttpRequest();
-        Http.open("POST", url, false);
-        Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
-        let json_send = JSON.stringify(this.state.data);
-        console.log("sending ", json_send, " to ", url);
-        Http.send(json_send);
 
-
-        if (Http.status === 200) {
-            console.log("sent")
-        }else {
-            console.log("not send because", Http.status);
-        }
-
-    
+    handleDropdown(event, value){
+        this.setState({
+            rstdrop: value
+        });
     }
+ 
 
-    button2() {
-        this.props.history.push('/Result')
-    }
-
-    addL() {
-
-        if (this.state.resdrop != 'blank')
-        {
-            if (this.state.resdrop == "Favorite"){
-                this.state.resdrop = "FAVORITE";
-            } else if (this.state.resdrop == "Explore"){
-                this.state.resdrop = "EXPLORE";
-            } else if (this.state.resdrop == "NoShow"){
-                this.state.resdrop = "BLOCK";
-            }
-            this.state.destlist = official_link+"list/" + this.state.resdrop + "/restaurant?userId="+localStorage.getItem("id");
-           this.addtolist(this.state.destlist);
-
-        }
-
-    }
 
     handleChange(event) {
         this.setState({
@@ -103,20 +70,20 @@ class Restaurant extends Component {
 
 
     render() {
+        if (localStorage.getItem('id') == -1){
+            this.props.history.push('/SignIn');
+        }
+
         return (
             <div className="Restaurant">
                 <h1 id="restitle" >{this.state.data.name}</h1>
                 <div id="wrapper">
                     <div id="resbody">
-                        <p>Address:</p>
-
-                        <a class="address" href={this.state.dest2}>{this.state.data.address}</a>
+                        <p>Address: <a class="address" href={this.state.dest2}>{this.state.data.address}</a></p>
                         <br/>
-                        <p>Phone Number:</p>
-                        <p class = "phoneNumber">{this.state.data.phoneNumber}</p>
+                        <p>Phone Number: {this.state.data.phoneNumber}</p>
                         <br/>
-                        <p>Website:</p>
-                        <a class="web" href={this.state.data.websiteUrl} > { this.state.data.websiteUrl }</a>
+                        <p>Website: <a class="web" href={this.state.data.websiteUrl} > { this.state.data.websiteUrl }</a></p>
                         <br/>
 
                     </div>
@@ -135,6 +102,7 @@ class Restaurant extends Component {
                         <br></br>
                         <button id="reslist" onClick={this.addL}>Add to List</button>
                     </div>
+                    <RightDrawer history={this.props.history} destList={this.state.destlist} offLink={official_link} data={this.state.data}/>
                 </div>
             </div>
 

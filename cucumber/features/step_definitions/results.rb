@@ -32,6 +32,7 @@ Given(/^I am on the Result page for a "([^"]*)" with "([^"]*)" results$/) do |ar
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
   fill_in 'amount', :with => 5
+  fill_in 'radius', :with => 10000
   find('#pik').click
 end 
 
@@ -39,6 +40,8 @@ Then(/^I should see "([^"]*)" items for recipe and restaurants$/) do |arg1|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
   fill_in 'amount', :with => 2
+  fill_in 'radius', :with => 5000
+
   find('#pik').click
   expect(page).to have_css('.recrow1', count: 2) 
 end
@@ -141,5 +144,7 @@ Given("I am on the Result page for a {string}{int} results") do |string, int|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
   fill_in 'amount', :with => 5
+  fill_in 'radius', :with => 10000
+
   find('#pik').click
 end
