@@ -30,6 +30,7 @@ Given(/^I am on the Restaurant page for restaurant "([^"]*)" from search "([^"]*
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg2
   fill_in 'amount', :with => arg3
+  fill_in 'radius', :with => 10000
   find('#pik').click
   find('div.recrow1', :text => arg1).click
 end

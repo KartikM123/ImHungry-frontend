@@ -5,8 +5,6 @@ import Dropdown from './Dropdown';
 import Collage3 from './Collage3';
 import ResultDrawer from './Drawer';
 
-
-
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
 let link_address2 = "https://arcane-woodland-80551.herokuapp.com/";
@@ -22,9 +20,16 @@ if (link_value === 1){
 class Result extends Component {
     constructor(props) {
         super(props);
-       // const fs = require('fs');
-        //console.log(fs);
-
+        console.log('REACHED');
+        //We are saving the results data within the constructor of the Results.js
+        let saved_link = official_link + "search-history?userid=" + localStorage.getItem('id') + "&searchterm=" + localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') + "&radius=" + localStorage.getItem('radius');
+        console.log(saved_link);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST",  saved_link, false);
+        xhr.send();
+        if (xhr.status === 200){
+            console.log("Success!!");
+        }
         //CHANGE THIS LET TO CONNECT TO ENDPOINTS
         let test = false;
 
@@ -39,9 +44,6 @@ class Result extends Component {
         const test1 = './JSON/recip.json';
         const test2 = './JSON/rest.json';
          
-
-        
-
         var json1;
         var json2;
         //technically the following code can be done in any language
