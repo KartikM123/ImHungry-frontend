@@ -10,6 +10,7 @@ When(/^I search for "([^"]*)" from the search page$/) do |arg1|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg1
   fill_in 'amount', :with => 5
+  fill_in 'radius', :with => 10000
   find('#pik').click
 
 end
