@@ -354,7 +354,7 @@ class RestaurantRow extends Component {
         } else{
             this.deleteRes(this.props.resdata.id);
             this.addRes(this.props.resdata.id, this.state.ddown);
-            window.location.reload();
+          window.location.reload();
         }
     }
     remove = (e) =>{
