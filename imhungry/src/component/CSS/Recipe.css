@@ -4,16 +4,12 @@
     padding-top:5vh;
 }
 
-#rcptitle {
-    background-color: lightgray;
-    width: 75vw;
-    height: 10vh;
-    padding-top: 5vh;
-    margin-top:0;
-    margin-left: 10vw;
-    padding-left:5vw;
+#ing{
+    width: 80vw;
+    height: 50vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
-
 #rcpupper {
     margin-top: 5vh;
     overflow: hidden;
@@ -23,6 +19,8 @@
     float: left;
     height: 40vh;
     width: 40vw;
+    object-fit: cover;
+
 }
 
 .rcpbuttons{

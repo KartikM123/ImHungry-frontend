@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './CSS/Result.css';
+import './CSS/Drawer.css';
 import ReactPaginate from 'react-paginate';
 import Dropdown from './Dropdown';
 import Collage3 from './Collage3';

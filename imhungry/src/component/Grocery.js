@@ -6,24 +6,23 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+
 //all snackbar dependencies
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
-import CloseIcon from '@material-ui/icons/Close';
-import green from '@material-ui/core/colors/green';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import amber from '@material-ui/core/colors/amber';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
+import RightDrawerGrocery from './RightDrawerGrocery'
+
+
 //will have to handle this page onload -> populate data on load
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
@@ -52,7 +51,7 @@ const variantIcon = {
 
 const styles1 = theme => ({
   success: {
-    backgroundColor: green[600],
+    backgroundColor: "#97A5CC",
   },
   error: {
     backgroundColor: theme.palette.error.dark,
@@ -91,9 +90,9 @@ function MySnackbarContent(props) {
         </span>
       } //change this later
       action={[
-        <Fab onClick = {handle} color="default" aria-label="Add" className={classes.fab}>
-            <CloseIcon variant = "outlined"/>
-        </Fab>,
+        <Button onClick = {handle} color="default" aria-label="Add" className={classes.fab}>
+            <DeleteForeverOutlinedIcon id="deleteIcon"/>
+        </Button>,
       ]}
       {...other}
     />
@@ -118,14 +117,14 @@ class Grocery extends Component {
         super(props);
         const link1 = official_link + "grocery?userid=" + localStorage.getItem('id');
         var data = JSON.parse(this.loadData(link1));
-        var ingredients_List = new Array
-        var ingredients_Id = new Array
+        var ingredients_List = new Array;
+        var ingredients_Id = new Array;
         for(var i in data) {
             ingredients_List.push(data[i].ingredientValue);
             ingredients_Id.push(data[i].id);
         }
         console.log(ingredients_Id);
-        console.log(ingredients_List)
+        console.log(ingredients_List);
         this.state = {
             ingredients_Id: ingredients_Id,
             ingredients_List: ingredients_List,
@@ -191,12 +190,15 @@ class Grocery extends Component {
         }
         return (
             <div className="Grocery">
-                <p>Ingredients:</p>
-                    <List className={classes.root}>
+                <RightDrawerGrocery history={this.props.history} resultType={"recipe"} print={() =>window.print()}/>
+                <h1 id="rcptitle">Grocery List</h1>
+
+                    <List id="groceryList" className={classes.root}>
                     {this.state.ingredients_Id.map((value, index) => (
                     <ListItem key={this.state.data[index].id} role={undefined} dense button onClick={this.handleToggle(index, this.state.data[index].id)}>
 
                         <Checkbox
+                          color="primary"
                           checked={this.state.checked.indexOf(this.state.data[index].id) !== -1}
                           tabIndex={-1}
                           disableRipple

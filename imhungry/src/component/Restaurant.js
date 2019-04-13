@@ -54,6 +54,7 @@ class Restaurant extends Component {
     }
 
 
+
     handleDropdown(event, value){
         this.setState({
             rstdrop: value
@@ -76,33 +77,19 @@ class Restaurant extends Component {
 
         return (
             <div className="Restaurant">
-                <h1 id="restitle" >{this.state.data.name}</h1>
+                <div id="resTitleAndDraw">
+                    <RightDrawer id="rd" history={this.props.history} resultType={"restaurant"} print={() =>window.print()} destList={this.state.destlist} offLink={official_link} data={this.state.data}/>
+                    <h1 id="restitle" >{this.state.data.name}</h1>
+
+                </div>
                 <div id="wrapper">
                     <div id="resbody">
-                        <p>Address: <a class="address" href={this.state.dest2}>{this.state.data.address}</a></p>
-                        <br/>
-                        <p>Phone Number: {this.state.data.phoneNumber}</p>
-                        <br/>
+                        <p>Address: <a class="address" href={this.state.dest2}>{this.state.data.address}</a></p>                        
+                        <p>Phone Number: {this.state.data.phoneNumber}</p>                      
                         <p>Website: <a class="web" href={this.state.data.websiteUrl} > { this.state.data.websiteUrl }</a></p>
-                        <br/>
+                        
 
                     </div>
-
-                    <div className="resbuttons">
-                        <button id="resprint" onClick={() => window.print()}>Printable Version</button>
-                        <br></br>
-                        <button id="resrp" onClick={this.button2}>Return to Results Page</button>
-                        <br></br>
-                        <select id="resdrop" name="resdrop" onChange={this.handleChange}>
-                            <option value="blank" value></option>
-                            <option value="Favorite">Favorites</option>
-                            <option value="Explore">To Explore</option>
-                            <option value="NoShow">Do Not Show</option>
-                        </select>
-                        <br></br>
-                        <button id="reslist" onClick={this.addL}>Add to List</button>
-                    </div>
-                    <RightDrawer history={this.props.history} destList={this.state.destlist} offLink={official_link} data={this.state.data}/>
                 </div>
             </div>
 

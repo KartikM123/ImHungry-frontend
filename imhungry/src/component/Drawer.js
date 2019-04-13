@@ -31,7 +31,8 @@ class ResultDrawer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      left: false
+      left: false,
+      dropdownValue: 'blank',
   
     };
     this.handleChange = this.handleChange.bind(this);
@@ -39,6 +40,7 @@ class ResultDrawer extends React.Component {
     this.buttonManageList = this.buttonManageList.bind(this);
     this.returnSearch = this.returnSearch.bind(this);
     this.handleSignout = this.handleSignout.bind(this);
+    this.handleGrocery = this.handleGrocery.bind(this);
 
   }
   
@@ -54,7 +56,7 @@ class ResultDrawer extends React.Component {
 
   buttonManageList() {
     var liststate = this.state.dropdownValue;
-    if (liststate !== 'blank') {
+    if (liststate != 'blank') {
         localStorage.setItem("liststate", liststate);
         this.props.history.push('/Favorite');
     }
@@ -70,6 +72,11 @@ class ResultDrawer extends React.Component {
   handleSignout(event){
     this.props.history.push('/SignIn');
   }
+
+  handleGrocery(event){
+    this.props.history.push('/Grocery');
+  }
+
   handleChange(event) {
       this.setState({
           [event.target.name]: event.target.value
@@ -85,6 +92,8 @@ class ResultDrawer extends React.Component {
           <Dropdown handleDropdown = {this.handleDropdown}/>
           <Button id="list" variant="outlined" size="small" color="primary" onClick={this.buttonManageList}>Manage List</Button>
           <Button id="retsp" variant="outlined" size="small" color="secondary" onClick={this.returnSearch}>Return to Search</Button>
+          <Button id="grocery"  onClick={this.handleGrocery} variant="outlined" size="small" color="primary">Grocery List</Button>
+
           <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
 
         {/* </List> */}

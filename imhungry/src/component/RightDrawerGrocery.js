@@ -27,7 +27,7 @@ const styles = {
   }
 };
 
-class RightDrawer extends React.Component {
+class RightDrawerGrocery extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -40,11 +40,7 @@ class RightDrawer extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.returnToResult = this.returnToResult.bind(this);
-    this.handleDropdown = this.handleDropdown.bind(this);
-    this.buttonManageList = this.buttonManageList.bind(this);
     this.handleSignout = this.handleSignout.bind(this);
-    this.addToList = this.addToList.bind(this);
-    this.sendList = this.sendList.bind(this);
 
 
 
@@ -63,23 +59,9 @@ class RightDrawer extends React.Component {
         printWindow.close();
     }, true);
   }
-  buttonManageList() {
-    var liststate = this.state.dropdownValue;
-    if (liststate !== 'blank') {
-        localStorage.setItem("liststate", liststate);
-        this.props.history.push('/Favorite');
-    }
-
-}
 
   returnToResult() {
     this.props.history.push('/Result');
-  }
-
-  handleDropdown(event, value){
-    this.setState({
-        dropdownValue: value
-    });
   }
 
   handleSignout(event){
@@ -91,43 +73,7 @@ class RightDrawer extends React.Component {
       });
   }
 
-  addToList() {
 
-    if (this.state.dropdownValue != 'blank')
-        {
-            if (this.state.dropdownValue == "Favorite"){
-                this.state.dropdownValue = "FAVORITE";
-            } else if (this.state.dropdownValue == "Explore"){
-                this.state.dropdownValue = "EXPLORE";
-            } else if (this.state.dropdownValue == "NoShow"){
-                this.state.dropdownValue = "BLOCK";
-            }
-            this.state.destlist = this.state.official_link+"list/" + this.state.dropdownValue + "/"+this.props.resultType+"?userId="+localStorage.getItem("id");
-           this.sendList(this.state.destlist);
-           console.log(this.state.destlist);
-          } else{
-            console.log('WHAT');
-          }
-
-  }
-
-  sendList(url) {
-    const Http = new XMLHttpRequest();
-      Http.open("POST", url, false);
-      Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
-      let json_send = JSON.stringify(this.props.data);
-      console.log("sending ", json_send, " to ", url);
-      Http.send(json_send);
-
-
-      if (Http.status === 200) {
-          console.log("sent")
-      }else {
-          console.log("not send because", Http.status);
-      }
-
-  
-  }
 
   render() {
     const { classes } = this.props;
@@ -136,8 +82,6 @@ class RightDrawer extends React.Component {
       <div className={classes.list}>
         <Button  id="resprint" onClick={this.print} variant="outlined" size="small" color="secondary" >Printable Version</Button>
         <Button id="resrp" onClick={this.returnToResult} variant="outlined" size="small" color="primary">Return to Results</Button>
-        <Dropdown handleDropdown = {this.handleDropdown}/>
-        <Button id="reslist" onClick={this.addToList} variant="outlined" size="small" color="secondary">Add to List</Button>     
         <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
       </div>
     );
@@ -162,8 +106,8 @@ class RightDrawer extends React.Component {
   }
 }
 
-RightDrawer.propTypes = {
+RightDrawerGrocery.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(RightDrawer);
+export default withStyles(styles)(RightDrawerGrocery);

@@ -33,6 +33,7 @@ class Dropdown extends Component {
         super(props);
         this.state = {
             resdrop: 'blank',
+            labelWidth:'30px'
         };
         this.handleChange = this.handleChange.bind(this);
 

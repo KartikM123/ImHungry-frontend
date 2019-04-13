@@ -1,0 +1,20 @@
+#signout{
+    width: 7vw;
+    padding: 1vw;
+    margin: 1vw;
+    margin-left: 2vw;
+}
+
+#resprint, #resrp, #reslist, #list, #retsp{
+    width: 15vw;
+    padding: 1vw;
+    margin: 1vw;
+    margin-left: 2vw;
+}
+
+
+#rightDrawer{
+    float: right;
+    margin-top: 6vh;
+    margin-right: 15vw;
+}
