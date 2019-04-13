@@ -27,7 +27,8 @@ class Favorite extends Component {
         } else if (listWanted === ("NoShow")){
             keyword = "BLOCK";
         }
-        const link1 = official_link + "/list/" + keyword + "?userId=" + userId;
+        console.log("KEYWORD: ", keyword);
+        const link1 = official_link + "list/" + keyword + "?userId=" + userId;
         let json1 = JSON.parse(this.loadData(link1));
         console.log("HERE");
             console.log(json1);
@@ -225,9 +226,9 @@ class RestaurantRow extends Component {
 
     addRes(resid, newList) {
          const Http = new XMLHttpRequest();
-         let url = official_link + "list/" + newList + "/restaurant?userId="+ this.props.id;
-         console.log("adding restaurant to ", url);
-       Http.open("POST", url, false);
+        let url = official_link + "list/" + newList + "/restaurant?userId="+ this.props.id;
+        console.log("adding restaurant to ", url);
+        Http.open("POST", url, false);
         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
         let json_send = JSON.stringify(this.props.resdata);
         console.log("sending ", json_send, " to ", url);
@@ -281,6 +282,7 @@ class RestaurantRow extends Component {
          Http.open("PUT", url, false);
          Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
          // Http.responseType = 'json';
+         console.log("PUTTING UP TO ", url , " with ", this.props.data);
          Http.send(JSON.stringify(this.props.data));
         // Http.send(total);
          if (Http.status == 200) {
@@ -324,11 +326,11 @@ class RestaurantRow extends Component {
         Http.open("PUT", url, false);
         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
         // Http.responseType = 'json';
-        console.log("ABOUT TO SEND" + this.props.data);
+        console.log("PUTTING DOWN TO ", url , " with ", this.props.data);
         Http.send(JSON.stringify(this.props.data));
         if (Http.status == 200) {
             console.log("SUCCESS");
-            window.location.reload();
+           window.location.reload();
         } else{
             console.log("ERROR:", Http.status);
         }
@@ -354,7 +356,7 @@ class RestaurantRow extends Component {
         } else{
             this.deleteRes(this.props.resdata.id);
             this.addRes(this.props.resdata.id, this.state.ddown);
-          window.location.reload();
+            window.location.reload();
         }
     }
     remove = (e) =>{
@@ -465,11 +467,12 @@ class RecipeRow extends Component {
          Http.open("PUT", url, false);
          Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
          // Http.responseType = 'json';
-         console.log(this.props.data);
-         Http.send(JSON.stringify(this.props.data));
+
+         console.log("PUTTING UP TO ", url , " with ", this.props.data);
+          Http.send(JSON.stringify(this.props.data));
          if (Http.status == 200) {
              console.log("SUCCESS");
-             window.location.reload();
+            window.location.reload();
          } else{
              console.log("ERROR:", Http.status);
          }
@@ -508,7 +511,7 @@ class RecipeRow extends Component {
         Http.open("PUT", url, false);
         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
         // Http.responseType = 'json';
-        console.log("ABOUT TO SEND" + this.props.data);
+         console.log("PUTTING DOWN TO ", url , " with ", this.props.data);
         Http.send(JSON.stringify(this.props.data));
         if (Http.status == 200) {
             console.log("SUCCESS");
@@ -569,7 +572,7 @@ class RecipeRow extends Component {
             this.deleteRec(this.props.recdata.id);
             this.addRec(this.props.recdata.id, this.state.ddown);
                 
-            window.location.reload();
+           window.location.reload();
 
         }
 
