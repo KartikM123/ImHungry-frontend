@@ -87,8 +87,7 @@ class Restaurant extends Component {
                         <p>Address: <a class="address" href={this.state.dest2}>{this.state.data.address}</a></p>                        
                         <p>Phone Number: {this.state.data.phoneNumber}</p>                      
                         <p>Website: <a class="web" href={this.state.data.websiteUrl} > { this.state.data.websiteUrl }</a></p>
-                        
-
+                       
                     </div>
                 </div>
             </div>
