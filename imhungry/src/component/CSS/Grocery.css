@@ -1,7 +1,14 @@
 .Grocery{
-    background-color:whitesmoke;
+    background-color:white;
     margin-top:0;
     padding-top:5vh;
     height: 95vh;
 }
 
+#groceryList{
+    margin-left: 10vw;
+}
+
+#deleteIcon{
+    color: white;
+}

@@ -9,50 +9,27 @@ a.web{
     color: #ACA5BD;
 
 }
-
+#rightDrawer{
+    color: white;
+}
 a.address{
     color: #CCA6A7;
 
 }
-#restitle {
-    color: #C7847C;
+#restitle, #rcptitle {
+    background-color: #C68076;
+    color: white;
     width: 75vw;
     height: 10vh;
     padding-top: 5vh;
     margin-top: 0;
     margin-left: 10vw;
+    padding-left: 5vw;
 }
 
 #resbody{
     float:left;
     margin-left:10vw;
-}
-
-.resbuttons{
-    padding-left:60vw;
-}
-
-.resbuttons #resrp {
-    margin-top: 5vh;
-    width: 12vw;
-    height: 5vh;
-}
-
-.resbuttons #reslist {
-    margin-top: 5vh;
-    width: 12vw;
-    height: 5vh;
-}
-
-.resbuttons #resdrop {
-    margin-top: 5vh;
-    width: 12vw;
-    height: 5vh;
-}
-
-.resbuttons #resprint {
-    width: 12vw;
-    height: 5vh;
 }
 
 @media print{

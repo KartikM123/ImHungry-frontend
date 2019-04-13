@@ -10,19 +10,8 @@ ul {
     /* border: 3px solid green; */
     /* padding: 10px; */
 }
-#list, #retsp{
-    width: 15vw;
-    padding: 1vw;
-    margin: 1vw;
-    margin-left: 2vw;
-}
 
-#signout{
-    width: 7vw;
-    padding: 1vw;
-    margin: 1vw;
-    margin-left: 2vw;
-}
+
 h1, h2{
     font-weight: normal;
 }

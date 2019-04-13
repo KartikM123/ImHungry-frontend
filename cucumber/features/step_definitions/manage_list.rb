@@ -117,7 +117,8 @@ Then(/^I add a Restaurant$/) do
   visit 'localhost:3000/Result'
   find_by_id("ChIJRaPCphDHwoARRKD4kcOtCA0").click()
  # find('div.col1.ChIJRaPCphDHwoARRKD4kcOtCA0', :text => "The Habit Burger Grill").click
-  find_by_id("drawer").click()
+  find_by_id("rightDrawer").click()
+
   find_by_id('select-resdrop').click()
   find_by_id('fav').click()
   click_button('Add to List')
@@ -126,6 +127,8 @@ Then(/^I add a Recipe$/) do
   visit 'localhost:3000/Result'
   find_by_id("219871").click()
   #find('div.col2.219871', :text => "Halloumi aubergine burgers with harissa relish").click
+  find_by_id("rightDrawer").click()
+
   find_by_id('select-resdrop').click()
   find_by_id('fav').click()
   click_button('Add to List')
