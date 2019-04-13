@@ -226,7 +226,7 @@ class RestaurantRow extends Component {
     addRes(resid, newList) {
          const Http = new XMLHttpRequest();
          let url = official_link + "list/" + newList + "/restaurant?userId="+ this.props.id;
-         console.log("adding restaurant from ", url);
+         console.log("adding restaurant to ", url);
        Http.open("POST", url, false);
         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
         let json_send = JSON.stringify(this.props.resdata);
@@ -385,10 +385,11 @@ class RestaurantRow extends Component {
         if (this.props.counter % 2 === 1 ) {
             style = "row2"
         }
-            row = <div className={style} id={array.id}   style={{height:"fit-content"}}>
+        let uniqid = "res" + this.props.counter;
+            row = <div className={style} id={uniqid}   style={{height:"fit-content"}}>
                 <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
                 <font id="star"> {array.rating} </font>
-                <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="uprest" ></img>
+                <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="upres" ></img>
                 <br/>
                 <font onClick={this.button4}>{array.name}</font>
                 <br></br>
@@ -399,9 +400,9 @@ class RestaurantRow extends Component {
                 <small id="price">Price: {price}</small>               
                 <Dropdown handleDropdown = {this.handleDropdown}/>
                              <button onClick={this.move}> Move </button>
-                <button  onClick={this.remove}> Remove </button>
+                <button id="removeres" onClick={this.remove}> Remove </button>
                 <br/>
-                <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downrest"></img>
+                <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downres"></img>
                 </div>
 
 
@@ -586,7 +587,8 @@ class RecipeRow extends Component {
         if (this.props.counter % 2 === 1) {
             style = "row2";
         }
-            row = <div className={style} id={array.id} style={{height:"fit-content"}}>
+        let uniqid = "rec" + this.props.counter;
+            row = <div className={style} id={uniqid} style={{height:"fit-content"}}>
                 <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
                 <font id="star"> {array.id % 5} </font>
                 <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="uprec"></img>
@@ -599,7 +601,7 @@ class RecipeRow extends Component {
                 <Dropdown handleDropdown = {this.handleDropdown}/>
                  
                 <button onClick={this.move}> Move </button>
-                <button  onClick={this.remove}> Remove </button>
+                <button  id="removerec" onClick={this.remove}> Remove </button>
                 <br/>
                 <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downrec"></img>
 

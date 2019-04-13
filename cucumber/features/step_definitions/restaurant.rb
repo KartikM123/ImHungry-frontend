@@ -29,8 +29,8 @@ end
 Given(/^I am on the Restaurant page for restaurant "([^"]*)" from search "([^"]*)" with count "([^"]*)"$/) do |arg1, arg2, arg3|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg2
-  fill_in 'amount', :with => arg3
-  find('#pik').click
+  fill_in 'radius', :with => 10000
+  click_button("Feed Me!")
   find('div.recrow1', :text => arg1).click
 end
 
