@@ -145,8 +145,6 @@ end
 Given("I am on the Result page for a {string}{int} results") do |string, int|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 5
   fill_in 'radius', :with => 10000
-
-  find('#pik').click
+  click_button("Feed Me!")
 end

@@ -62,7 +62,8 @@ Then(/^I should be able to remove item from Favorites$/) do
 end
 Then(/^I should be able to move "([^"]*)" from Favorites to To Explore$/) do |arg1|
   visit 'localhost:3000/Favorite'
-  select('To Explore', from: 'resdrop')
+  find_by_id('select-resdrop').click()
+  find_by_id('toExplore').click()  
   click_button('Move')
   select('ToExplore', from: 'list1drop')
   click_button('Manage List')
@@ -93,11 +94,64 @@ Given(/^I remove item$/) do
 end
 
 
+Given(/^I am on a unique signin$/) do
+  visit 'localhost:3000/Register'
+  fill_in 'username', :with => "spec"
+  fill_in 'password', :with => "spec1"
+  fill_in 'email', :with => "s@s.edu"
+  click_button('Register')
+  visit 'localhost:3000/SignIn'
+  fill_in 'username', :with => "spec"
+  fill_in 'password', :with => "spec1"
+  click_button("login")
+  expect(page).to have_current_path(/Search/)
+end
+Given(/^I search for Burger$/) do
+  visit 'localhost:3000/Search'
+  fill_in 'query', :with => 'burger'
+  fill_in 'radius', :with => 10000
+  click_button("Feed Me!")
+  expect(page).to have_current_path(/Result/)
+end
+Then(/^I add a Restaurant$/) do
+  visit 'localhost:3000/Result'
+  find_by_id("ChIJRaPCphDHwoARRKD4kcOtCA0").click()
+ # find('div.col1.ChIJRaPCphDHwoARRKD4kcOtCA0', :text => "The Habit Burger Grill").click
+  find_by_id("drawer").click()
+  find_by_id('select-resdrop').click()
+  find_by_id('fav').click()
+  click_button('Add to List')
+end
+Then(/^I add a Recipe$/) do
+  visit 'localhost:3000/Result'
+  find_by_id("219871").click()
+  #find('div.col2.219871', :text => "Halloumi aubergine burgers with harissa relish").click
+  find_by_id('select-resdrop').click()
+  find_by_id('fav').click()
+  click_button('Add to List')
+end
 
+Then(/^click down should move restaurant down$/) do
+  find_by_id("downres").click()
+  page.should have_css('div#res1')
+end
 
-  
-
-  
+Then(/^click up should move restaurant up$/) do
+  find_by_id("upres").click()
+  page.should have_css('div#res0')
+end
+Then(/^click up should move recipe up$/) do
+  find_by_id("downrec").click()
+  page.should have_css('div#res0')
+end
+Then(/^click down should move recipe down$/) do
+  find_by_id("uprec").click()
+  page.should have_css('div#res1')
+end
+Then(/^page should clean$/) do
+  find_by_id("removeres").click()
+  find_by_id("removerec").click()
+end  
 
 
   

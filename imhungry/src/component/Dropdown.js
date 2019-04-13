@@ -75,9 +75,9 @@ class Dropdown extends Component {
                             }
                         >
                         
-                            <MenuItem className={classes.menuItem} value={"Favorite"}>Favorite</MenuItem>
-                            <MenuItem className={classes.menuItem} value={"Explore"}>To Explore</MenuItem>
-                            <MenuItem className={classes.menuItem} value={"NoShow"}>Do Not Show</MenuItem>
+                            <MenuItem className={classes.menuItem} id="fav" value={"Favorite"}>Favorite</MenuItem>
+                            <MenuItem className={classes.menuItem} id="toExplore" value={"Explore"}>To Explore</MenuItem>
+                            <MenuItem className={classes.menuItem} id="noShow" value={"NoShow"}>Do Not Show</MenuItem>
                         </Select>
                     </FormControl>
                 </div>
