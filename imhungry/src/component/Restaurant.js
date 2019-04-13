@@ -100,7 +100,7 @@ class Restaurant extends Component {
                             <option value="NoShow">Do Not Show</option>
                         </select>
                         <br></br>
-                        <button id="reslist" onClick={this.addL}>Add to List</button>
+                        <button id="reslist" onClick={this.addL}>TEMPDEL</button>
                     </div>
                     <RightDrawer history={this.props.history} destList={this.state.destlist} offLink={official_link} data={this.state.data}/>
                 </div>

@@ -27,7 +27,8 @@ class Favorite extends Component {
         } else if (listWanted === ("NoShow")){
             keyword = "BLOCK";
         }
-        const link1 = official_link + "/list/" + keyword + "?userId=" + userId;
+        console.log("KEYWORD: ", keyword);
+        const link1 = official_link + "list/" + keyword + "?userId=" + userId;
         let json1 = JSON.parse(this.loadData(link1));
         console.log("HERE");
             console.log(json1);
@@ -38,7 +39,8 @@ class Favorite extends Component {
                    opt1: 'blank',
                    opt2: 'blank',
                    title: keyword,
-                   keyword: keyword
+                   keyword: keyword,
+                   link:link1
                };
         console.log(this.state.data);
         this.remanageDropdown();
@@ -47,6 +49,7 @@ class Favorite extends Component {
         this.redirectList = this.redirectList.bind(this);
         this.returnSearch = this.returnSearch.bind(this);
         this.returnRes = this.returnRes.bind(this);
+    
     }
     cleanTitle(){
         let tempState = localStorage.getItem("liststate");
@@ -77,23 +80,13 @@ class Favorite extends Component {
        // Http.responseType = 'json';
         Http.send();
         if (Http.status == 200) {
-            //cookie Issues! -- debug later!
-
-           // let cookie = Http.getResponseHeader("Cookie");
-           // console.log(cookie);
-            //  console.log("adf");
- //           console.log(Http.response);
             return Http.response;
         } else{
             console.log("ERROR:", Http.status);
         }
         Http.onload = function() {
         if (Http.status == 200) {
-            //cookie Issues! -- debug later!
 
-           // let cookie = Http.getResponseHeader("Cookie");
-           // console.log(cookie);
-            //  console.log("adf");
             console.log(Http.response);
             let json1 = Http.response;
             console.log(json1);
@@ -170,11 +163,10 @@ class Favorite extends Component {
         for (var i = 0; i < favelist.length; i++) {
                 console.log(favelist[i]);
             if (favelist[i].type == "recipe") {
-
-                faverows.push(<RecipeRow id={localStorage.getItem("id")} recdata={favelist[i]} currList={this.state.keyword} counter={i} history={this.props.history} />)
+                faverows.push(<RecipeRow id={localStorage.getItem("id")} url={this.state.link} data={this.state.data} total={favelist} recdata={favelist[i]} currList={this.state.keyword} counter={i} history={this.props.history} />)
             }
             else {
-                faverows.push(<RestaurantRow id={localStorage.getItem("id")} resdata={favelist[i]} currList={this.state.keyword} counter={i} history={this.props.history} />)
+                faverows.push(<RestaurantRow id={localStorage.getItem("id")} url={this.state.link} data={this.state.data} total={favelist} resdata={favelist[i]} currList={this.state.keyword} counter={i} history={this.props.history} />)
             }
         }
 
@@ -215,7 +207,8 @@ class RestaurantRow extends Component {
         };
             this.deleteRes = this.deleteRes.bind(this);
             this.addRes= this.addRes.bind(this);
-
+            this.Up= this.Up.bind(this);
+            this.Down= this.Down.bind(this);
     }
     deleteRes(resid) {
         let url = official_link + "/list/" + this.props.currList + "/restaurant?userId=" + this.props.id + "&restaurantId=" + resid;
@@ -233,9 +226,9 @@ class RestaurantRow extends Component {
 
     addRes(resid, newList) {
          const Http = new XMLHttpRequest();
-         let url = official_link + "list/" + newList + "/restaurant?userId="+ this.props.id;
-         console.log("adding restaurant from ", url);
-       Http.open("POST", url, false);
+        let url = official_link + "list/" + newList + "/restaurant?userId="+ this.props.id;
+        console.log("adding restaurant to ", url);
+        Http.open("POST", url, false);
         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
         let json_send = JSON.stringify(this.props.resdata);
         console.log("sending ", json_send, " to ", url);
@@ -268,6 +261,91 @@ class RestaurantRow extends Component {
         this.setState({
                ddown: newval
         });
+    }
+    Up() {
+        if(this.props.counter==0){
+            //quick exit impossible up
+            return;
+        }
+        const Http = new XMLHttpRequest();
+        let init_value = this.props.counter;
+        let next_value = this.props.counter-1;
+        let total = this.props.total;
+        let url = this.props.url;
+         //swap logic
+         let temp = total[init_value];
+         total[init_value] = total[next_value];
+         total[next_value] = temp;
+         this.props.data.items = total;
+         //now send total
+ 
+         Http.open("PUT", url, false);
+         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
+         // Http.responseType = 'json';
+         console.log("PUTTING UP TO ", url , " with ", this.props.data);
+         Http.send(JSON.stringify(this.props.data));
+        // Http.send(total);
+         if (Http.status == 200) {
+             console.log("SUCCESS");
+             window.location.reload();
+         } else{
+             console.log("ERROR:", Http.status);
+         }
+         Http.onload = function() {
+         if (Http.status == 200) {
+ 
+             console.log(Http.response);
+             let json1 = Http.response;
+             console.log(json1);
+             return json1;
+         } else{
+             console.log("ERROR:", Http.status);
+         }
+         }
+ 
+
+    }
+    Down() {
+        if(this.props.counter==this.props.total.length-1){
+            //quick exit impossible down
+            return;
+        }
+        const Http = new XMLHttpRequest();
+        let init_value = this.props.counter;
+        let next_value = this.props.counter+1;
+        let total = this.props.total;
+        let url = this.props.url;
+
+        //swap logic
+        let temp = total[init_value];
+        total[init_value] = total[next_value];
+        total[next_value] = temp;
+        this.props.data.items = total;
+        //now send total
+
+        Http.open("PUT", url, false);
+        Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
+        // Http.responseType = 'json';
+        console.log("PUTTING DOWN TO ", url , " with ", this.props.data);
+        Http.send(JSON.stringify(this.props.data));
+        if (Http.status == 200) {
+            console.log("SUCCESS");
+           window.location.reload();
+        } else{
+            console.log("ERROR:", Http.status);
+        }
+        Http.onload = function() {
+        if (Http.status == 200) {
+
+            console.log(Http.response);
+            let json1 = Http.response;
+            console.log(json1);
+            return json1;
+        } else{
+            console.log("ERROR:", Http.status);
+        }
+        }
+
     }
     move = (e) => {
         console.log("moving " + this.props.resdata.id + " to " + this.state.ddown);
@@ -305,28 +383,16 @@ class RestaurantRow extends Component {
         else {
             price = "";
         }
-
-        if (this.props.counter % 2 === 0 ) {
-            row = <div className="recrow1" id={array.id} >
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-                <font id="star"> {array.rating} </font>
-                <font onClick={this.button4}>{array.name}</font>
-                <br></br>
-                <small>Distance: {array.distance}</small>
-                <br></br>
-                <small>Address: {array.address}</small>
-
-                <small id="price">Price: {price}</small>
-                <Dropdown handleDropdown = {this.handleDropdown}/>
-                <button onClick={this.move}> Move </button>
-                <button  onClick={this.remove}> Remove </button>
-            </div>
-
+        let style = "row0"
+        if (this.props.counter % 2 === 1 ) {
+            style = "row2"
         }
-        else {
-            row = <div className="recrow2" id={array.id}  >
+        let uniqid = "res" + this.props.counter;
+            row = <div className={style} id={uniqid}   style={{height:"fit-content"}}>
                 <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
                 <font id="star"> {array.rating} </font>
+                <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="upres" ></img>
+                <br/>
                 <font onClick={this.button4}>{array.name}</font>
                 <br></br>
                 <small>Distance: {array.distance}</small>
@@ -336,11 +402,13 @@ class RestaurantRow extends Component {
                 <small id="price">Price: {price}</small>               
                 <Dropdown handleDropdown = {this.handleDropdown}/>
                              <button onClick={this.move}> Move </button>
-                <button  onClick={this.remove}> Remove </button>
-            </div>
+                <button id="removeres" onClick={this.remove}> Remove </button>
+                <br/>
+                <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downres"></img>
+                </div>
 
 
-        }
+        
         return row;
     }
 }
@@ -354,6 +422,8 @@ class RecipeRow extends Component {
         }
             this.deleteRec = this.deleteRec.bind(this);
             this.addRec= this.addRec.bind(this);
+            this.Up= this.Up.bind(this);
+            this.Down= this.Down.bind(this);
     }
     button5 = (e) => {
         console.log("temp5");
@@ -376,6 +446,92 @@ class RecipeRow extends Component {
 
     }
 
+    Up() {
+        if(this.props.counter==0){
+            //quick exit impossible up
+            return;
+        }
+        console.log("hmm",this.props.data);
+        const Http = new XMLHttpRequest();
+        let init_value = this.props.counter;
+        let next_value = this.props.counter-1;
+        let total = this.props.total;
+        let url = this.props.url;
+         //swap logic
+         let temp = total[init_value];
+         total[init_value] = total[next_value];
+         total[next_value] = temp;
+         this.props.data.items = total;
+         //now send total
+ 
+         Http.open("PUT", url, false);
+         Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
+         // Http.responseType = 'json';
+
+         console.log("PUTTING UP TO ", url , " with ", this.props.data);
+          Http.send(JSON.stringify(this.props.data));
+         if (Http.status == 200) {
+             console.log("SUCCESS");
+            window.location.reload();
+         } else{
+             console.log("ERROR:", Http.status);
+         }
+         Http.onload = function() {
+         if (Http.status == 200) {
+ 
+             console.log(Http.response);
+             let json1 = Http.response;
+             console.log(json1);
+             return json1;
+         } else{
+             console.log("ERROR:", Http.status);
+         }
+         }
+ 
+
+    }
+    Down() {
+        if(this.props.counter==this.props.total.length-1){
+            //quick exit impossible down
+            return;
+        }
+        const Http = new XMLHttpRequest();
+        let init_value = this.props.counter;
+        let next_value = this.props.counter+1;
+        let total = this.props.total;
+        let url = this.props.url;
+
+        //swap logic
+        let temp = total[init_value];
+        total[init_value] = total[next_value];
+        total[next_value] = temp;
+        this.props.data.items = total;
+        //now send total
+
+        Http.open("PUT", url, false);
+        Http.setRequestHeader('Content-type', 'application/json;CHARSET=UTF-8');
+        // Http.responseType = 'json';
+         console.log("PUTTING DOWN TO ", url , " with ", this.props.data);
+        Http.send(JSON.stringify(this.props.data));
+        if (Http.status == 200) {
+            console.log("SUCCESS");
+            window.location.reload();
+        } else{
+            console.log("ERROR:", Http.status);
+        }
+        Http.onload = function() {
+        if (Http.status == 200) {
+
+            console.log(Http.response);
+            let json1 = Http.response;
+            console.log(json1);
+            return json1;
+        } else{
+            console.log("ERROR:", Http.status);
+        }
+        }
+
+    }
     addRec(resid, newList) {
          const Http = new XMLHttpRequest();
          let url = official_link + "list/" + newList + "/recipe?userId="+ this.props.id;
@@ -416,7 +572,7 @@ class RecipeRow extends Component {
             this.deleteRec(this.props.recdata.id);
             this.addRec(this.props.recdata.id, this.state.ddown);
                 
-            window.location.reload();
+           window.location.reload();
 
         }
 
@@ -430,25 +586,16 @@ class RecipeRow extends Component {
     render() {
         const array = this.props.recdata;
         let row;
-
-        if (this.props.counter % 2 === 0) {
-            row = <div className="recrow1" id={array.id} >
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-                <font id="star"> {array.id % 5} </font>
-                <font onClick={this.button5}>{array.title}</font>
-                <br></br>
-                <small>Prep Time: {array.prepTime} min</small>
-                <br></br>
-                <small>Cook Time: {array.cookTime} min</small>
-                <Dropdown handleDropdown = {this.handleDropdown}/>
-                                <button onClick={this.move}> Move </button>
-                <button  onClick={this.remove}> Remove </button>
-            </div>
+        let style = "row0";
+        if (this.props.counter % 2 === 1) {
+            style = "row2";
         }
-        else {
-            row = <div className="recrow2" id={array.id} >
+        let uniqid = "rec" + this.props.counter;
+            row = <div className={style} id={uniqid} style={{height:"fit-content"}}>
                 <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
                 <font id="star"> {array.id % 5} </font>
+                <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="uprec"></img>
+                <br/>
                 <font onClick={this.button5}>{array.title}</font>
                 <br></br>
                 <small>Prep Time: {array.prepTime} min</small>
@@ -457,11 +604,14 @@ class RecipeRow extends Component {
                 <Dropdown handleDropdown = {this.handleDropdown}/>
                  
                 <button onClick={this.move}> Move </button>
-                <button  onClick={this.remove}> Remove </button>
+                <button  id="removerec" onClick={this.remove}> Remove </button>
+                <br/>
+                <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downrec"></img>
+
             </div>
 
 
-        }
+        
         return row;
     }
 } 
