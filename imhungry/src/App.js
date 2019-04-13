@@ -11,6 +11,7 @@ import Favorite from "./component/Favorite";
 import SignIn from "./component/SignIn"
 import Register from "./component/Register"
 import Grocery from "./component/Grocery";
+import SavedSearch from "./component/SavedSearch"
 
 class App extends Component {
 
@@ -27,6 +28,7 @@ class App extends Component {
                     <Route path="/SignIn" component={SignIn} />
                     <Route path="/Register" component={Register} />
                     <Route path="/Grocery" component={Grocery} />
+                    <Route path="/SavedSearch" component={SavedSearch} />
                 </Switch>
             </BrowserRouter>
         );

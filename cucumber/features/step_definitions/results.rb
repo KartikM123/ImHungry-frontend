@@ -2,6 +2,7 @@ Given(/^I am on the Results Page of the I'm Hungry website$/) do
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
   fill_in 'amount', :with => 5
+  fill_in 'radius', :with => 10000
   find('#pik').click
 end
 
@@ -9,6 +10,7 @@ Then(/^I should see the Restaurant and Recipe titles$/) do
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
   fill_in 'amount', :with => 5
+  fill_in 'radius', :with => 10000
   find('#pik').click
   fontsize1 = find_by_id('reshead').native.css_value('font-size')
   fontsize2 = find_by_id('rechead').native.css_value('font-size')
