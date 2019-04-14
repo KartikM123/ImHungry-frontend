@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockIcon from '@material-ui/icons/Lock';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -22,6 +22,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import classNames from 'classnames';
+import {MuiThemeProvider, createMuiTheme, withTheme } from '@material-ui/core/styles';
 
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
@@ -109,6 +110,13 @@ MySnackbarContent.propTypes = {
 
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
 //back to regular stuff
+const theme = createMuiTheme({
+  palette: {
+    primary: {main:"#CCA6A7", light: "#CCA6A7"},
+    secondary: {main:"#A0A5C6", light: "#A0A5C6"},
+  },
+});
+
 const styles = theme => ({
   main: {
     width: 'auto',
@@ -127,24 +135,30 @@ const styles = theme => ({
   },
   input: {
     display: 'none',
+    color: 'white'
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    background: 'linear-gradient(180deg, #97A5CC 0%, #C7A6AA 50%, #C68076 100%), #F2F2F2',
+
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'transparent',
+    color: 'white'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
+    color: '#ffffff',
+    fontFamily: 'Poppins'
   },
 });
 
@@ -216,13 +230,15 @@ class SignIn extends Component {
     localStorage.setItem('id', -1);
     const { classes } = this.props;
     return (
+      <MuiThemeProvider theme={theme}>
+
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <LockIcon/>
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography id="signin" component="h1" variant="h5">
             Sign in
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
@@ -238,7 +254,7 @@ class SignIn extends Component {
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
+              color="secondary"
               className={classes.submit}
               value="login"
             >
@@ -266,6 +282,7 @@ class SignIn extends Component {
           </Snackbar>
         </Paper>
       </main>
+      </MuiThemeProvider>
     );
   }
 }
