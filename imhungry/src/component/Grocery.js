@@ -173,7 +173,7 @@ class Grocery extends Component {
         console.log('REACHED');
         for (var i in this.state.checked) {
             var xhr = new XMLHttpRequest();
-            var url = official_link + 'grocery/deleteItem?userid=' + localStorage.getItem('id') + '&ingredientid=' + this.state.data[i].id;
+            var url = official_link + 'grocery/deleteItem?userid=' + localStorage.getItem('id') + '&ingredientid=' + this.state.checked[i];
             console.log(url);
             xhr.open("DELETE", url, false);
             xhr.send();
