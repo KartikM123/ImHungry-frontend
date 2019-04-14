@@ -90,7 +90,7 @@ function MySnackbarContent(props) {
       } //change this later
       action={[
         <Button onClick = {handle} color="default" aria-label="Add" className={classes.fab}>
-            <AddIcon style={{color: "white"}} color="inherit"/>
+            <AddIcon id="add" style={{color: "white"}} color="inherit"/>
         </Button>,
       ]}
       {...other}

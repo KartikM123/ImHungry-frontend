@@ -1,0 +1,62 @@
+Given("I am on the Recipe page for recipe {string} from search {string} with count {string} logged in") do |string, string2, string3|
+  visit 'localhost:3000/Register'
+  fill_in 'username', :with => 'grocery_test35'
+  fill_in 'password', :with => 'grocery_test35'
+  fill_in 'email', :with => 'grocery_test35@usc.edu'
+  click_button("register")
+  fill_in 'query', :with => string2
+  fill_in 'radius', :with => 10000
+  find('#feedme').click
+  find('font', text: string, exact: true).click
+end
+
+When("I add the ingredient {string}") do |string|
+  find('span', text: string).click
+  find('#add').click
+end
+
+When("I navigate to the Grocery page") do
+  find('#rightDrawer').click
+  find('#resrp').click
+  find('#drawer').click
+  find('#grocery').click
+end
+
+Then("I should see the Grocery page with {string}") do |string|
+	assert_text('Grocery List')
+	assert_text(string)
+end
+
+When("I add the {string} from the Recipe page") do |string|
+	visit 'localhost:3000/SignIn'
+    fill_in 'username', :with => 'grocery_test35'
+    fill_in 'password', :with => 'grocery_test35'
+    click_button("login")
+    fill_in 'query', :with => 'burger'
+    fill_in 'radius', :with => 10000
+    find('#feedme').click
+    find('font', text: 'Halloumi aubergine burgers with harissa relish', exact: true).click
+  	find('span', text: string).click
+  	find('#add').click
+end
+
+Given("I am on the Grocery page") do
+	visit 'localhost:3000/SignIn'
+    fill_in 'username', :with => 'grocery_test35'
+    fill_in 'password', :with => 'grocery_test35'
+    click_button("login")
+    fill_in 'query', :with => 'burger'
+    fill_in 'radius', :with => 10000
+    find('#feedme').click
+    find('font', text: 'Halloumi aubergine burgers with harissa relish', exact: true).click
+    visit 'localhost:3000/Grocery'
+end
+
+When("I delete the {string}") do |string|
+  find('span', text: string, match: :first).click
+  find('#delete').click
+end
+
+Then("I should not see the deleted {string}") do |string|
+  expect(page).not_to have_content(string)
+end
