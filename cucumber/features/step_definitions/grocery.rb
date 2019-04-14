@@ -1,9 +1,4 @@
 Given("I am on the Recipe page for recipe {string} from search {string} with count {string} logged in") do |string, string2, string3|
-  visit 'localhost:3000/Register'
-  fill_in 'username', :with => 'grocery_test35'
-  fill_in 'password', :with => 'grocery_test35'
-  fill_in 'email', :with => 'grocery_test35@usc.edu'
-  click_button("register")
   fill_in 'query', :with => string2
   fill_in 'radius', :with => 10000
   find('#feedme').click
@@ -28,10 +23,6 @@ Then("I should see the Grocery page with {string}") do |string|
 end
 
 When("I add the {string} from the Recipe page") do |string|
-	visit 'localhost:3000/SignIn'
-    fill_in 'username', :with => 'grocery_test35'
-    fill_in 'password', :with => 'grocery_test35'
-    click_button("login")
     fill_in 'query', :with => 'burger'
     fill_in 'radius', :with => 10000
     find('#feedme').click
@@ -41,10 +32,6 @@ When("I add the {string} from the Recipe page") do |string|
 end
 
 Given("I am on the Grocery page") do
-	visit 'localhost:3000/SignIn'
-    fill_in 'username', :with => 'grocery_test35'
-    fill_in 'password', :with => 'grocery_test35'
-    click_button("login")
     fill_in 'query', :with => 'burger'
     fill_in 'radius', :with => 10000
     find('#feedme').click
