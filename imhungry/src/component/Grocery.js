@@ -91,7 +91,7 @@ function MySnackbarContent(props) {
       } //change this later
       action={[
         <Button onClick = {handle} color="default" aria-label="Add" className={classes.fab}>
-            <DeleteForeverOutlinedIcon id="deleteIcon"/>
+            <DeleteForeverOutlinedIcon id="delete"/>
         </Button>,
       ]}
       {...other}

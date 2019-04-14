@@ -30,10 +30,9 @@ end
 Given(/^I am on the Recipe page for recipe "([^"]*)" from search "([^"]*)" with count "([^"]*)"$/) do |arg1, arg2, arg3|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg2
-  fill_in 'amount', :with => arg3
   fill_in 'radius', :with => 10000
-  find('#pik').click
-  find('div.recrow1', :text => arg1).click
+  find('#feedme').click
+  find('font', text: arg1, exact: true).click
 end
 
 Then(/^I should see recipe title "([^"]*)"$/) do |arg1|
