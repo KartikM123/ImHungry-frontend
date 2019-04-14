@@ -121,7 +121,7 @@ class ResultDrawer extends React.Component {
     const { classes } = this.props;
 
     const sideList = (
-      <div className={classes.list}>
+      <div className={classes.list} id="newlists">
         {/* <List> */}
           <Dropdown handleDropdown = {this.handleDropdown}/>
           <Button id="list" variant="outlined" size="small" color="primary" onClick={this.buttonManageList}>Manage List</Button>

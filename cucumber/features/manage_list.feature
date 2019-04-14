@@ -18,7 +18,7 @@ Scenario Outline: Move List Item
 	Given I search for Burger
     Then I add a Restaurant
 	Given Favorites is shown
-  Then I should be able to move <name> from Favorites to To Explore
+  	Then I should be able to move <name> from Favorites to To Explore
 	
 	Examples:
 	| food | numresult | id | name |

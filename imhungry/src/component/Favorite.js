@@ -387,13 +387,13 @@ class RestaurantRow extends Component {
                     <small id="price">Price: {price}</small>               
                     <Dropdown handleDropdown = {this.handleDropdown}/>
                     <div id="mvbuttons" >
-                        <Button id="move" variant="contained" size="small" onClick={this.move}> Move </Button>
-                        <Button id="remove" variant="contained" size="small" onClick={this.remove}> Remove </Button>
+                        <Button id="moveres" variant="contained" size="small" onClick={this.move}> Move </Button>
+                        <Button id="removeres" variant="contained" size="small" onClick={this.remove}> Remove </Button>
                     
                         <Button onClick = {this.Up} id="upres" >
                             <ExpandLess/>
                         </Button>
-                        <Button onClick = {this.down}>
+                        <Button onClick = {this.Down} id="downres">
                             <ExpandMore/>
                         </Button>  
                     </div>             
@@ -596,13 +596,13 @@ class RecipeRow extends Component {
                 <Dropdown class="move" handleDropdown = {this.handleDropdown}/>
                  
                 <div id="mvbuttons" >
-                    <Button id="move" variant="contained" size="small" onClick={this.move}> Move </Button>
-                    <Button id="remove" variant="contained" size="small" onClick={this.remove}> Remove </Button>
+                    <Button id="moverec" variant="contained" size="small" onClick={this.move}> Move </Button>
+                    <Button id="removerec" variant="contained" size="small" onClick={this.remove}> Remove </Button>
                     
                     <Button onClick = {this.Up} id="uprec" >
                         <ExpandLess/>
                     </Button>
-                    <Button onClick = {this.Down} >
+                    <Button onClick = {this.Down} id="downrec" >
                         <ExpandMore/>
                     </Button>
                 </div>
