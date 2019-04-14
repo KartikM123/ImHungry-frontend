@@ -25,7 +25,11 @@ When(/^I click on the dropdown$/) do
   find('select').click()
 end
 Then(/^I should see different lists, not including current list$/) do
-  assert_text('NoShow') and assert_text('ToExplore')
+  find_by_id("rightDrawer2").click()
+  page.within("#newlists") do
+    find_by_id("select-resdrop").click()
+  end
+  assert_text('Do Not Show') and assert_text('To Explore')
 end
 
 Given(/^I am on a valid signin$/) do
@@ -49,7 +53,6 @@ Then(/^I should see <list_content> items for recipe and restaurants$/) do
   expect(page).to have_css('td.restaurantCell', count: 1) 
   expect(page).to have_css('td.recipeCell', count: 1) 
 end
-
 Given(/^Favorites is shown$/) do
   visit 'localhost:3000/Favorite'
   assert_text('Favorites')
@@ -57,29 +60,38 @@ end
 
 Then(/^I should be able to remove item from Favorites$/) do
   visit 'localhost:3000/Favorite'
-  assert_text('Remove')
-  click_button('Remove')
+  find_by_id("removeres").click()
 end
 Then(/^I should be able to move "([^"]*)" from Favorites to To Explore$/) do |arg1|
   visit 'localhost:3000/Favorite'
-  find_by_id('select-resdrop').click()
-  find_by_id('toExplore').click()  
-  click_button('Move')
-  select('ToExplore', from: 'list1drop')
+  assert_text('MOVE')
+  find_by_id("rightDrawer2").click()
+  page.within("#newlists") do
+    find_by_id("select-resdrop").click()
+  end
+  find_by_id('toExplore').click()
   click_button('Manage List')
+  visit 'localhost:3000/Favorite'
   assert_text('To Explore')
-  assert_text(arg1)
-  select('Favorite', from: 'list1drop')
+  find_by_id("rightDrawer2").click()
+  page.within("#newlists") do
+    find_by_id("select-resdrop").click()
+  end
+  find_by_id('fav').click()
   click_button('Manage List')
 end
 
 Then(/^I should be able to move item from Favorites to To Explore$/) do
   visit 'localhost:3000/Favorite'
   assert_text('Move')
-  select('ToExplore', from: 'list1drop')
+  find_by_id("rightDrawer2").click()
+  find_by_id('select-resdrop').click()
+  find_by_id('toExplore').click()
   click_button('Manage List')
   assert_text('To Explore')
-  select('Favorite', from: 'list1drop')
+  find_by_id("rightDrawer2").click()
+  find_by_id('select-resdrop').click()
+  find_by_id('toExplore').click()
   click_button('Manage List')
 end
 
@@ -116,9 +128,8 @@ end
 Then(/^I add a Restaurant$/) do
   visit 'localhost:3000/Result'
   find_by_id("ChIJRaPCphDHwoARRKD4kcOtCA0").click()
- # find('div.col1.ChIJRaPCphDHwoARRKD4kcOtCA0', :text => "The Habit Burger Grill").click
+  #find('div.col1.ChIJRaPCphDHwoARRKD4kcOtCA0', :text => "The Habit Burger Grill").click
   find_by_id("rightDrawer").click()
-
   find_by_id('select-resdrop').click()
   find_by_id('fav').click()
   click_button('Add to List')
@@ -128,7 +139,6 @@ Then(/^I add a Recipe$/) do
   find_by_id("219871").click()
   #find('div.col2.219871', :text => "Halloumi aubergine burgers with harissa relish").click
   find_by_id("rightDrawer").click()
-
   find_by_id('select-resdrop').click()
   find_by_id('fav').click()
   click_button('Add to List')

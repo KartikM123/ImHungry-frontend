@@ -4,14 +4,13 @@ Feature:
 Background: 
 	Given I am on the Lists Page of the I'm Hungry website
 
-Scenario: Reorder List Item
-	Given I am on a unique signin
+Scenario Outline: Move List Item
+	Given I am on a valid signin
 	Given I search for Burger
     Then I add a Restaurant
-    Then I add a Recipe
-    Given Favorites is shown
-    Then click down should move restaurant down
-    Then click up should move restaurant up
-    Then click up should move recipe up
-    Then click down should move recipe down
-    Then page should clean
+	Given Favorites is shown
+  	Then I should be able to move <name> from Favorites to To Explore
+	
+	Examples:
+	| food | numresult | id | name |
+	| "burger" | "5" | "The Habit Burger Grill" |"The Habit Burger Grill" |
