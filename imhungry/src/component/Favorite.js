@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import Button from '@material-ui/core/Button';
+import {ExpandMore, ExpandLess} from '@material-ui/icons';
+import RightDrawerList from './RightDrawerList'
 import './CSS/Favorite.css';
 import Dropdown from './Dropdown'
 //will have to handle this page onload -> populate data on load
@@ -74,6 +76,8 @@ class Favorite extends Component {
           xhr.open('GET', url, true);
          xhr.send('');
     }
+
+
     loadData(url) {
         const Http = new XMLHttpRequest();
         Http.open("GET", url, false);
@@ -172,28 +176,10 @@ class Favorite extends Component {
 
         return (
             <div className={localStorage.getItem("liststate")}>
-
-                        <h1 id="list1title">{this.state.title}</h1>
+                <RightDrawerList history={this.props.history} resultType={"recipe"} print={() =>window.print()} />
+                <h1 id="list1title">{this.state.title}</h1>
   
-                <div id="restContent" className="list1col">
-                        {faverows}
-
-                </div>
-
-                <div className="list1buttons">
-                    <select id="list1drop" name="list1drop" onChange={this.handleChange} >
-                        <option value="blank" value></option>
-                        <option value={this.state.opt1}>{this.state.opt1}</option>
-                        <option value={this.state.opt2}>{this.state.opt2}</option>
-                    </select>
-                    <br></br>
-                    <button id="list1" onClick={this.redirectList}>Manage List</button>
-                    <br></br>
-                    <button id="list1rp" onClick={this.returnRes}>Return to Results Page</button>
-                    <br></br>
-                    <button id="list1sp" onClick={this.returnSearch}>Return to Search Page</button>
-                </div>
-               
+                <div id="restContent" className="list1col">{faverows}</div>         
             </div>
         );
     }
@@ -388,23 +374,29 @@ class RestaurantRow extends Component {
             style = "row2"
         }
         let uniqid = "res" + this.props.counter;
-            row = <div className={style} id={uniqid}   style={{height:"fit-content"}}>
-                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-                <font id="star"> {array.rating} </font>
-                <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="upres" ></img>
-                <br/>
-                <font onClick={this.button4}>{array.name}</font>
-                <br></br>
-                <small>Distance: {array.distance}</small>
-                <br></br>
-                <small>Address: {array.address}</small>
+            row = <div className={style} class={"row"+this.props.counter%5} id={uniqid} style={{height:"fit-content"}}>
+                    <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
+                    <font id="star"> {array.rating} </font>
+                   
+                    <font onClick={this.button4}>{array.name}</font>
+                    <br></br>
+                    <small>Distance: {array.distance}</small>
+                    <br></br>
+                    <small>Address: {array.address}</small>
 
-                <small id="price">Price: {price}</small>               
-                <Dropdown handleDropdown = {this.handleDropdown}/>
-                             <button onClick={this.move}> Move </button>
-                <button id="removeres" onClick={this.remove}> Remove </button>
-                <br/>
-                <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downres"></img>
+                    <small id="price">Price: {price}</small>               
+                    <Dropdown handleDropdown = {this.handleDropdown}/>
+                    <div id="mvbuttons" >
+                        <Button id="move" variant="contained" size="small" onClick={this.move}> Move </Button>
+                        <Button id="remove" variant="contained" size="small" onClick={this.remove}> Remove </Button>
+                    
+                        <Button onClick = {this.Up} id="upres" >
+                            <ExpandLess/>
+                        </Button>
+                        <Button onClick = {this.down}>
+                            <ExpandMore/>
+                        </Button>  
+                    </div>             
                 </div>
 
 
@@ -591,23 +583,29 @@ class RecipeRow extends Component {
             style = "row2";
         }
         let uniqid = "rec" + this.props.counter;
-            row = <div className={style} id={uniqid} style={{height:"fit-content"}}>
+            row = <div className={style} class={"row"+this.props.counter%5} id={uniqid} style={{height:"fit-content"}}>
                 <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
                 <font id="star"> {array.id % 5} </font>
-                <img src="https://image.flaticon.com/icons/png/512/36/36905.png" onClick={this.Up} style={{height:"15px",width:"15px", cursor:"pointer"}} id="uprec"></img>
+
                 <br/>
                 <font onClick={this.button5}>{array.title}</font>
                 <br></br>
                 <small>Prep Time: {array.prepTime} min</small>
                 <br></br>
                 <small>Cook Time: {array.cookTime} min</small>               
-                <Dropdown handleDropdown = {this.handleDropdown}/>
+                <Dropdown class="move" handleDropdown = {this.handleDropdown}/>
                  
-                <button onClick={this.move}> Move </button>
-                <button  id="removerec" onClick={this.remove}> Remove </button>
-                <br/>
-                <img src="https://image.flaticon.com/icons/svg/56/56747.svg" onClick={this.Down} style={{height:"15px",width:"15px", cursor:"pointer"}}  id="downrec"></img>
-
+                <div id="mvbuttons" >
+                    <Button id="move" variant="contained" size="small" onClick={this.move}> Move </Button>
+                    <Button id="remove" variant="contained" size="small" onClick={this.remove}> Remove </Button>
+                    
+                    <Button onClick = {this.Up} id="uprec" >
+                        <ExpandLess/>
+                    </Button>
+                    <Button onClick = {this.Down} >
+                        <ExpandMore/>
+                    </Button>
+                </div>
             </div>
 
 

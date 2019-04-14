@@ -2,10 +2,10 @@
     width: 7vw;
     padding: 1vw;
     margin: 1vw;
-    margin-left: 2vw;
+
 }
 
-#resprint, #resrp, #reslist, #list, #retsp{
+#resprint, #resrp, #reslist, #list, #retsp, #grocery{
     width: 15vw;
     padding: 1vw;
     margin: 1vw;
@@ -13,8 +13,14 @@
 }
 
 
-#rightDrawer{
+#rightDrawer, #rightDrawer2{
     float: right;
     margin-top: 6vh;
     margin-right: 15vw;
 }
+
+#rightDrawer2{
+    margin-top: 11vh;
+}
+
+

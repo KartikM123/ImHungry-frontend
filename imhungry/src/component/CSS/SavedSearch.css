@@ -1,0 +1,19 @@
+#sstitle {
+    background-color: #ACA5BD;
+    color: white;
+    width: 75vw;
+    height: 10vh;
+    padding-top: 5vh;
+    margin-top: 0;
+    margin-left: 10vw;
+    padding-left: 5vw;
+}
+
+#searchList{
+    margin-left: 9vw;
+}
+
+#searchTable{
+    width: 75vw;
+    margin-left: 10vw;
+}

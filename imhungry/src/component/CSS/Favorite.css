@@ -5,18 +5,26 @@
     height:100vh;
 }
 
+#mvbuttons{
+    margin-left: 4vw;
+}
 
-
+#remove{ 
+    margin-left: 1vw;
+}
+#uprec, #upres{
+    margin-left: 10vw;
+}
 #list1title {
-    margin-left:10vw;
-    background-color:lightgray;
-    height:12vh;
-    padding-top:6vh;
-    padding-left:5vw;
-    width:80vw;
-    margin-top:5vh;
-
-    float:left;
+    color: #97a5cc;
+    margin-left: 10vw;
+    /* background-color: lightgray; */
+    /* height: 12vh; */
+    padding-top: 6vh;
+    /* padding-left: 5vw; */
+    width: 50vw;
+    margin-top: 5vh;
+    float: left;
 }
 
 .list1buttons {

@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 
-import './CSS/Grocery.css';
+import './CSS/SavedSearch.css';
 import Dropdown from './Dropdown';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router' 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
-import green from '@material-ui/core/colors/green';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import RightDrawerGrocery from './RightDrawerGrocery';
 
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
@@ -52,11 +50,11 @@ class SavedSearch extends React.Component {
         }
     }
     handleSearch(index) {
-      console.log(index);
-      console.log(this.state.searches[index].searchTerm);
-      console.log(this.state.searches[index].userId);
-      console.log(this.state.searches[index].amount);
-      console.log(this.state.searches[index].radius);
+      // console.log(index);
+      // console.log(this.state.searches[index].searchTerm);
+      // console.log(this.state.searches[index].userId);
+      // console.log(this.state.searches[index].amount);
+      // console.log(this.state.searches[index].radius);
       localStorage.setItem('query', this.state.searches[index].searchTerm);
       localStorage.setItem('id', this.state.searches[index].userId);
       localStorage.setItem('amount', this.state.searches[index].amount);
@@ -70,17 +68,31 @@ class SavedSearch extends React.Component {
         }
         return (
             <div className="Grocery">
-                <p>Saved searches:</p>
-                <List className={classes.root}>
+                <RightDrawerGrocery history={this.props.history} />
+                <h1 id="sstitle" >Search History</h1>
+                <Table className={classes.table} id="searchTable">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Date Searched</TableCell>
+                      <TableCell align="right">Search Term</TableCell>
+                      <TableCell align="right">Amount</TableCell>
+                      <TableCell align="right">Radius</TableCell>
+                    </TableRow>
+                  </TableHead>
+
+                  <TableBody>
                     {this.state.searches.map((value, index) => (
-                    <ListItem dense button={true} key={index} role={undefined} onClick={event => this.handleSearch(index)}>
-                        <ListItemText primary={'creation date: ' + `${this.state.searches[index].createdAt} `} />
-                        <ListItemText primary={'search term: ' + `${this.state.searches[index].searchTerm} `} />
-                        <ListItemText primary={'radius: ' + `${this.state.searches[index].radius} `} />
-                        <ListItemText primary={'amount: ' + `${this.state.searches[index].amount} `} />
-                    </ListItem>
+                      <TableRow button={true} key={index} role={undefined} onClick={event => this.handleSearch(index)}>
+                        <TableCell component="th" scope="row">
+                        {`${this.state.searches[index].createdAt}`}
+                        </TableCell>
+                        <TableCell align="right">{`${this.state.searches[index].searchTerm}`}</TableCell>
+                        <TableCell align="right">{`${this.state.searches[index].amount}`}</TableCell>
+                        <TableCell align="right">{`${this.state.searches[index].radius}`}</TableCell>
+                      </TableRow>
                     ))}
-                </List>
+                  </TableBody>
+                </Table>
             </div>
 
         );
