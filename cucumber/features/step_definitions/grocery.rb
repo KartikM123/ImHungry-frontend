@@ -40,7 +40,10 @@ Given("I am on the Grocery page") do
 end
 
 When("I delete the {string}") do |string|
-  find('span', text: string, match: :first).click
+  brownie = find_all('span', text: string)
+  brownie.each { |brown|
+    brown.click
+  }
   find('#delete').click
 end
 
