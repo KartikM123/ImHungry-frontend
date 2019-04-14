@@ -14,7 +14,7 @@ before_install:
  - rm chromedriver_linux64.zip
  - sudo mv -f chromedriver /usr/local/bin/
  - sudo chmod +x /usr/local/bin/chromedriver
- - google-chrome-stable --no-sandbox
+ - google-chrome-stable --headless --no-sandbox
  - export DISPLAY=:99.0
  - sh -e /etc/init.d/xvfb start
 
