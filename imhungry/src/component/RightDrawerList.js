@@ -31,13 +31,11 @@ class ResultDrawer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      left: false,
+      right: false,
       dropdownValue: 'blank',
   
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSave = this.handleSave.bind(this);
-
     this.handleDropdown = this.handleDropdown.bind(this);
     this.buttonManageList = this.buttonManageList.bind(this);
     this.returnSearch = this.returnSearch.bind(this);
@@ -50,6 +48,11 @@ class ResultDrawer extends React.Component {
     //history redirects it and is appended to URL (i'm guessing)
     this.props.history.push('/Search')
   }
+
+  returnResults() {
+    //history redirects it and is appended to URL (i'm guessing)
+    this.props.history.push('/Search')
+  }
   toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open
@@ -57,13 +60,42 @@ class ResultDrawer extends React.Component {
   };
 
   buttonManageList() {
-    var liststate = this.state.dropdownValue;
-    if (liststate != 'blank') {
-        localStorage.setItem("liststate", liststate);
-        this.props.history.push('/Favorite');
-    }
+    if (!(this.state.dropdownValue == 'blank')) {
+      //should just refresh the page
+      localStorage.setItem("liststate",this.state.dropdownValue);
+      this.props.history.push('/Favorite');
+      console.log("refreshed localstorage to ", this.state.dropdownValue);
+      this.remanageDropdown();
+      window.location.reload();
+  }
+
 
 }
+
+
+  remanageDropdown(){
+    let o1,o2;
+    if (this.state.dropdownValue == 'NoShow'){
+      o1="Favorite";
+      o2="ToExplore";
+
+    } else if (this.state.dropdownValue == 'ToExplore' || this.state.dropdownValue == 'Explore'){
+      o1="Favorite";
+      o2 ="NoShow";
+    } else{
+      o1="ToExplore";
+      o2="NoShow";
+    }
+
+    // this.setState({
+    //     opt1:o1,
+    //     opt2:o2,
+    //     list1drop:'blank'
+    // });
+    this.state.opt1 = o1;
+    this.state.opt2 = o2;
+    this.state.dropdownValue='blank';
+  }
 
   handleDropdown(event, value){
     this.setState({
@@ -73,10 +105,6 @@ class ResultDrawer extends React.Component {
 
   handleSignout(event){
     this.props.history.push('/SignIn');
-  }
-
-  handleSave(event){
-    this.props.history.push('/SavedSearch');
   }
 
   handleGrocery(event){
@@ -97,11 +125,10 @@ class ResultDrawer extends React.Component {
         {/* <List> */}
           <Dropdown handleDropdown = {this.handleDropdown}/>
           <Button id="list" variant="outlined" size="small" color="primary" onClick={this.buttonManageList}>Manage List</Button>
-          <Button id="retsp" variant="outlined" size="small" color="secondary" onClick={this.returnSearch}>Return to Search</Button>
-          <Button id="grocery"  onClick={this.handleGrocery} variant="outlined" size="small" color="primary">Grocery List</Button>
+          <Button id="retsp" variant="outlined" size="small" color="secondary" onClick={this.returnResults}>Return to Results</Button>
+          <Button id="grocery"  onClick={this.returnSearch} variant="outlined" size="small" color="primary">Return to Search</Button>
 
           <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
-          <Button id="saved"  onClick={this.handleSave} size="small" color="primary">Search History</Button>
 
         {/* </List> */}
 
@@ -113,10 +140,11 @@ class ResultDrawer extends React.Component {
       <MuiThemeProvider theme={theme}>
 
         <div>
-          <Button id="drawer" onClick={this.toggleDrawer("left", true)}><MenuIcon /></Button>
+          <Button id="rightDrawer2" onClick={this.toggleDrawer("right", true)}><MenuIcon /></Button>
           <Drawer
-            open={this.state.left}
-            onClose={this.toggleDrawer("left", false)}
+            anchor="right"
+            open={this.state.right}
+            onClose={this.toggleDrawer("right", false)}
           >
             
               {sideList}

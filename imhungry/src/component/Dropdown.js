@@ -54,9 +54,8 @@ class Dropdown extends Component {
                 <div >
                     <FormControl id="listdrop" variant="outlined" className={classes.formControl}>
 
-                       <Select
+                        <Select
                             id="resdrop"
-
                             value={this.state.resdrop}
                             onChange={this.handleChange}
                             inputProps={{
@@ -65,8 +64,6 @@ class Dropdown extends Component {
                             }}
 
                             input={
-                                
-
                                 <OutlinedInput
                                     labelWidth={this.state.labelWidth}
                                     name="age"
@@ -75,7 +72,7 @@ class Dropdown extends Component {
                             }
                         >
                         
-                            <MenuItem className={classes.menuItem} id="fav" value={"Favorite"}>Favorite</MenuItem>
+                            <MenuItem className={classes.menuItem} id="fav" value={"Favorite"}>Favorites</MenuItem>
                             <MenuItem className={classes.menuItem} id="toExplore" value={"Explore"}>To Explore</MenuItem>
                             <MenuItem className={classes.menuItem} id="noShow" value={"NoShow"}>Do Not Show</MenuItem>
                         </Select>
