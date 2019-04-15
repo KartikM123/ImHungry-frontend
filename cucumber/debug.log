@@ -206,8 +206,6 @@
 [0414/144708.458:ERROR:exception_snapshot_win.cc(98)] thread ID 12552 not found in process
 [0414/151639.791:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0414/151639.795:ERROR:exception_snapshot_win.cc(98)] thread ID 9100 not found in process
-<<<<<<< HEAD
-=======
 [0414/162637.484:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0414/162637.488:ERROR:exception_snapshot_win.cc(98)] thread ID 11564 not found in process
 [0414/163002.357:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
@@ -254,4 +252,3 @@
 [0414/213243.456:ERROR:exception_snapshot_win.cc(98)] thread ID 11296 not found in process
 [0414/221431.092:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0414/221431.093:ERROR:exception_snapshot_win.cc(98)] thread ID 8596 not found in process
->>>>>>> cucumber

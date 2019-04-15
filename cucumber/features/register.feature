@@ -11,14 +11,12 @@ Scenario: page design
 	And I should see a register button
 	And I should see a back-to-sign-in button
 
-Scenario Outline: try form with well formed inputs
-	When I register for <username> and <password> and <email>
+@test-shray
+Scenario: try form with well formed inputs
+	When I register a new, uncreated user
 	And I press Register
 	Then I should be on the Search Page
 
-	Examples:
-	| username | password | email |
-	| "ericdddddchoi" | "eric's password" | "ericdddddchoi@usc.edu" |
 	
 Scenario Outline: try form without a username
 	When I register for <username> and <password> and <email>

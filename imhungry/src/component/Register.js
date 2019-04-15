@@ -208,7 +208,7 @@ class Register extends Component {
           localStorage.setItem('username', json_obj.username);
           this.props.history.push('/Search')
           console.log(json_obj)
-        } else if (xhr.status === 500 || xhr.status === 404){
+        } else if (xhr.status === 500 || xhr.status === 404 || xhr.status == 409){
           this.setState({ open: true });
         } else {
           console.error(xhr.status);

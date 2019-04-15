@@ -20,11 +20,7 @@ Scenario Outline: try form with well formed inputs
 
 	Examples:
 	| food | numresults | radius |
-<<<<<<< HEAD
-	| "burger" | "2" | "10000" |
-=======
 	| "burger" | "5" | "10000" |
->>>>>>> cucumber
 
 Scenario Outline: try form without a food query
 	When I search for <numresults> in the number box
@@ -35,11 +31,6 @@ Scenario Outline: try form without a food query
 	
 	Examples:
 	| numresults | radius |
-<<<<<<< HEAD
-	| "3" | "10000" |
-	| "4" | "10000" |
-=======
->>>>>>> cucumber
 	| "5" | "10000" |
 
 Scenario Outline: try form with a fraction in number box

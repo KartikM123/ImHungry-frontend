@@ -31,11 +31,7 @@ Given(/^I am on the Restaurant page for restaurant "([^"]*)" from search "([^"]*
   fill_in 'query', :with => arg2
   fill_in 'radius', :with => 10000
   click_button("Feed Me!")
-<<<<<<< HEAD
-  find('div.recrow1', :text => arg1).click
-=======
   find('font', :text => arg1).click
->>>>>>> cucumber
 end
 
 
