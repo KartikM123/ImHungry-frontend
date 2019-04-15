@@ -24,7 +24,6 @@ install:
 
 before_script:
  - cd imhungry && npm start
- - touch abc.txt
 
 script: 
  - cd cucumber && bundle exec cucumber
