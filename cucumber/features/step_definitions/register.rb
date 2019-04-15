@@ -24,3 +24,11 @@ end
 Then("I should be on the Register Page") do
   expect(page).to have_current_path(/Register/)
 end
+
+When("I register a new, uncreated user") do
+  visit 'localhost:3000/Register'
+  name = Time.now.to_i.to_s
+  fill_in 'username', :with => name
+  fill_in 'password', :with => name
+  fill_in 'email', :with => name + "@" + name
+end

@@ -9,9 +9,8 @@ end
 When(/^I search for "([^"]*)" from the search page$/) do |arg1|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg1
-  fill_in 'amount', :with => 5
   fill_in 'radius', :with => 10000
-  find('#pik').click
+  find('#feedme').click
 
 end
 
@@ -20,6 +19,7 @@ When(/^I search for "([^"]*)"$/) do |arg1|
 end
 
 When(/^I search for "([^"]*)" in the number box$/) do |arg1|
+  fill_in 'amount', :with => ""
   fill_in 'amount', :with => arg1
 end
 
@@ -27,16 +27,8 @@ When(/^I search for "([^"]*)" in the radius box$/) do |arg1|
   fill_in 'radius', :with => arg1
 end
 
-When(/^I hover over the number field$/) do
-  find('#amount.numFood', :wait, ).hover
-end
-
 When(/^I press Submit$/) do
-  find('#pik').click
-end
-
-Then(/^I should see a tooltip$/) do
- assert_text("Number of items to show in results")
+  find('#feedme').click
 end
 
 Then(/^I should be on the Results Page for "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
@@ -48,11 +40,6 @@ Then(/^I should see the Search Page$/) do
   assert_text("I'm Hungry")
 end
 
-Then(/^I should see a white smoke background$/) do
- visit 'localhost:3000/Search'
- color = find('.Search').native.css_value('background-color')
- expect(color).to eq('rgba(245, 245, 245, 1)')
-end
 
 Then(/^I should see a I'm Hungry title$/) do
 #3em is 48px in Chrome

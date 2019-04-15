@@ -6,8 +6,7 @@ Background:
 
 Scenario Outline: General page design
 	Given I am on the Result page for a <food> with <numresult> results
-	Then I should see a white smoke background
-	And I should see the Manage List button
+	Then I should see the Manage List button
 	And I should see a Return To Search button
 	And I should see the Restaurant and Recipe titles
 	
@@ -55,7 +54,7 @@ Scenario Outline: Pagination functions for more than five results
 
 	Examples:
 	| food | numresult | perPage |
-	| "burger" | "2" | "2" |
+	| "burger" | "5" | "5" |
 
 Scenario Outline: Using Pagination buttons
 	Given I am on the Result page for a <food> with <numresult> results
@@ -65,7 +64,7 @@ Scenario Outline: Using Pagination buttons
 
 	Examples:
 	| food | numresult | perPage |
-	| "burger | "2" | "2" |
+	| "burger" | "5" | "5" |
 
 Scenario Outline: Restaurant information
 	Given I am on the Result page for a <food> with <numresult> results
@@ -76,7 +75,7 @@ Scenario Outline: Restaurant information
 
 	Examples:
 	| food | numresult |
-	| "burger" | "2" |
+	| "burger" | "5" |
 
 
 Scenario Outline: Recipe information
@@ -86,7 +85,7 @@ Scenario Outline: Recipe information
 
 	Examples:
 	| food | numresult |
-	| "burger" | "2" |
+	| "burger" | "5" |
 
 Scenario Outline: selecting a restaurant result
 	Given I am on the Result page for a <food> with <numresult> results
@@ -95,7 +94,7 @@ Scenario Outline: selecting a restaurant result
 
 	Examples:
 	| food | numresult | result |
-	| "burger" | "2" | "The Habit Burger Grill" |
+	| "burger" | "5" | "The Habit Burger Grill" |
 
 Scenario Outline: selecting a recipe result
 	Given I am on the Result page for a <food> with <numresult> results
@@ -104,7 +103,7 @@ Scenario Outline: selecting a recipe result
 
 	Examples:
 	| food | numresult | result |
-	| "burger" | "2" | "Halloumi aubergine burgers with harissa relish" |
+	| "burger" | "5" | "Halloumi aubergine burgers with harissa relish" |
 
 
 Scenario Outline: selecting Manage List with nothing chosen
@@ -115,7 +114,7 @@ Scenario Outline: selecting Manage List with nothing chosen
 	
 	Examples:
 	| food | numresult |
-	| "burger" | "2" |
+	| "burger" | "5" |
 
 Scenario Outline: Selecting Back to Search
 	Given I am on the Result page for a <food> with <numresult> results

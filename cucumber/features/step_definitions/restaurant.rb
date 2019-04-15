@@ -7,7 +7,7 @@ Then(/^I should see the Printable Version button$/) do
 end
       
 Then(/^I should see the Back to Results button$/) do
-	expect(page.has_button?('Return to Results Page'))
+	expect(page.has_button?('Return to Results'))
 end
 
 Then(/^I should see the Add to List button$/) do
@@ -31,7 +31,7 @@ Given(/^I am on the Restaurant page for restaurant "([^"]*)" from search "([^"]*
   fill_in 'query', :with => arg2
   fill_in 'radius', :with => 10000
   click_button("Feed Me!")
-  find('div.recrow1', :text => arg1).click
+  find('font', :text => arg1).click
 end
 
 
@@ -43,9 +43,6 @@ Then(/^I should see address$/) do
 	expect(page).to have_css('a.address')
 end
 
-Then(/^I should see phone number$/) do
-	expect(page).to have_css('.phoneNumber')
-end
 
 Then(/^I should see the link "([^"]*)" to google maps$/) do |arg1|
 	expect(page.find('a.address')[:href]).to include(arg1)
@@ -60,11 +57,16 @@ Then(/^I should remain on the Restaurant Page$/) do
 end
 
 When(/^I select the Add to List button$/) do
-	click_on('Add to List')
+	find('#reslist', text: 'Add to List', visible:false).click
 end
 
 Then(/^I select the Back to Results button$/) do
-	click_on('Return to Results Page')
+	begin
+		open_drawer
+	rescue StandardError
+	end
+	find('#resrp', text:'Return to Results', visible:false).click
+
 end
 
 Then(/^I should see the Results Page for "([^"]*)"$/) do |arg1|

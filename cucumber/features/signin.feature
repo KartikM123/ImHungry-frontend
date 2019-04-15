@@ -15,8 +15,7 @@ Scenario Outline: press register button
 	Then I should be on the Register Page
 
 Scenario Outline: try form with well formed inputs
-	When I search for <username> and <password>
-	And I press Sign In
+	Given I am on a unique signin
 	Then I should be on the Search Page
 
 	Examples:

@@ -22,8 +22,10 @@ end
 
 
 When(/^I click on the dropdown$/) do
-  find('select').click()
+  open_drawer
+  find('#listdrop', visible: false).click
 end
+
 Then(/^I should see different lists, not including current list$/) do
   find_by_id("rightDrawer2").click()
   page.within("#newlists") do

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-import './App.css';
-
 import Search from "./component/Search";
 import Result from "./component/Result";
 import Restaurant from "./component/Restaurant";
