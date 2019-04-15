@@ -22,10 +22,6 @@ Then(/^I should see the instructions title$/) do
 	assert_text('Instructions:')
 end
 
-Then(/^I should see a white smoke background for the "([^"]*)" page$/) do |arg1|
- color = find('.'+arg1).native.css_value('background-color')
- expect(color).to eq('rgba(245, 245, 245, 1)')
-end
 
 Given(/^I am on the Recipe page for recipe "([^"]*)" from search "([^"]*)" with count "([^"]*)"$/) do |arg1, arg2, arg3|
   visit 'localhost:3000/Search'

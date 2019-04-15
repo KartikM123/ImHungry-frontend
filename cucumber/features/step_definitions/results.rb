@@ -1,28 +1,28 @@
 Given(/^I am on the Results Page of the I'm Hungry website$/) do
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 5
   fill_in 'radius', :with => 10000
-  find('#pik').click
+  find('#feedme').click
 end
 
 Then(/^I should see the Restaurant and Recipe titles$/) do
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 5
   fill_in 'radius', :with => 10000
-  find('#pik').click
+  find('#feedme').click
   fontsize1 = find_by_id('reshead').native.css_value('font-size')
   fontsize2 = find_by_id('rechead').native.css_value('font-size')
   assert_text('Restaurant') and assert_text('Recipe') and expect(fontsize1).to eq(fontsize2) and expect(fontsize1).to be >('20px')
 end
 
 Then(/^I should see a blank dropdown as default$/) do
-  expect(page.find_by_id('resdrop').value =='')
+  open_drawer
+  expect(page.find_by_id('listdrop').value =='')
 end
 
 When(/^I select on the dropdown$/) do
-  find_by_id('resdrop').click()
+  open_drawer
+  find_by_id('listdrop').click()
 
 end
 
@@ -33,19 +33,17 @@ end
 Given(/^I am on the Result page for a "([^"]*)" with "([^"]*)" results$/) do |arg1, arg2|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 5
   fill_in 'radius', :with => 10000
-  find('#pik').click
+  find('#feedme').click
 end 
 
 Then(/^I should see "([^"]*)" items for recipe and restaurants$/) do |arg1|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'amount', :with => 2
-  fill_in 'radius', :with => 5000
+  fill_in 'radius', :with => 10000
 
-  find('#pik').click
-  expect(page).to have_css('.recrow1', count: 2) 
+  find('#feedme').click
+  expect(page).to have_css('.row4', count: 2) 
 end
 
 Then(/^I should see "([^"]*)" restaurant names$/) do |arg1|
@@ -74,11 +72,11 @@ end
 
 When(/^I select the restaurant "([^"]*)" result$/) do |arg2|
 
-  find('font.restaurantname', text: arg2, match: :prefer_exact).click
+  find('font.restaurantname', text: arg2).click
 end
 
 When(/^I select the recipe "([^"]*)" result$/) do |arg2|
-  page.find('font.recipename', text: arg2, match: :prefer_exact).click
+  page.find('font.recipename', text: arg2).click
 end
 
 Then(/^I should see the Result Page the restaurant "([^"]*)" result$/) do |arg2|
@@ -91,12 +89,11 @@ Then(/^I should see the Result Page for the recipe "([^"]*)" result$/) do |arg2|
 end
 
 When(/^the dropdown is blank$/) do
- select('', from: 'resdrop')
-
+  open_drawer
 end
 
 When(/^I select the Manage List button$/) do
-  find('button#list').click
+  find('#list').click
 end
 
 Then(/^I remain on the Results Page$/) do
@@ -104,7 +101,11 @@ Then(/^I remain on the Results Page$/) do
 end
 
 When(/^I select "([^"]*)" in the dropdown$/) do |arg1|
-  select(arg1, from: 'resdrop')
+
+  open_drawer
+  find('#listdrop', visible: false).click
+  find('li', text:arg1, visible:false).click
+
 end
 
 Then(/^I should be on the Manage List Page for "([^"]*)"$/) do |arg1|
@@ -112,7 +113,8 @@ Then(/^I should be on the Manage List Page for "([^"]*)"$/) do |arg1|
 end
 
 When(/^I click on Return to Search Page$/) do
-  click_on('Return to Search Page')
+  open_drawer
+  click_on('Return to Search')
 end
 
 Then(/^I should be on the Search Page$/) do
@@ -147,4 +149,12 @@ Given("I am on the Result page for a {string}{int} results") do |string, int|
   fill_in 'query', :with => 'burger'
   fill_in 'radius', :with => 10000
   click_button("Feed Me!")
+end
+
+def open_drawer
+  begin
+    find('#drawer').click
+  rescue Capybara::ElementNotFound
+    find('#rightDrawer').click
+  end
 end
