@@ -24,7 +24,7 @@ install:
 
 before_script:
  - cd imhungry && npm start
- - sleep 20s
+ - touch abc.txt
 
 script: 
  - cd cucumber && bundle exec cucumber
