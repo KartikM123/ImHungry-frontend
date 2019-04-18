@@ -11,7 +11,7 @@ Breakdown of all tasks (visible on Asana):
 	- Sliding window pagination (Frontend)
 4. View results of prior searches by clicking on a quick access list that shows prior search
 terms.
-	- Frontend scrolling [horizntally] (Frontend)
+	- Frontend scrolling [horizontally] (Frontend)
 	- New appearance:
 		- Horizontal scroll (Frontend)
 		- each tile should be represented by mini collage (Frontend)
