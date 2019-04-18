@@ -1,0 +1,32 @@
+Meeting on 4/17/18 | 5-6pm | Team members present: Shray, Kartik, Katrina, Eric, Caleb | Location: Ilium
+
+Breakdown of all tasks (visible on Asana):
+
+2. Maintain information beyond just a single session
+	- Integrate lists into database (Backend)
+	- manage cookies between front-end and backend (both)
+3. Allow for pagination of results returned by the search.
+	- White Box tests (Frontend)
+	- Larger cucumber test [30 results] (FrontEnd)
+	- Sliding window pagination (Frontend)
+4. View results of prior searches by clicking on a quick access list that shows prior search
+terms.
+	- Frontend scrolling [horizntally] (Frontend)
+	- New appearance:
+		- Horizontal scroll (Frontend)
+		- each tile should be represented by mini collage (Frontend)
+		- On click, move to front (Frontend)
+5. User interfaces must look modern and be attractive
+	- change cursor (Frontend)
+	- resizable columns (Frontend)
+6. Keep track of a grocery list for selected recipes
+	- Get grocery list from all pages (Frontend)
+	- Each Item should be checkable:
+		(1) Frontend
+		(2) Backend
+	- Duplicate items merge by unit (Backend)
+8. Set the radius of the restaurant search
+	- Different cucumber radius tests (Front-End)
+	- JUNIT radius tests
+	- Radius convert to miles (Back-End)
+	- Empty radius causes error (Front-End)
