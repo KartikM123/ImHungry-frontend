@@ -33,9 +33,9 @@ class Result extends Component {
         //CHANGE THIS LET TO CONNECT TO ENDPOINTS
         let test = false;
 
-        const recipeLink = official_link +"/recipe?name="+  localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') +"&radius="+localStorage.getItem('radius');   
+        const recipeLink = official_link +"/recipe?name="+  localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') +"&radius="+localStorage.getItem('radius')+"&userid=" + localStorage.getItem("id");   
         console.log(recipeLink);
-        const restLink = official_link+ "/restaurant?name="+ localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') +"&radius="+localStorage.getItem('radius');
+        const restLink = official_link+ "/restaurant?name="+ localStorage.getItem('query') + "&amount=" + localStorage.getItem('amount') +"&radius="+localStorage.getItem('radius')+"&userid=" + localStorage.getItem("id");
         const collageLink = official_link + "/collage?searchTerm="+localStorage.getItem('query');
         console.log(recipeLink);
         console.log(restLink);
@@ -123,11 +123,13 @@ class Result extends Component {
         console.log(JSON.parse(this.loadData(this.state.collageLink)));
         let images = JSON.parse(this.loadData(this.state.collageLink));
         for (var i = this.state.indOnPage[0]; i < this.state.indOnPage[1]; i++) {
-
             recrows.push(<RecipeRow recdata={this.state.recdata} counter={i} history={this.props.history} />)
             resrows.push(<RestaurantRow resdata={this.state.resdata} counter={i} history={this.props.history} />)
+            
         }
-
+        if (resrows.length == 0){
+            resrows = ["EMPTY"]
+        }
         return (
             <div className="Result">
                 <div id="rstheader">
@@ -142,12 +144,12 @@ class Result extends Component {
 
                     </div>
                 </div>
-                <div className="col1">
+                <div className="col1"  style={{width:"40%", margin:"2.5%"}}>
                     <h2 id="reshead">Restaurants</h2>
                     {resrows}
 
                 </div>
-                <div className= "col2">
+                <div className= "col2" style={{width:"40%", margin:"2.5%"}}>
                     <h2 id="rechead">Recipes</h2>
                     {recrows}
                 </div>
@@ -158,8 +160,8 @@ class Result extends Component {
                     breakLabel={'...'}
                     breakClassName={'break-me'}
                     pageCount={this.state.pageCount}
-                    marginPagesDisplayed={5}
-                    pageRangeDisplayed={5}
+                    marginPagesDisplayed={0}
+                    pageRangeDisplayed={4}
                     onPageChange={this.handlePageClick}
                     containerClassName={'pagination'}
                     subContainerClassName={'pages pagination'}
@@ -184,39 +186,50 @@ class RestaurantRow extends Component {
 
 
     render() {
-        const array = this.props.resdata[this.props.counter];
         let row;
         let price;
+        if (this.props.resdata.length > this.props.counter){
+            const array = this.props.resdata[this.props.counter];
+            if (array.priceRating === "EXPENSIVE") {
+                price = "$$$";
+            }
+            else if (array.priceRating === "MODERATE") {
+                price = "$$";
+            }
+            else if (array.priceRating === "INEXPENSIVE") {
+                price = "$";
+            }
+            else {
+                price = "";
+            }
 
-        if (array.priceRating === "EXPENSIVE") {
-            price = "$$$";
-        }
-        else if (array.priceRating === "MODERATE") {
-            price = "$$";
-        }
-        else if (array.priceRating === "INEXPENSIVE") {
-            price = "$";
-        }
-        else {
-            price = "";
-        }
-
-    
-        row = <div className={"row"+this.props.counter%5} id={array.id} onClick={this.toResPage}>
-            <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
-            <font id="star"> {array.rating} </font>
-            <font className="restaurantname">{array.name}</font>
-            <br></br>
-            <small className="distance">Distance: {array.distance}</small>
-            <br></br>
-            <small className="address">Address: {array.address}</small>
-            
-            <small id="price">Price: {price}</small>
-
-        </div>
-
-    
         
+            row = <div className={"row"+this.props.counter%5} id={array.id} onClick={this.toResPage} style={{width:"100%"}}> 
+                <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
+                <font id="star"> {array.rating} </font>
+                <font className="restaurantname">{array.name}</font>
+                <br></br>
+                <small className="distance">Distance: {array.distance}</small>
+                <br></br>
+                <small className="address">Address: {array.address}</small>
+                
+                <small id="price">Price: {price}</small>
+
+            </div>
+
+    
+        } else {
+            if (this.props.counter%5==0){
+            row = <div className="rowbad"  style={{width:"100%"}}>
+                <font className="restaurantname" > No search results exists</font>
+
+            </div>
+            } else{
+             row = <div style={{height:'0vh', width:'0vh'}}>
+
+                </div>
+            }
+        }
         return row;
     }
 }
@@ -233,11 +246,11 @@ class RecipeRow extends Component {
     }
 
     render() {
-        const array = this.props.recdata[this.props.counter];
         let row;
-        
+        if (this.props.recdata.length > this.props.counter ){        
+        const array = this.props.recdata[this.props.counter];
  
-        row = <div className={"row"+this.props.counter%5}  id={array.id} onClick={this.toRecPage}>
+        row = <div className={"row"+this.props.counter%5}  id={array.id} onClick={this.toRecPage} style={{width:"100%"}}>
             <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt ="str" id="starimg"></img>
             <font id="star"> {array.id % 5} </font>
             <font className="recipename">{array.title}</font>
@@ -247,7 +260,18 @@ class RecipeRow extends Component {
             <small className="cooktime">Cook Time: {array.cookTime} min</small>
         </div>
 
+        }else {
+            if (this.props.counter%5==0){
+            row = <div className="rowbad" style={{width:"100%"}} >
+                <font className="restaurantname"> No search results exists</font>
 
+            </div>
+            } else{
+            row = <div style={{height:'0vh', width:'0vh'}}>
+
+                </div>
+            }
+        }
         return row;
     }
 }

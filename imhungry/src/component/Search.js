@@ -139,8 +139,24 @@ class Search extends Component {
 
                     
             </div>
+            {/* <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={this.handleClose}
+          >
+          <MySnackbarContentWrapper
+          onClose={this.handleClose}
+          variant="error"
+          className={classes.margin}
+          message="Username and/or password is wrong!"
+          />
+          </Snackbar>  */}
             </MuiThemeProvider>
-
+            
             
         );
     }

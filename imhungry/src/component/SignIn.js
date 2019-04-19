@@ -279,7 +279,7 @@ class SignIn extends Component {
           className={classes.margin}
           message="Username and/or password is wrong!"
           />
-          </Snackbar>
+          </Snackbar> 
         </Paper>
       </main>
       </MuiThemeProvider>
