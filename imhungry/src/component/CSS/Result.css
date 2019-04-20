@@ -39,6 +39,9 @@ li {
     text-align: center;   
 }
 
+.pagination{
+    cursor: default;
+}
 #rstheader {
     text-align: center;
 }
@@ -80,9 +83,14 @@ li {
 }
 
 .col1{
-    margin-left:10vw;
+    margin-left:7vw;
     margin-bottom:10vh;
     float:left;
+    width: 43vw;
+}
+
+.norest{
+    text-align: center;
 }
 
 .col1 #reshead {
@@ -93,6 +101,7 @@ li {
    margin-left:1vw;
    margin-bottom:10vh;
    float:left;
+   width: 43vw;
 }
 
 .col2 #rechead {
@@ -102,10 +111,11 @@ li {
 .row0,.row1, .row2, .row3, .row4 {
     height:15vh;
     margin-bottom: 8px;
-    max-width: 80vh;
+    width: 40vw;
     padding: 2vh;
     padding-left: 3vh;
     color: white;
+    cursor: pointer;
 }
 
 .row0{

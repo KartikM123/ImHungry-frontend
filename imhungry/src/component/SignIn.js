@@ -8,7 +8,6 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/Lock';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 //all snackbar dependencies
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -111,6 +110,9 @@ MySnackbarContent.propTypes = {
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
 //back to regular stuff
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {main:"#CCA6A7", light: "#CCA6A7"},
     secondary: {main:"#A0A5C6", light: "#A0A5C6"},
@@ -238,9 +240,9 @@ class SignIn extends Component {
           <Avatar className={classes.avatar}>
             <LockIcon/>
           </Avatar>
-          <Typography id="signin" component="h1" variant="h5">
+          <h1 id="signin" component="h1" variant="h5">
             Sign in
-          </Typography>
+          </h1>
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">Username</InputLabel>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './CSS/SavedSearch.css';
-import Dropdown from './Dropdown';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router' 
@@ -11,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import RightDrawerGrocery from './RightDrawerGrocery';
+import SearchHistoryCard from './SearchHistoryCard';
 
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
@@ -50,11 +50,6 @@ class SavedSearch extends React.Component {
         }
     }
     handleSearch(index) {
-      // console.log(index);
-      // console.log(this.state.searches[index].searchTerm);
-      // console.log(this.state.searches[index].userId);
-      // console.log(this.state.searches[index].amount);
-      // console.log(this.state.searches[index].radius);
       localStorage.setItem('query', this.state.searches[index].searchTerm);
       localStorage.setItem('id', this.state.searches[index].userId);
       localStorage.setItem('amount', this.state.searches[index].amount);
@@ -62,37 +57,14 @@ class SavedSearch extends React.Component {
       this.props.history.push('/Result');
     }
     render() {
-        const {classes} = this.props
         if (localStorage.getItem('id') == -1){
             this.props.history.push('/SignIn');
         }
         return (
-            <div className="Grocery">
-                <RightDrawerGrocery history={this.props.history} />
-                <h1 id="sstitle" >Search History</h1>
-                <Table className={classes.table} id="searchTable">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Date Searched</TableCell>
-                      <TableCell align="right">Search Term</TableCell>
-                      <TableCell align="right">Amount</TableCell>
-                      <TableCell align="right">Radius</TableCell>
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    {this.state.searches.map((value, index) => (
-                      <TableRow button={true} key={index} role={undefined} onClick={event => this.handleSearch(index)}>
-                        <TableCell component="th" scope="row">
-                        {`${this.state.searches[index].createdAt}`}
-                        </TableCell>
-                        <TableCell align="right">{`${this.state.searches[index].searchTerm}`}</TableCell>
-                        <TableCell align="right">{`${this.state.searches[index].amount}`}</TableCell>
-                        <TableCell align="right">{`${this.state.searches[index].radius}`}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+            <div className="ssearch">
+                {this.state.searches.map((value, index) => (
+                  <SearchHistoryCard index={index} searchTerm={this.state.searches[index].searchTerm}/>
+                ))}
             </div>
 
         );
