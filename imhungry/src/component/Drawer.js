@@ -12,6 +12,9 @@ import {MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {main:"#CCA6A7", light: "#CCA6A7"},
     secondary: {main:"#A0A5C6", light: "#A0A5C6"},
@@ -20,7 +23,7 @@ const theme = createMuiTheme({
 
 const styles = {
   list: {
-    width: 250
+    width: "20vw"
   },
   fullList: {
     width: "auto"
@@ -101,8 +104,6 @@ class ResultDrawer extends React.Component {
           <Button id="grocery"  onClick={this.handleGrocery} variant="outlined" size="small" color="primary">Grocery List</Button>
 
           <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
-          <Button id="saved"  onClick={this.handleSave} size="small" color="primary">Search History</Button>
-
         {/* </List> */}
 
       </div>
@@ -115,6 +116,8 @@ class ResultDrawer extends React.Component {
         <div>
           <Button id="drawer" onClick={this.toggleDrawer("left", true)}><MenuIcon /></Button>
           <Drawer
+            className="resDrawer"
+            width="50%"
             open={this.state.left}
             onClose={this.toggleDrawer("left", false)}
           >

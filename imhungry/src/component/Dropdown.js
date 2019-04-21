@@ -9,6 +9,9 @@ import './CSS/Dropdown.css';
 
 
 const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+      },
   palette: {
     primary: {main:"#C5796D", light: "#C5796D", dark: "#C5796D"},
   },
@@ -17,7 +20,7 @@ const theme = createMuiTheme({
 
 const styles = theme => ({
     formControl: {
-      minWidth: 160,
+      width: "15vw",
     },
 
 
@@ -33,7 +36,7 @@ class Dropdown extends Component {
         super(props);
         this.state = {
             resdrop: 'blank',
-            labelWidth:'30px'
+            labelWidth:0
         };
         this.handleChange = this.handleChange.bind(this);
 

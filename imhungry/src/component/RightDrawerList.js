@@ -12,6 +12,9 @@ import {MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {main:"#CCA6A7", light: "#CCA6A7"},
     secondary: {main:"#A0A5C6", light: "#A0A5C6"},
@@ -20,7 +23,7 @@ const theme = createMuiTheme({
 
 const styles = {
   list: {
-    width: 250
+    width: "20vw"
   },
   fullList: {
     width: "auto"
@@ -36,9 +39,11 @@ class ResultDrawer extends React.Component {
   
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleGrocery = this.handleGrocery.bind(this);
     this.handleDropdown = this.handleDropdown.bind(this);
     this.buttonManageList = this.buttonManageList.bind(this);
     this.returnSearch = this.returnSearch.bind(this);
+    this.returnResults = this.returnResults.bind(this);
     this.handleSignout = this.handleSignout.bind(this);
     this.handleGrocery = this.handleGrocery.bind(this);
 
@@ -51,7 +56,7 @@ class ResultDrawer extends React.Component {
 
   returnResults() {
     //history redirects it and is appended to URL (i'm guessing)
-    this.props.history.push('/Search')
+    this.props.history.push('/Results')
   }
   toggleDrawer = (side, open) => () => {
     this.setState({
@@ -126,7 +131,8 @@ class ResultDrawer extends React.Component {
           <Dropdown handleDropdown = {this.handleDropdown}/>
           <Button id="list" variant="outlined" size="small" color="primary" onClick={this.buttonManageList}>Manage List</Button>
           <Button id="retsp" variant="outlined" size="small" color="secondary" onClick={this.returnResults}>Return to Results</Button>
-          <Button id="grocery"  onClick={this.returnSearch} variant="outlined" size="small" color="primary">Return to Search</Button>
+          <Button id="retsp"  onClick={this.returnSearch} variant="outlined" size="small" color="primary">Return to Search</Button>
+          <Button id="grocery"  onClick={this.handleGrocery} variant="outlined" size="small" color="secondary">Grocery List</Button>
 
           <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
 

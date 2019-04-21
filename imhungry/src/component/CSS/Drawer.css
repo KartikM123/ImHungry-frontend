@@ -1,3 +1,6 @@
+.resDrawer{
+    width: 20vw;
+}
 #signout{
     width: 7vw;
     padding: 1vw;
@@ -5,7 +8,7 @@
 
 }
 
-#resprint, #resrp, #reslist, #list, #retsp, #grocery{
+#resprint, #resrp, #reslist, #list, #retsp, #grocery, #signout{
     width: 15vw;
     padding: 1vw;
     margin: 1vw;

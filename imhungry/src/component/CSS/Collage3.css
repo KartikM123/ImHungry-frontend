@@ -1,7 +1,7 @@
 .gallery {
     display: grid;
     min-width: 300px;
-    width: 99vw;
+    width: 98.5vw;
     height: 45vh;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(6, 4vw);

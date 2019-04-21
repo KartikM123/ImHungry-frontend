@@ -9,7 +9,7 @@ class Collage3 extends React.Component {
         let images = this.props.images;
 
         return(
-            <div class="gallery">
+            <div className="gallery">
                 {images.map(function(url, index){
                     return (
                     <figure className={"gallery__item gallery__item--"+index} key={index}>

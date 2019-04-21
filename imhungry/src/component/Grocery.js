@@ -8,16 +8,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
-//all snackbar dependencies
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
-import amber from '@material-ui/core/colors/amber';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import WarningIcon from '@material-ui/icons/Warning';
+
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import RightDrawerGrocery from './RightDrawerGrocery'
@@ -40,13 +34,6 @@ if (link_value === 1){
 //All the snackbar components will go below
 
 
-const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
-};
-
 
 
 const styles1 = theme => ({
@@ -59,9 +46,7 @@ const styles1 = theme => ({
   info: {
     backgroundColor: theme.palette.primary.dark,
   },
-  warning: {
-    backgroundColor: amber[700],
-  },
+
   icon: {
     fontSize: 20,
   },
@@ -75,42 +60,7 @@ const styles1 = theme => ({
   },
 });
 
-function MySnackbarContent(props) {
-  const { handle, classes, className, message, onClose, variant, ...other } = props;
-  const Icon = variantIcon[variant];
 
-  return (
-    <SnackbarContent
-      className={classNames(classes[variant], className)}
-      aria-describedby="client-snackbar"
-      message={
-        <span id="client-snackbar" className={classes.message}>
-          <Icon className={classNames(classes.icon, classes.iconVariant)} />
-          {message}
-        </span>
-      } //change this later
-      action={[
-        <Button onClick = {handle} color="default" aria-label="Add" className={classes.fab}>
-            <DeleteForeverOutlinedIcon id="delete"/>
-        </Button>,
-      ]}
-      {...other}
-    />
-  );
-}
-
-MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  message: PropTypes.node,
-  onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-};
-
-const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
-
-//end snackbar component 
-//This variable holds all of the toggled restaurant items
 let newChecked = [];
 class Grocery extends Component {
     constructor(props) {
@@ -133,6 +83,11 @@ class Grocery extends Component {
         }
         this.loadData = this.loadData.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.onClose = this.onClose.bind(this);
+    }
+
+    onClose(){
+
     }
     loadData(url) {
         const Http = new XMLHttpRequest();
@@ -168,19 +123,19 @@ class Grocery extends Component {
             });
         }
     };
-    handleDelete() {
+    handleDelete= (index, id) => () => {
 
         console.log('REACHED');
-        for (var i in this.state.checked) {
-            var xhr = new XMLHttpRequest();
-            var url = official_link + 'grocery/deleteItem?userid=' + localStorage.getItem('id') + '&ingredientid=' + this.state.checked[i];
-            console.log(url);
-            xhr.open("DELETE", url, false);
-            xhr.send();
-            if (xhr.status === 200){
-                console.log("YEAHHHH");
-            }
+
+        var xhr = new XMLHttpRequest();
+        var url = official_link + 'grocery/deleteItem?userid=' + localStorage.getItem('id') + '&ingredientid=' + id;
+        console.log(url);
+        xhr.open("DELETE", url, false);
+        xhr.send();
+        if (xhr.status === 200){
+            console.log("YEAHHHH");
         }
+        
         window.location.reload();
     }
     render() {
@@ -195,32 +150,28 @@ class Grocery extends Component {
 
                     <List id="groceryList" className={classes.root}>
                     {this.state.ingredients_Id.map((value, index) => (
-                    <ListItem key={this.state.data[index].id} role={undefined} dense button onClick={this.handleToggle(index, this.state.data[index].id)}>
+                    <ListItem key={index} role={undefined} dense>
 
                         <Checkbox
                           color="primary"
                           checked={this.state.checked.indexOf(this.state.data[index].id) !== -1}
                           tabIndex={-1}
-                          disableRipple
+                          onClick={this.handleToggle(index, this.state.data[index].id)}
                         />
                         <ListItemText primary={`${this.state.data[index].ingredientValue}`} />
-                        </ListItem>
+                        <IconButton
+                          key="close"
+                          aria-label="Close"
+                          color="inherit"
+                          onClick={this.handleDelete(index, this.state.data[index].id)}
+                        >
+                          <CloseIcon/>
+                        </IconButton>
+                      </ListItem>
+
                         ))}
                     </List>
-                    <Snackbar
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                      }}
-                      open={this.state.open}
-                      >
-                      <MySnackbarContentWrapper
-                      handle={this.handleDelete}
-                      variant="error"
-                      className={classes.margin}
-                      message="Delete items"
-                      />
-                    </Snackbar>
+                    
             </div>
 
         );

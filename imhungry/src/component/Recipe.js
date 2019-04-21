@@ -230,7 +230,7 @@ class Recipe extends Component {
         let instructrows = [];
         for (var i = 0; i < instructs.length; i++)
         {
-            instructrows.push(<p>{i+1}. {instructs[i]}</p>)
+            instructrows.push(<p key={i}>{i+1}. {instructs[i]}</p>)
         }
 
         return (
@@ -255,8 +255,8 @@ class Recipe extends Component {
 
                     <p>Ingredients:</p>
                     <List className={classes.root} id="ing">
-                      {this.state.data.ingredients.map(value => (
-                      <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+                      {this.state.data.ingredients.map((value, index) => (
+                      <ListItem key={index} role={undefined} dense button onClick={this.handleToggle(value)}>
                           <Checkbox
                             color="primary"
                             checked={this.state.checked.indexOf(value) !== -1}
@@ -269,9 +269,9 @@ class Recipe extends Component {
                     </List>
                     <br></br>
                     <p >Instructions:</p>
-                    <p id="rcpinstruct">
+                    <div id="rcpinstruct">
                         {instructrows}
-                    </p>
+                    </div>
                 </div>
                 <Snackbar
                   anchorOrigin={{

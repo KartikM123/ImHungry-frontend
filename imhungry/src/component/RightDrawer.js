@@ -12,6 +12,9 @@ import { withRouter } from 'react-router-dom';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {main:"#CCA6A7", light: "#CCA6A7"},
     secondary: {main:"#A0A5C6", light: "#A0A5C6"},
@@ -20,7 +23,7 @@ const theme = createMuiTheme({
 
 const styles = {
   list: {
-    width: 250
+    width: "20vw"
   },
   fullList: {
     width: "auto"
@@ -39,6 +42,7 @@ class RightDrawer extends React.Component {
   
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleGrocery = this.handleGrocery.bind(this);
     this.returnToResult = this.returnToResult.bind(this);
     this.handleDropdown = this.handleDropdown.bind(this);
     this.buttonManageList = this.buttonManageList.bind(this);
@@ -82,6 +86,9 @@ class RightDrawer extends React.Component {
     });
   }
 
+  handleGrocery(event){
+    this.props.history.push('/Grocery');
+  }
   handleSignout(event){
     this.props.history.push('/SignIn');
   }
@@ -137,7 +144,9 @@ class RightDrawer extends React.Component {
         <Button  id="resprint" onClick={this.print} variant="outlined" size="small" color="secondary" >Printable Version</Button>
         <Button id="resrp" onClick={this.returnToResult} variant="outlined" size="small" color="primary">Return to Results</Button>
         <Dropdown handleDropdown = {this.handleDropdown}/>
-        <Button id="reslist" onClick={this.addToList} variant="outlined" size="small" color="secondary">Add to List</Button>     
+        <Button id="reslist" onClick={this.addToList} variant="outlined" size="small" color="secondary">Add to List</Button> 
+        <Button id="grocery"  onClick={this.handleGrocery} variant="outlined" size="small" color="primary">Grocery List</Button>
+    
         <Button id="signout"  onClick={this.handleSignout} size="small" color="primary">Sign Out</Button>
       </div>
     );

@@ -12,6 +12,9 @@ import { withRouter } from 'react-router-dom';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {main:"#CCA6A7", light: "#CCA6A7"},
     secondary: {main:"#A0A5C6", light: "#A0A5C6"},
@@ -20,7 +23,7 @@ const theme = createMuiTheme({
 
 const styles = {
   list: {
-    width: 250
+    width: "20vw"
   },
   fullList: {
     width: "auto"
@@ -67,6 +70,7 @@ class RightDrawerGrocery extends React.Component {
   handleSignout(event){
     this.props.history.push('/SignIn');
   }
+
   handleChange(event) {
       this.setState({
           [event.target.name]: event.target.value

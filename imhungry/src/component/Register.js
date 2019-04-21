@@ -8,7 +8,6 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import DvrOutlinedIcon from '@material-ui/icons/DvrOutlined';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 //all snackbar dependencies
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -107,6 +106,9 @@ MySnackbarContent.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 };
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {main:"#CCA6A7", light: "#CCA6A7"},
     secondary: {main:"#A0A5C6", light: "#A0A5C6"},
@@ -234,9 +236,9 @@ class Register extends Component {
           <Avatar className={classes.avatar}>
             <DvrOutlinedIcon />
           </Avatar>
-          <Typography id="signin" component="h1" variant="h5">
+          <h1 id="signin" component="h1" variant="h5">
             Registration
-          </Typography>
+          </h1>
           <form className={classes.form} onSubmit = {this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email</InputLabel>
