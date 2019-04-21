@@ -9,7 +9,7 @@ end
 When(/^I search for "([^"]*)" from the search page$/) do |arg1|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg1
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
 
 end

@@ -26,7 +26,7 @@ end
 Given(/^I am on the Recipe page for recipe "([^"]*)" from search "([^"]*)" with count "([^"]*)"$/) do |arg1, arg2, arg3|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => arg2
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
   find('font', text: arg1, exact: true).click
 end

@@ -123,7 +123,7 @@ end
 Given(/^I search for Burger$/) do
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   click_button("Feed Me!")
   expect(page).to have_current_path(/Result/)
 end

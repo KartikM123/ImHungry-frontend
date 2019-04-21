@@ -1,6 +1,6 @@
 Given("I am on the Recipe page for recipe {string} from search {string} with count {string} logged in") do |string, string2, string3|
   fill_in 'query', :with => string2
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
   find('font', text: string, exact: true).click
 end
@@ -24,7 +24,7 @@ end
 
 When("I add the {string} from the Recipe page") do |string|
     fill_in 'query', :with => 'burger'
-    fill_in 'radius', :with => 10000
+    fill_in 'radius', :with => 3
     find('#feedme').click
     find('font', text: 'Halloumi aubergine burgers with harissa relish', exact: true).click
   	find('span', text: string).click
@@ -33,7 +33,7 @@ end
 
 Given("I am on the Grocery page") do
     fill_in 'query', :with => 'burger'
-    fill_in 'radius', :with => 10000
+    fill_in 'radius', :with => 3
     find('#feedme').click
     find('font', text: 'Halloumi aubergine burgers with harissa relish', exact: true).click
     visit 'localhost:3000/Grocery'

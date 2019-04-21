@@ -11,7 +11,7 @@ Scenario Outline: General page design
 
 	Examples:
 	| food | numresults | radius |
-	| "burger" | "5" | "10000" | 
+	| "burger" | "5" | "3" | 
 
 Scenario Outline: Add a search result
 	Given I am on a unique signin
@@ -21,7 +21,7 @@ Scenario Outline: Add a search result
 
 	Examples:
 	| food | numresults | radius |
-	| "chinese" | "5" | "10000" | 
+	| "chinese" | "5" | "3" | 
 
 Scenario Outline: Navigate to a search result within Saved Search
 	Given I am on a unique signin
@@ -31,4 +31,4 @@ Scenario Outline: Navigate to a search result within Saved Search
 
 	Examples:
 	| food | numresults | radius |
-	| "burger" | "5" | "10000" | 
+	| "burger" | "5" | "3" | 

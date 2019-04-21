@@ -1,14 +1,15 @@
 Given(/^I am on the Results Page of the I'm Hungry website$/) do
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
 end
 
 Then(/^I should see the Restaurant and Recipe titles$/) do
   visit 'localhost:3000/Search'
+  sleep(2.to_i)
   fill_in 'query', :with => 'burger'
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
   fontsize1 = find_by_id('reshead').native.css_value('font-size')
   fontsize2 = find_by_id('rechead').native.css_value('font-size')
@@ -33,14 +34,14 @@ end
 Given(/^I am on the Result page for a "([^"]*)" with "([^"]*)" results$/) do |arg1, arg2|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
 end 
 
 Then(/^I should see "([^"]*)" items for recipe and restaurants$/) do |arg1|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
 
   find('#feedme').click
   expect(page).to have_css('.row4', count: 2) 
@@ -147,7 +148,7 @@ end
 Given("I am on the Result page for a {string}{int} results") do |string, int|
   visit 'localhost:3000/Search'
   fill_in 'query', :with => 'burger'
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   click_button("Feed Me!")
 end
 

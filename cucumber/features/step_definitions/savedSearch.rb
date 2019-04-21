@@ -1,6 +1,6 @@
 Given("I am on the Result page for a {string} with {string} results with {string} radius") do |string, string2, string3|
    fill_in 'query', :with => string
-   fill_in 'radius', :with => 10000
+   fill_in 'radius', :with => 3
    find('#feedme').click
 end
 
@@ -17,13 +17,13 @@ end
 
 When("I search for {string} with {string} results with {string} radius") do |string, string2, string3|
   fill_in 'query', :with => string
-  fill_in 'radius', :with => 10000
+  fill_in 'radius', :with => 3
   find('#feedme').click
 end
 
 Given("I am on the Saved Search page") do
 	fill_in 'query', :with => 'burger'
-    fill_in 'radius', :with => 10000
+    fill_in 'radius', :with => 3
     find('#feedme').click
 	visit 'localhost:3000/SavedSearch'
 end
