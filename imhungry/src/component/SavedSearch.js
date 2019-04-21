@@ -11,6 +11,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import RightDrawerGrocery from './RightDrawerGrocery';
 import SearchHistoryCard from './SearchHistoryCard';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase'
 
 // this block is to help with testing
 let link_address1 = "https://mysterious-refuge-36265.herokuapp.com/";
@@ -24,12 +29,15 @@ if (link_value === 1){
    official_link = link_address2;
 }
 //For some reason the program breaks when we don't include this styles1 and the "withStyles(styles1)" on the bottom
-const styles1 = theme => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
+const styles1 = {
+  card: {
+    width: "20vw",
+    marginLeft: "1vw",
+    marginBottom: "5vh",
+    float: "left",
+
   },
-});
+};
 class SavedSearch extends React.Component {
     constructor(props) {
         super(props);
@@ -57,13 +65,19 @@ class SavedSearch extends React.Component {
       this.props.history.push('/Result');
     }
     render() {
+        const { classes } = this.props;
+
         if (localStorage.getItem('id') == -1){
             this.props.history.push('/SignIn');
         }
         return (
             <div className="ssearch">
                 {this.state.searches.map((value, index) => (
-                  <SearchHistoryCard index={index} searchTerm={this.state.searches[index].searchTerm}/>
+                  <Card className={classes.card}>
+                    <CardContent>
+                        {this.state.searches[index].searchTerm}
+                    </CardContent>
+                  </Card>
                 ))}
             </div>
 
