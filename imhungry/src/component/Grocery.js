@@ -69,9 +69,14 @@ class Grocery extends Component {
         var data = JSON.parse(this.loadData(link1));
         var ingredients_List = new Array;
         var ingredients_Id = new Array;
+        var ingredients_checked = new Array;
+
         for(var i in data) {
-            ingredients_List.push(data[i].ingredientValue);
+            ingredients_List.push(data[i].ingredientString);
             ingredients_Id.push(data[i].id);
+            if(data[i].checked){
+              ingredients_checked.push(data[i].id);
+            }
         }
         console.log(ingredients_Id);
         console.log(ingredients_List);
@@ -79,7 +84,7 @@ class Grocery extends Component {
             ingredients_Id: ingredients_Id,
             ingredients_List: ingredients_List,
             data: data,
-            checked: [],
+            checked: ingredients_checked,
         }
         this.loadData = this.loadData.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -98,29 +103,38 @@ class Grocery extends Component {
         }
     }
     handleToggle = (index, id) => () => {
-
+        const Http = new XMLHttpRequest();
+       
         console.log(id);
         const { checked } = this.state;
         const currentIndex = checked.indexOf(id);
         newChecked = [...checked];
         if (currentIndex === -1) {
+          url = official_link + "grocery/check?userid=" + localStorage.getItem('id')+"&ingredientid="+id;
           newChecked.push(id);
         } else {
+          url = official_link + "grocery/uncheck?userid=" + localStorage.getItem('id')+"&ingredientid="+id;
           newChecked.splice(currentIndex, 1);
         }
         this.setState({
           checked: newChecked,
         });
 
+        var url;
         if (newChecked.length > 0){
-            this.setState({
-                open: true,
-            });
+          this.setState({
+              open: true,
+          });
         }
         else {
-            this.setState({
-                open: false,
-            });
+          this.setState({
+              open: false,
+          });
+        }
+        Http.open("PUT", url, false);
+        Http.send();
+        if (Http.status === 200) {
+            return Http.responseText;
         }
     };
     handleDelete= (index, id) => () => {
@@ -158,7 +172,7 @@ class Grocery extends Component {
                           tabIndex={-1}
                           onClick={this.handleToggle(index, this.state.data[index].id)}
                         />
-                        <ListItemText primary={`${this.state.data[index].ingredientValue}`} />
+                        <ListItemText primary={`${this.state.data[index].ingredientString}`} />
                         <IconButton
                           key="close"
                           aria-label="Close"

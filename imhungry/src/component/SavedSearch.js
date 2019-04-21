@@ -4,17 +4,9 @@ import './CSS/SavedSearch.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router' 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import RightDrawerGrocery from './RightDrawerGrocery';
-import SearchHistoryCard from './SearchHistoryCard';
+import ThumbnailCollage from './ThumbnailCollage';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase'
 
 // this block is to help with testing
@@ -31,12 +23,22 @@ if (link_value === 1){
 //For some reason the program breaks when we don't include this styles1 and the "withStyles(styles1)" on the bottom
 const styles1 = {
   card: {
-    width: "20vw",
+    width: "15vw",
+    height: "9vh",
     marginLeft: "1vw",
     marginBottom: "5vh",
-    float: "left",
+    display: "inline-block"
 
   },
+  content:{
+    padding: "0",
+    marginTop: "1vh"
+  },
+  button: {
+    width: "50%",
+    fontFamily:"inherit",
+    float: "right"
+  }
 };
 class SavedSearch extends React.Component {
     constructor(props) {
@@ -57,12 +59,12 @@ class SavedSearch extends React.Component {
             return Http.responseText;
         }
     }
-    handleSearch(index) {
+    handleSearch(event, index) {
       localStorage.setItem('query', this.state.searches[index].searchTerm);
       localStorage.setItem('id', this.state.searches[index].userId);
       localStorage.setItem('amount', this.state.searches[index].amount);
       localStorage.setItem('radius', this.state.searches[index].radius);
-      this.props.history.push('/Result');
+      window.location.reload();
     }
     render() {
         const { classes } = this.props;
@@ -74,10 +76,16 @@ class SavedSearch extends React.Component {
             <div className="ssearch">
                 {this.state.searches.map((value, index) => (
                   <Card className={classes.card}>
-                    <CardContent>
-                        {this.state.searches[index].searchTerm}
-                    </CardContent>
+                     <ThumbnailCollage images={this.state.searches[index].collageList}/>
+
+                    <ButtonBase className={classes.button} onClick={event => this.handleSearch(event, index)}>
+                      <CardContent className={classes.content}>
+                          {this.state.searches[index].searchTerm}
+                      </CardContent>
+                    </ButtonBase>
+
                   </Card>
+
                 ))}
             </div>
 
