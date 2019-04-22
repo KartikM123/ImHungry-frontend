@@ -77,6 +77,7 @@ class Result extends Component {
             offset: 0,
             pageCount: Math.ceil(localStorage.getItem('amount')/5),
             indOnPage: [0, 5], //from result x to result y displayed
+            pgAmnt: 4
 
         };
 
@@ -103,6 +104,12 @@ class Result extends Component {
         var offset = selected;
         var ind1 = offset * this.state.perPage;
         var ind2 = Math.min(ind1+this.state.perPage, this.state.size);
+        if (selected > 3){
+            this.state.pgAmnt = 5;
+        } else {
+            this.state.pgAmnt = 4;
+
+        }
         this.setState({ 
             offset: offset,
             indOnPage: [ind1, ind2]
@@ -158,11 +165,12 @@ class Result extends Component {
                 <ReactPaginate
                     previousLabel={'Previous'}
                     nextLabel={'Next'}
-                    breakLabel={'...'}
+                    breakLabel={''}
+                    initialPage={0}
                     breakClassName={'break-me'}
                     pageCount={this.state.pageCount}
-                    marginPagesDisplayed={5}
-                    pageRangeDisplayed={5}
+                    marginPagesDisplayed={0}
+                    pageRangeDisplayed={this.state.pgAmnt}
                     onPageChange={this.handlePageClick}
                     containerClassName={'pagination'}
                     subContainerClassName={'pages pagination'}
