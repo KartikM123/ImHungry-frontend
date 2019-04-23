@@ -119,7 +119,7 @@ class Search extends Component {
 
                     <TextField
                         required
-                        InputProps={{ inputProps: { min: 1, max: 3000 } }}
+                        InputProps={{ inputProps: { min: 0, max: 3000, step: "any" } }}
                         type="number"
                         id="radius"
                         label="Search Radius"
