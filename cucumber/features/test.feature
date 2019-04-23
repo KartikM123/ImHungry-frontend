@@ -4,12 +4,13 @@ Feature:
 Background: 
 	Given I am on the Results Page of the I'm Hungry website
 
-Scenario: Pagination rollover items
-    Given I am on a unique signin
-	And I look for uneven results
-    Then I go to the seventh page
-    Then only one recipe should exist
 Scenario: Pagination no restaurant
-	Given I am on a unique signin
+	Given I am signed in for pag
 	And I look for small radius
 	Then restaurant should be empty
+
+Scenario: Pagination subfive results
+	Given I am signed in for pag
+	And I look for subfive
+	Then I should see previous and next disabled on the bottom
+

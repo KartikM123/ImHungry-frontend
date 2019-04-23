@@ -5,7 +5,7 @@ Background:
 	Given I am on the Results Page of the I'm Hungry website
 
 Scenario Outline: Pagination
-	Given I am on a unique signin
+	Given I am signed in for pag
 	And I am on the Result page for a <food> with <numresult> results
 	Then I should see buttons on the bottom
 	
@@ -14,7 +14,7 @@ Scenario Outline: Pagination
 	| "burger" | "5" |
 
 Scenario Outline: Pagination functions for more than five results
-	Given I am on a unique signin
+	Given I am signed in for pag
 	And I am on the Result page for a <food> with <numresult> results
 	Then I should see <numresult> items for recipe and restaurants
 
@@ -24,7 +24,7 @@ Scenario Outline: Pagination functions for more than five results
 
 Scenario Outline: Using Pagination buttons
 
-	Given I am on a unique signin
+	Given I am signed in for pag
 	And I am on the Result page for a <food> with <numresult> results
 	When I press the next button
 	Then I should see <perPage> restaurant names
@@ -35,23 +35,23 @@ Scenario Outline: Using Pagination buttons
 	| "burger" | "5" | "5" |
 
 Scenario: Pagination over five pages
-    Given I am on a unique signin
+	Given I am signed in for pag
 	And I look for many results
     Then I should see options one through five
     Then if I click four, I should see option six
 
 Scenario: Pagination rollover items
-    Given I am on a unique signin
+	Given I am signed in for pag
 	And I look for uneven results
     Then I go to the seventh page
     Then only one recipe should exist
 
 Scenario: Pagination no restaurant
-	Given I am on a unique signin
+	Given I am signed in for pag
 	And I look for small radius
 	Then restaurant should be empty
 
-Scenario: Pagination subfive
-	Given I am on a unique signin
-	And I look for subfive items
-	Then I should see buttons on the bottom
+Scenario: Pagination subfive results
+	Given I am signed in for pag
+	And I look for subfive
+	Then I should see previous and next disabled on the bottom
