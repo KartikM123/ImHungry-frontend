@@ -80,3 +80,15 @@ Given("I look for subfive ") do
     fill_in 'amount', :with => 4
     click_button("Feed Me!")
 end
+
+#Scenario: Pagination over five pages
+ #   Given I am on a unique signin
+  #  And I look for many results
+   # Then I should see options one through five
+#    Then if I click four, I should see option six
+
+#Scenario: Pagination rollover items
+#   Given I am on a unique signin
+#    And I look for uneven results
+#    Then I go to the seventh page
+#    Then only one recipe should exist

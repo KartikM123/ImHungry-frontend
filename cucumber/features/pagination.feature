@@ -46,12 +46,3 @@ Scenario: Pagination rollover items
     Then I go to the seventh page
     Then only one recipe should exist
 
-Scenario: Pagination no restaurant
-	Given I am on a unique signin
-	And I look for small radius
-	Then restaurant should be empty
-
-Scenario: Pagination subfive
-	Given I am on a unique signin
-	And I look for subfive items
-	Then I should see buttons on the bottom
