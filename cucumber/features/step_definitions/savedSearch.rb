@@ -32,5 +32,11 @@ Then("I should see search result {string} for Saved Searches Testing") do |strin
 end
 
 When("I click on search result {string} for Saved Searches Testing") do |string|
-  find('div.ssearch').first('div', text: string).first(:xpath,"..").find('button').click
+  first('div.ssearch').first('div', text: string).first(:xpath,"..").first('button').click
+end
+
+Then("I should see only {string} items") do |string|
+  brownie = find('div.col1').find_all('div')
+  puts brownie.length
+  brownie.length === string.to_i
 end
