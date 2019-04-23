@@ -35,6 +35,7 @@ Scenario Outline: Remove List Item
 	| food | numresult | id | name |
 	| "burger" | "5" | "The Habit Burger Grill" |"The Habit Burger Grill" |
 
+@reorder
 Scenario: Reorder List Item
 	Given I am on a unique signin
 	Given I search for Burger

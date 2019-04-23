@@ -109,15 +109,12 @@ end
 
 
 Given(/^I am on a unique signin$/) do
+  name = Time.now.to_i.to_s
   visit 'localhost:3000/Register'
-  fill_in 'username', :with => "spec"
-  fill_in 'password', :with => "spec1"
-  fill_in 'email', :with => "s@s.edu"
+  fill_in 'username', :with => name
+  fill_in 'password', :with => name
+  fill_in 'email', :with => name + "@" + name
   click_button('Register')
-  visit 'localhost:3000/SignIn'
-  fill_in 'username', :with => "spec"
-  fill_in 'password', :with => "spec1"
-  click_button("login")
   expect(page).to have_current_path(/Search/)
 end
 Given(/^I search for Burger$/) do

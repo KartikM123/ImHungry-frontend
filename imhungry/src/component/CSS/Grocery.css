@@ -7,6 +7,11 @@
 
 #groceryList{
     margin-left: 10vw;
+    height: 70vh;
+    overflow-x: hidden;
+    /* overflow: scroll; */
+    overflow-y: scroll;
+    width: 80vw;
 }
 
 #deleteIcon{

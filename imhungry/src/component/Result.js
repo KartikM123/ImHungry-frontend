@@ -132,12 +132,14 @@ class Result extends Component {
         // console.log(JSON.parse(this.loadData(this.state.collageLink)));
         let images = JSON.parse(this.loadData(this.state.collageLink));
         for (var i = this.state.indOnPage[0]; i < this.state.indOnPage[1]; i++) {
-            if(this.state.resdata.length !== 0){
+            if(this.state.resdata[i] !== undefined){
                 resrows.push(<RestaurantRow resdata={this.state.resdata} counter={i} key={"res"+i} history={this.props.history} />)
             }
-            recrows.push(<RecipeRow recdata={this.state.recdata} counter={i} key = {"rec"+i} history={this.props.history} />)
+            if(this.state.recdata[i] !== undefined){
+               recrows.push(<RecipeRow recdata={this.state.recdata} counter={i} key = {"rec"+i} history={this.props.history} />)
+       
+            }
         }
-
         return (
             <div className="Result">
                 <div id="rstheader">
