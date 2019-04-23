@@ -6,6 +6,20 @@ Then(/^I should see buttons on the bottom$/) do
 
 end
 
+Given(/^I am signed in for pag$/) do
+    visit 'localhost:3000/Register'
+    fill_in 'username', :with => 'f'
+    fill_in 'password', :with => 'fe'
+    fill_in 'email', :with => 'test@gesg.com'
+    click_button('Register')
+    visit 'localhost:3000/SignIn'
+    fill_in 'username', :with => 'f'
+    fill_in 'password', :with => 'fe'
+    click_button('login')
+    expect(page).to have_current_path('/Search')
+end
+
+
 Then(/^I should see options one through five$/) do
     assert_text('1')
     page.should have_css('.row4')
@@ -67,17 +81,17 @@ end
 Given("I look for small radius") do 
     visit 'localhost:3000/Search'
     fill_in 'query', :with => 'burger'
-    fill_in 'radius', :with => 1
+    fill_in 'radius', :with => 3
     fill_in 'amount', :with => ""
-    fill_in 'amount', :with => 5
+    fill_in 'amount', :with => 1
     click_button("Feed Me!")
 end
 Given("I look for subfive ") do 
     visit 'localhost:3000/Search'
     fill_in 'query', :with => 'burger'
-    fill_in 'radius', :with => 3
+    fill_in 'radius', :with => 2
     fill_in 'amount', :with => ""
-    fill_in 'amount', :with => 4
+    fill_in 'amount', :with => 1
     click_button("Feed Me!")
 end
 
