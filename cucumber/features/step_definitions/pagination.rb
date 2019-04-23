@@ -5,7 +5,10 @@ Then(/^I should see buttons on the bottom$/) do
     page.should have_css('.row4')
 
 end
-
+Then(/^I should see previous and next disabled on the bottom$/) do
+    expect(page).to have_css('li.previous.disabled', count: 1) 
+    expect(page).to have_css('li.next.disabled', count: 1)
+end
 Given(/^I am signed in for pag$/) do
     visit 'localhost:3000/Register'
     fill_in 'username', :with => 'f'
@@ -56,7 +59,7 @@ Then(/^I go to the seventh page$/) do
 end
 
 Then(/^restaurant should be empty$/) do
-    assert_text('No search results exist')
+    assert_text('No restaurants found in this radius')
 end
 Then(/^only one recipe should exist$/) do
     page.should have_css('.row0')
@@ -86,7 +89,7 @@ Given("I look for small radius") do
     fill_in 'amount', :with => 1
     click_button("Feed Me!")
 end
-Given("I look for subfive ") do 
+Given("I look for subfive") do 
     visit 'localhost:3000/Search'
     fill_in 'query', :with => 'burger'
     fill_in 'radius', :with => 2

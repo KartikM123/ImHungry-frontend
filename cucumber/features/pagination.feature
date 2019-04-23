@@ -46,3 +46,12 @@ Scenario: Pagination rollover items
     Then I go to the seventh page
     Then only one recipe should exist
 
+Scenario: Pagination no restaurant
+	Given I am signed in for pag
+	And I look for small radius
+	Then restaurant should be empty
+
+Scenario: Pagination subfive results
+	Given I am signed in for pag
+	And I look for subfive
+	Then I should see previous and next disabled on the bottom
