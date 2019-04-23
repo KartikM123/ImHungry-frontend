@@ -140,8 +140,12 @@ class Recipe extends Component {
                 // this.props.history.push('/Grocery')
             }
         };
-        var data = JSON.stringify(newChecked);
+        var data = JSON.stringify(this.state.checked);
         xhr.send(data);
+        this.setState({
+          checked: [],
+          open: false
+        })
     }
 
     handleToggle = value => () => {
