@@ -44,36 +44,6 @@ Scenario Outline: page design for a specific outline
 	| food | numresult |
 	| "burger" | "5" |
 
-Scenario Outline: Pagination
-	Given I am on a unique signin
-	And I am on the Result page for a <food> with <numresult> results
-	Then I should see buttons on the bottom
-	
-	Examples:
-	| food | numresult |
-	| "burger" | "5" |
-
-Scenario Outline: Pagination functions for more than five results
-	Given I am on a unique signin
-	And I am on the Result page for a <food> with <numresult> results
-	Then I should see <numresult> items for recipe and restaurants
-
-	Examples:
-	| food | numresult | perPage |
-	| "burger" | "5" | "5" |
-
-Scenario Outline: Using Pagination buttons
-
-	Given I am on a unique signin
-	And I am on the Result page for a <food> with <numresult> results
-	When I press the next button
-	Then I should see <perPage> restaurant names
-	And I should see <perPage> restaurant address
-
-	Examples:
-	| food | numresult | perPage |
-	| "burger" | "5" | "5" |
-
 Scenario Outline: Restaurant information
 	Given I am on a unique signin
 	And I am on the Result page for a <food> with <numresult> results
