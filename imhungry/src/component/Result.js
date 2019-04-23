@@ -135,9 +135,11 @@ class Result extends Component {
             if(this.state.resdata[i] !== undefined){
                 resrows.push(<RestaurantRow resdata={this.state.resdata} counter={i} key={"res"+i} history={this.props.history} />)
             }
-            recrows.push(<RecipeRow recdata={this.state.recdata} counter={i} key = {"rec"+i} history={this.props.history} />)
+            if(this.state.recdata[i] !== undefined){
+               recrows.push(<RecipeRow recdata={this.state.recdata} counter={i} key = {"rec"+i} history={this.props.history} />)
+       
+            }
         }
-
         return (
             <div className="Result">
                 <div id="rstheader">
