@@ -31,6 +31,9 @@ class Result extends Component {
         if (xhr.status === 200){
             console.log("Success!!");
         }
+        else {
+            console.log(xhr.status)
+        }
         //CHANGE THIS LET TO CONNECT TO ENDPOINTS
         let test = false;
 
