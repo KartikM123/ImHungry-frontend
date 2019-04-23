@@ -188,8 +188,8 @@ class Result extends Component {
 class RestaurantRow extends Component {
 
     toResPage =(e)=> {
-        // console.log("previously was button4");
-        // console.log(e.currentTarget.id);
+        console.log("previously was button4");
+        console.log(e.currentTarget.id);
         localStorage.setItem('resid', e.currentTarget.id);
 
         this.props.history.push('/Restaurant')
@@ -197,25 +197,25 @@ class RestaurantRow extends Component {
 
 
     render() {
-        const array = this.props.resdata[this.props.counter];
         let row;
         let price;
+        if (this.props.resdata.length > this.props.counter){
+            const array = this.props.resdata[this.props.counter];
+            if (array.priceRating === "EXPENSIVE") {
+                price = "$$$";
+            }
+            else if (array.priceRating === "MODERATE") {
+                price = "$$";
+            }
+            else if (array.priceRating === "INEXPENSIVE") {
+                price = "$";
+            }
+            else {
+                price = "";
+            }
 
-        if (array.priceRating === "EXPENSIVE") {
-            price = "$$$";
-        }
-        else if (array.priceRating === "MODERATE") {
-            price = "$$";
-        }
-        else if (array.priceRating === "INEXPENSIVE") {
-            price = "$";
-        }
-        else {
-            price = "";
-        }
-
-    
-        row = <div className={"row"+this.props.counter%5} key={this.props.counter} id={array.id} onClick={this.toResPage}>
+        
+            row = <div className={"row"+this.props.counter%5} key={this.props.counter} id={array.id} onClick={this.toResPage}>
             <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt="str" id="starimg"></img>
             <font id="star"> {array.rating} </font>
             <font className="restaurantname">{array.name}</font>
@@ -228,8 +228,20 @@ class RestaurantRow extends Component {
 
         </div>
 
+
     
-        
+        } else {
+            if (this.props.counter%5==0 && this.props.counter != 0){
+            row = <div className="rowbad"  style={{width:"100%"}}>
+                <font className="restaurantname" > No search results exists</font>
+
+            </div>
+            } else{
+             row = <div style={{height:'0vh', width:'0vh'}}>
+
+                </div>
+            }
+        }
         return row;
     }
 }
@@ -238,29 +250,40 @@ class RestaurantRow extends Component {
 class RecipeRow extends Component {
 
     toRecPage =(e)=> {
-        // console.log("was button5");
-        // console.log(e.currentTarget.id);
+        console.log("was button5");
+        console.log(e.currentTarget.id);
         localStorage.setItem('recid', e.currentTarget.id);
 
         this.props.history.push('/Recipe')
     }
 
     render() {
-        const array = this.props.recdata[this.props.counter];
         let row;
-        
+        if (this.props.recdata.length > this.props.counter ){        
+        const array = this.props.recdata[this.props.counter];
  
         row = <div className={"row"+this.props.counter%5} key={this.props.counter} id={array.id} onClick={this.toRecPage}>
-            <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt ="str" id="starimg"></img>
-            <font id="star"> {array.id % 5} </font>
-            <font className="recipename">{array.title}</font>
-            <br></br>
-            <small className="preptime">Prep Time: {array.prepTime} min</small>
-            <br></br>
-            <small className="cooktime">Cook Time: {array.cookTime} min</small>
+        <img src="http://pngimg.com/uploads/star/star_PNG41507.png" alt ="str" id="starimg"></img>
+        <font id="star"> {array.id % 5} </font>
+        <font className="recipename">{array.title}</font>
+        <br></br>
+        <small className="preptime">Prep Time: {array.prepTime} min</small>
+        <br></br>
+        <small className="cooktime">Cook Time: {array.cookTime} min</small>
         </div>
 
+        }else {
+            if (this.props.counter%5==0){
+            row = <div className="rowbad" style={{width:"100%"}} >
+                <font className="restaurantname"> No search results exists</font>
 
+            </div>
+            } else{
+            row = <div style={{height:'0vh', width:'0vh'}}>
+
+                </div>
+            }
+        }
         return row;
     }
 }

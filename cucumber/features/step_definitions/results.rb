@@ -49,6 +49,7 @@ end
 
 Then(/^I should see "([^"]*)" restaurant names$/) do |arg1|
   expect(page).to have_css('font.restaurantname', count: arg1) 
+  page.should have_css('.row4')
 end
 
 Then(/^I should see "([^"]*)" restaurant address$/) do |arg1|
@@ -65,6 +66,7 @@ end
 
 Then(/^I should see "([^"]*)" recipe name$/) do |arg1|
   expect(page).to have_css('font.recipename', count: arg1) 
+  page.should have_css('.row4')
 end
 
 Then(/^I should see "([^"]*)" cook and prep time of the recipe$/) do |arg1|
@@ -134,12 +136,6 @@ end
 Then(/^I should not see "([^"]*)"$/) do |arg1|
   assert_text(arg1)
 end
-
-
-Then(/^I should see buttons on the bottom$/) do
-	assert_text('1') and expect(page).to have_css('li.previous', count: 1) and expect(page).to have_css('li.next', count: 1)
-end
-
 
 When(/^I press the next button$/) do
   find('li.next').click
