@@ -35,6 +35,10 @@ Then("I should see only {string} items having searched {string} items for Radius
   brownie.length === string.to_i
 end
 
-Then("I should remain on the Search page"){
-	expect(page).to have_current_path('/Search')
-}
+Then("I should see the error message {string} on the Results Page") do |string|
+  assert_text(string)
+end
+
+Then("I should remain on the Search page") do
+  expect(page).to have_current_path('/Search')
+end

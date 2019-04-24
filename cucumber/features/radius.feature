@@ -34,7 +34,6 @@ Scenario Outline: Test for a negative invalid radius
 	When I search for <item> with <num> amount and <radius> in miles for Radius Testing
 	Then I should remain on the Search page
 	Examples:
-	Examples:
 	| item | num | radius |
 	| "burger" | "5" | "-1" |
 
@@ -42,7 +41,6 @@ Scenario Outline: Test for a overly large invalid radius
 	Given I am on a unique signin for Radius Testing
 	When I search for <item> with <num> amount and <radius> in miles for Radius Testing
 	Then I should remain on the Search page
-	Examples:
 	Examples:
 	| item | num | radius |
 	| "burger" | "5" | "9999" |
@@ -52,7 +50,13 @@ Scenario Outline: Test for a empty invalid radius
 	When I search for <item> with <num> amount and <radius> in miles for Radius Testing
 	Then I should remain on the Search page
 	Examples:
-	Examples:
 	| item | num | radius |
 	| "burger" | "5" | " " |
 
+Scenario Outline: Display appropriate error message for a 0 radius
+	Given I am on a unique signin for Radius Testing
+	When I search for <item> with <num> amount and <radius> in miles for Radius Testing
+	Then I should see the error message <message> on the Results Page
+	Examples:
+	| item | num | radius | message |
+	| "burger" | "5" | "0" | "No restaurants found in this radius." |

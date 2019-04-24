@@ -169,6 +169,35 @@ end
 Then("I should see saved search {string} for Session Testing") do |string|
   assert_text(string)
 end
+Then("I should see restaurant {string} for Session Testing") do |string|
+  assert_text(string)
+end
+
+When("I change restaurant {string} to list {string} for Session Testing") do |string, string2|
+  brownie = page.all(:xpath, '//div[@id="restContent"]/*')
+  brownie.each { |brown|
+    if brown.find_all('font')[1].text === string
+      brown.find('#listdrop').find('#select-resdrop').click
+      find('li', text: string2).click
+      find('#moveres').click
+      visit 'localhost:3000/Favorite'
+      expect(page).to have_current_path('/Favorite')
+    end
+  }
+end
+
+When("I delete restaurant {string} from list {string} for Session Testing") do |string, string2|
+  brownie = page.all(:xpath, '//div[@id="restContent"]/*')
+  brownie.each { |brown|
+    if brown.find_all('font')[1].text === string
+      brown.find('#removeres').click
+    end
+  }
+end
+
+Then("I should not see restaurant {string} for Session Testing") do |string|
+  expect(page).not_to have_content(string)
+end
 
 def open_drawer
   begin
