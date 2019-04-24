@@ -48,6 +48,9 @@ class Search extends Component {
     }
 
     handleSubmit(event) {
+        console.log(this.state.query);
+        console.log(this.state.amount);
+        console.log(this.state.radius);
         //when adding to database, we will want to cache THIS INFO
         localStorage.setItem('query', this.state.query);
         localStorage.setItem('amount', this.state.amount);
@@ -119,7 +122,7 @@ class Search extends Component {
 
                     <TextField
                         required
-                        InputProps={{ inputProps: { min: 1, max: 3000 } }}
+                        InputProps={{ inputProps: { min: 0, max: 3000, step: "any" } }}
                         type="number"
                         id="radius"
                         label="Search Radius"
