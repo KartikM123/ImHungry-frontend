@@ -69,7 +69,6 @@ class ResultDrawer extends React.Component {
       localStorage.setItem("liststate",this.state.dropdownValue);
       this.props.history.push('/Favorite');
       console.log("refreshed localstorage to ", this.state.dropdownValue);
-      this.remanageDropdown();
       window.location.reload();
   }
 

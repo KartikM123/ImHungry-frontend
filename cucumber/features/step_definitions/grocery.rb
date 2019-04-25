@@ -53,14 +53,14 @@ Given("I am on the Register page of the I'm Hungry website for Grocery Testing")
 end
 
 Given("I am on a unique signin for Grocery Testing") do
-  fill_in 'username', :with => "grocery1"
-  fill_in 'password', :with => "grocery1"
-  fill_in 'email', :with => "grocery1@usc.edu"
+  fill_in 'username', :with => "grocery2"
+  fill_in 'password', :with => "grocery2"
+  fill_in 'email', :with => "grocery2@usc.edu"
   click_button('register')
   sleep(2.to_i)
   visit 'localhost:3000/SignIn'
-  fill_in 'username', :with => "grocery1"
-  fill_in 'password', :with => "grocery1"
+  fill_in 'username', :with => "grocery2"
+  fill_in 'password', :with => "grocery2"
   click_button('login')
 end
 
@@ -127,8 +127,8 @@ end
 
 When("I signin in as the unique signin for Grocery Testing") do
   visit 'localhost:3000/SignIn'
-  fill_in 'username', :with => "grocery1"
-  fill_in 'password', :with => "grocery1"
+  fill_in 'username', :with => "grocery2"
+  fill_in 'password', :with => "grocery2"
   click_button('login')
   expect(page).to have_current_path('/Search')
 end
