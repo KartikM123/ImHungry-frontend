@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
 import MenuIcon from '@material-ui/icons/Menu';
 import Dropdown from './Dropdown';
 import './CSS/Result.css';
@@ -56,7 +55,7 @@ class ResultDrawer extends React.Component {
 
   returnResults() {
     //history redirects it and is appended to URL (i'm guessing)
-    this.props.history.push('/Results')
+    this.props.history.push('/Result')
   }
   toggleDrawer = (side, open) => () => {
     this.setState({
@@ -76,31 +75,6 @@ class ResultDrawer extends React.Component {
 
 
 }
-
-
-  remanageDropdown(){
-    let o1,o2;
-    if (this.state.dropdownValue == 'NoShow'){
-      o1="Favorite";
-      o2="ToExplore";
-
-    } else if (this.state.dropdownValue == 'ToExplore' || this.state.dropdownValue == 'Explore'){
-      o1="Favorite";
-      o2 ="NoShow";
-    } else{
-      o1="ToExplore";
-      o2="NoShow";
-    }
-
-    // this.setState({
-    //     opt1:o1,
-    //     opt2:o2,
-    //     list1drop:'blank'
-    // });
-    this.state.opt1 = o1;
-    this.state.opt2 = o2;
-    this.state.dropdownValue='blank';
-  }
 
   handleDropdown(event, value){
     this.setState({

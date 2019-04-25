@@ -45,12 +45,7 @@ class Favorite extends Component {
                    link:link1
                };
         console.log(this.state.data);
-        this.remanageDropdown();
         this.cleanTitle();
-        this.handleChange = this.handleChange.bind(this);
-        this.redirectList = this.redirectList.bind(this);
-        this.returnSearch = this.returnSearch.bind(this);
-        this.returnRes = this.returnRes.bind(this);
     
     }
     cleanTitle(){
@@ -103,54 +98,6 @@ class Favorite extends Component {
  
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
-    redirectList() {
-        if (!(this.state.list1drop == 'blank')) {
-            //should just refresh the page
-            localStorage.setItem("liststate",this.state.list1drop);
-            this.props.history.push('/Favorite');
-            console.log("refreshed localstorage to ", this.state.list1drop);
-            this.remanageDropdown();
-            window.location.reload();
-        }
-    }
-
-    remanageDropdown(){
-            let o1,o2;
-        if (this.state.list1drop == 'NoShow'){
-            o1="Favorite";
-            o2="ToExplore";
-
-        } else if (this.state.list1drop == 'ToExplore' || this.state.list1drop == 'Explore'){
-            o1="Favorite";
-            o2 ="NoShow";
-        } else{
-            o1="ToExplore";
-            o2="NoShow";
-        }
-
-        // this.setState({
-        //     opt1:o1,
-        //     opt2:o2,
-        //     list1drop:'blank'
-        // });
-        this.state.opt1 = o1;
-        this.state.opt2 = o2;
-        this.state.list1drop='blank';
-    }
-
-    returnSearch() {
-        this.props.history.push('/')
-    }
-
-    returnRes() {
-        this.props.history.push('/Result')
-    }
 
     render() {
 

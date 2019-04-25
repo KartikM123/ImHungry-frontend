@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './CSS/Drawer.css';
 import ReactPaginate from 'react-paginate';
 import Dropdown from './Dropdown';
-import Collage3 from './Collage3';
+import Collage from './Collage';
 import ResultDrawer from './Drawer';
 import SavedSearch from './SavedSearch';
 
@@ -147,7 +147,7 @@ class Result extends Component {
             <div className="Result">
                 <div id="rstheader">
                     
-                    <Collage3 images={images} id="collage" alt="collage"/>
+                    <Collage images={images} id="collage" alt="collage"/>
                     <br/>
                     <div className="drawNtitle">
                         <ResultDrawer history={this.props.history}/>
